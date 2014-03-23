@@ -11,7 +11,7 @@ in ComputerCraft. It consists of the following libraries:
   * lib-kidven -- What allows you to make the objects themselves, and provides the inheritence and such wanted.
 
 You can use Veek by installing it's repo with the following command:
-	> ac-get run-manifest http://veek.darkdna.net/repo/install.manifest
+	> ac-get run-manifest https://git.darkdna.net/amanda/veek/raw/master/install.manifest
 
 This will install the repo to your ac-get instalation.
 
