@@ -1,0 +1,153 @@
+
+
+Project Veek
+------------
+
+Project Veek is a series of libraries to make making graphical programs easier
+in ComputerCraft. It consists of the following libraries:
+
+  * lib-agui -- Graphical GUI toolkit
+  * lib-canvas -- Canvas API
+  * lib-thread -- Multi-"threading" API
+  * lib-event -- Event processing and distribution API
+  * lib-kidven -- What allows you to make the objects themselves, and provides the inheritence and such wanted.
+You can use Veek by installing it's repo with the following command:
+    > ac-get run-manifest https://git.darkdna.net/amanda/veek/raw/master/install.manifest
+
+This will install the repo to your ac-get instalation.
+
+
+Sauce?
+------
+
+The source code for this project can be found at http://git.darkdna.net/amanda/veek
+
+
+Docs?
+-----
+
+The Docs are included below, for your viewing pleasure.
+
+kaxui
+=====
+
+_kaxui_ is a graphical package manager for ac-get. It features a tabbed interface which you can navigate with pageup/pagedown. There are three main panes "Available", "Installed", and "Settings" -- To use this program you need an ac-get install that is up to date.
+
+
+lib-agui
+========
+
+_lib-agui_ is a "GUI" toolkit for computercraft. It is backed by my _lib-kidven_ for objects and _lib-canvas_ for buffers to draw the elements under. The app itself is housed under an *agui-app* agui-object, which handles the event pump and the thread pool for your app. Every app should have a :main() call in it to kick off the thread pool and event pump.
+
+The event pump is hooked into by using the :subscribe() call on the agui-app object, it also allows you to fire events with :trigger() These functions are actually provided by _lib-event_ and as such are available to any event-pool sub-class.
+
+
+Basic Widgets
+-------------
+
+  * agui-widget -- Basic widget, every GUI widget descends from this at some point along the heigharchy.
+  * agui-container -- Basic container widget, handles storage of other widgets and drawing of them.
+
+Input Widgets
+-------------
+
+  * agui-button -- Clickable button, fires an 'gui.button.pressed' event when it's triggered.
+  * agui-checkbox -- Toggle box with a label. Fires a 'gui.input.changed' event when toggled.
+  * agui-input -- Text input box, fires a 'gui.input.changed' event when text inside it changes.
+  * agui-list -- Displays a list _list-item_ widgets, fires a 'gui.list.changes' event when the selection is changed.
+
+Display Widgets
+---------------
+
+  * agui-tab-bar -- Shows a tab bar that allows you to change tabs, each tab can contain a single widget.
+  * agui-window -- A window that is bound inside the app's display canvas
+  * agui-virt-seperator -- A Vertical seperator.
+  * agui-horiz-seperator -- A horizontal seperator.
+  * agui-textbox -- Multi-line auto-wrapping textbox widget, showing plaintext stuff.
+  * agui-label -- Shows a single-line bit of text, ellipsising it if nessary.
+  * agui-search -- A search bar widget, a combonation of a agui-input and an agui-list
+
+Notes for Users
+---------------
+
+  * In version 9 of lib-agui everything was changed to use a agui- prefix. As a result, old programs will break.
+
+lib-canvas
+==========
+
+_lib-canvas_ is a self-contained OO-like buffer and drawing library. It's buffer features an optimised system for handling the data contents, and allows colours to be used. The Primary function of the library is canvas.new(term, lookup, width, height, buffered) -- Buffered defaults to false, but the rest are required.
+
+
+Canvas Object
+-------------
+
+The canvas object features several functions, listed below.
+
+  * :move(x, y) -- Moves to the given x and y.
+  * :set_fg(colour) -- Sets the forground to the given colour, which will be determined through the lookup paramater you passed in the constructor.
+  * :set_bg(colour) -- Same as set_fg but for the background.
+  * :write(text) -- Writes text to the screen or the buffer.
+  * :clear() -- clears the screen or buffer.
+  * :sub(x, y, w, h) -- Cuts out a sub-section of the screen or buffer. Returns the newly-created Canvas object.
+  * :as_redirect(x, y, w, h) -- like :sub() but returns a term.redirect capable object.
+  * :set_cursor(x, y, blinking) -- Sets the final on-screen position of the cursor, and wether it should be blinking.
+
+lib-kidven
+==========
+
+_lib-kidven_ is an object library, originally written for _agui-shell_, and has since been ripped out for general-purpose use. It exposes the following functions, outlined below.
+
+  * kidven.new(class, ...) -- Creates a new instance of _class_, passing it's :init() method the given arguments.
+  * kidven.register(name, object, parent-name) -- Registers a new class with the given name, object, and optional parent.
+  * kidven.load(env_name, object_name, file_name, env) -- Registers a new class from the given kidven class file, and the optional environment passed in.
+
+Kidven Object File?
+-------------------
+
+Kidven's Object File is just a normal lua file with a table pre-defined (passed by env_name). The parent for this class is discovered by the _parent variable you set in the file. The optional _env_ paramater passed to _kidven.load_ will define the additional environments around for this file. For an example, look at the _lib/object.lua_ (in-game: __LIB__/kidven/object) file, which implements the base object class for all kidven objects.
+
+
+Example Code?
+-------------
+
+Ok, this is an example counter object, you'd place this somewhere then call kidven.load("Object", "counter", "path/to/file"), then you could do kidven.new("counter", 1) to initalise a new one.
+
+_parent = "object"
+
+function Object:init(count)
+    self.count = count or 0
+end
+
+funciton Object:set_count(count)
+    self.count = count
+end
+
+function Object:increment()
+    self.count = self.count + 1
+end
+
+lib-thread
+==========
+
+_lib-thread_ is a _lib-kidven_ based thread pool system. while it can not provide forced multitasking, it does make coroutines much prettier than the parallel API allows.
+
+
+Thread Object
+-------------
+
+  * *Constructor*
+    * kidven.new('thread-pool')
+  * *Methods*
+    * :new(func, handler) -- Adds a new thread, running func, with the given handler.
+    * :stop() -- Stops the thread pool.
+    * :main() -- Runs the thread pool *This blocks until the threads are all finished, or :stop() is called*
+
+Handlers
+--------
+
+Threads may be given a special handler table, that is providing various callbacks to the running app. The following callbacks are available.
+
+  * :created() -- Called after :new(), when the thread is initalised into the loop.
+  * :error(err) -- Called when the thread errors.
+  * :die() -- Called when the thread ends.
+
