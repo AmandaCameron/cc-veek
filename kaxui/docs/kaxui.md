@@ -1,0 +1,1 @@
+_kaxui_ is a graphical package manager for ac-get. It features a tabbed interface which you can navigate with pageup/pagedown. There are three main panes "Available", "Installed", and "Settings" -- To use this program you need an ac-get install that is up to date.

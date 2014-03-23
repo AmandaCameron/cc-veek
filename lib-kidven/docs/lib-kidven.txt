@@ -1,0 +1,30 @@
+_lib-kidven_ is an object library, originally written for _agui-shell_, and has since been ripped out for general-purpose use. It exposes the following functions, outlined below.
+
+  * kidven.new(class, ...) -- Creates a new instance of _class_, passing it's :init() method the given arguments.
+  * kidven.register(name, object, parent-name) -- Registers a new class with the given name, object, and optional parent.
+  * kidven.load(env_name, object_name, file_name, env) -- Registers a new class from the given kidven class file, and the optional environment passed in.
+
+Kidven Object File?
+-------------------
+
+Kidven's Object File is just a normal lua file with a table pre-defined (passed by env_name). The parent for this class is discovered by the _parent variable you set in the file. The optional _env_ paramater passed to _kidven.load_ will define the additional environments around for this file. For an example, look at the _lib/object.lua_ (in-game: __LIB__/kidven/object) file, which implements the base object class for all kidven objects.
+
+
+Example Code?
+-------------
+
+Ok, this is an example counter object, you'd place this somewhere then call kidven.load("Object", "counter", "path/to/file"), then you could do kidven.new("counter", 1) to initalise a new one.
+
+_parent = "object"
+
+function Object:init(count)
+    self.count = count or 0
+end
+
+funciton Object:set_count(count)
+    self.count = count
+end
+
+function Object:increment()
+    self.count = self.count + 1
+end

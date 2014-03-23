@@ -1,0 +1,22 @@
+=== 12 ===
+* Add new agui-menu widget.
+* Make agui compatable with ComputerCraft 1.6 changes.
+
+=== 11 ===
+* Add support for new term.newWindow RFC I'm developing.
+* Document ALL THE THINGS.
+* Lots of various fix-ups along the way.
+* Make agui-window objects movable and resizable.
+
+=== 10 ===
+* I forget.
+
+=== 9 ===
+* (Breaking Change.) Change all the things to use agui- prefixes.
+
+=== 8 ===
+* Addition of drag, scroll events. Refinement of mouse events as a whole.
+
+=== 7 ===
+* Complete re-structure to allow multiple agui apps to be setup at once.
+* Extraction of the class handling into lib-kidven

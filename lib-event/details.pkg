@@ -1,0 +1,4 @@
+Name: Event Library
+Description: An event library, supports many things.
+Library: event
+Dependency: lib-kidven

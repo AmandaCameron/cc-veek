@@ -1,0 +1,7 @@
+lib-agui::13::A GUI framework for CC.
+agui-demos::2::Demos for lib-agui
+agui-themes::3::Themes for lib-agui
+lib-kidven::2::An "Object" library for cc.
+lib-canvas::5::A Canvas API
+lib-event::2::Event Librarye
+kaxui::1::A graphical ac-get frontend.

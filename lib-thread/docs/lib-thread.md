@@ -1,0 +1,22 @@
+_lib-thread_ is a _lib-kidven_ based thread pool system. while it can not provide forced multitasking, it does make coroutines much prettier than the parallel API allows.
+
+
+Thread Object
+-------------
+
+  * **Constructor**
+  	* kidven.new('thread-pool')
+  * **Methods**
+    * :new(func, handler) -- Adds a new thread, running func, with the given handler.
+    * :stop() -- Stops the thread pool.
+    * :main() -- Runs the thread pool **This blocks until the threads are all finished, or :stop() is called**
+
+
+Handlers
+--------
+
+Threads may be given a special handler table, that is providing various callbacks to the running app. The following callbacks are available.
+
+  *	:created() -- Called after :new(), when the thread is initalised into the loop.
+  * :error(err) -- Called when the thread errors.
+  * :die() -- Called when the thread ends.

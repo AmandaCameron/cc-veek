@@ -1,0 +1,13 @@
+Name: Kaxui
+Description: A graphical front-end for ac-get
+Executable: kaxui
+Docs: kaxui
+Library: kaxui/
+Library: kaxui/widgets/
+Library: kaxui => kaxui/kaxui
+Library: widgets/detail-pane => kaxui/widgets/detail-pane
+Library: widgets/pkg-list-item => kaxui/widgets/pkg-list-item
+Library: widgets/menu => kaxui/widgets/menu
+Library: widgets/menu-button => kaxui/widgets/menu-button
+Library: widgets/progress-bar => kaxui/widgets/progress-bar
+Dependency: lib-agui

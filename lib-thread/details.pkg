@@ -1,0 +1,3 @@
+Name: Thread Library
+Description: Threading library for handling coroutines in a nice manner.
+Library: thread

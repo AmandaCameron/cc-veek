@@ -1,0 +1,4 @@
+Name: Canvas API
+Description: Allows sectioning off a screen with a simple OO-based API
+Library: canvas
+Docs: lib-canvas

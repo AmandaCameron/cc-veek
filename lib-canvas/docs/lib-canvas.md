@@ -1,0 +1,15 @@
+_lib-canvas_ is a self-contained OO-like buffer and drawing library. It's buffer features an optimised system for handling the data contents, and allows colours to be used. The Primary function of the library is canvas.new(term, lookup, width, height, buffered) -- Buffered defaults to false, but the rest are required.
+
+Canvas Object
+-------------
+
+The canvas object features several functions, listed below.
+
+  * :move(x, y) -- Moves to the given x and y.
+  * :set\_fg(colour) -- Sets the forground to the given colour, which will be determined through the lookup paramater you passed in the constructor.
+  * :set\_bg(colour) -- Same as set_fg but for the background.
+  * :write(text) -- Writes text to the screen or the buffer.
+  * :clear() -- clears the screen or buffer.
+  * :sub(x, y, w, h) -- Cuts out a sub-section of the screen or buffer. Returns the newly-created Canvas object.
+  * :as_redirect(x, y, w, h) -- like :sub() but returns a term.redirect capable object.
+  * :set_cursor(x, y, blinking) -- Sets the final on-screen position of the cursor, and wether it should be blinking.

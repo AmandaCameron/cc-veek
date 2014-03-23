@@ -1,0 +1,7 @@
+Name: AGUI Demos.
+Description: AGUI Demos. What more do you want from me?!
+Dependency: lib-agui
+Executable: login-dialog
+Executable: drag-me
+Executable: window-test
+Executable: layout-test
