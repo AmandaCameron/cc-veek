@@ -2,15 +2,21 @@
 
 _parent = "agui-container"
 
-function Widget:init(app, x, y, w, h)
-  self.agui_container:init(x, y, w, h)
+function Widget:init(app)
+  self.agui_container:init(1, 1, 1, 1)
+
+  self.flex = new('agui-layout', self.agui_container)
 
   self.agui_widget.main = app
 
-  self.btn_menu = new('agui-button', w - 10 + 1, 2, '  Actions ', 10)
+  self.btn_menu = new('agui-button', 1, 2, '  Actions ', 10)
   self.btn_menu:set_enabled(false)
+
+  self.flex:add(self.btn_menu)
+  self.flex:add_anchor(self.btn_menu, 'top', 'top', -1, 2)
+  self.flex:add_anchor(self.btn_menu, 'left', 'right', -1, -10)
   
-  self.agui_container:add(self.btn_menu)
+  --self.agui_container:add(self.btn_menu)
 
   local lbl_w = 7
 
@@ -19,27 +25,39 @@ function Widget:init(app, x, y, w, h)
     lbl.agui_widget.bg = 'grey'
     lbl.agui_widget.fg = 'yellow'
 
-    self.agui_container:add(lbl)
+    self.flex:add(lbl)
+    self.flex:add_anchor(lbl, "top", "top", -1, y)
+    self.flex:add_anchor(lbl, "left", "left", -1, 0)
+
+    local val = new('agui-label', 1, y, "")
+
+    self.flex:add(val)
+    self.flex:add_anchor(val, 'left', 'right', lbl, 2)
+    self.flex:add_anchor(val, 'top', 'top', -1, y)
+    self.flex:add_anchor(val, 'right', 'right', -1, 0)
+
+    return val
   end
 
-  add_label(3, "Version")
-  add_label(4, "Repo.")
-  add_label(5, "Desc.")
+  self.pkg_name = new('agui-label', 1, 1, "")
+  self.flex:add(self.pkg_name)
 
-  self.pkg_name = new('agui-label', 1, 1, "Loading...", w)
-  self.pkg_version = new('agui-label', lbl_w+2, 3, "Loading...", w - lbl_w)
-  self.pkg_repo = new('agui-label', lbl_w+2, 4, "Loading...", w - lbl_w)
-  self.pkg_desc = new('agui-textbox', lbl_w+2, 5, w - lbl_w, 3, "Loading...")
+  self.flex:add_anchor(self.pkg_name, 'top', 'top', -1, 0)
+  self.flex:add_anchor(self.pkg_name, 'left', 'left', -1, 0)
+  self.flex:add_anchor(self.pkg_name, 'right', 'right', -1, 0)
 
-  self.pkg_history = new('agui-textbox', 1, 9, w, h - 9)
+  self.pkg_version = add_label(3, "Version")
+  self.pkg_repo = add_label(4, "Repo.")
+  self.pkg_desc = add_label(5, "Desc.")
 
-  self.agui_container:add(self.pkg_name)
-  self.agui_container:add(self.pkg_version)
-  self.agui_container:add(self.pkg_repo)
-  self.agui_container:add(self.pkg_desc)
-  self.agui_container:add(self.pkg_history)
 
-  self.agui_container:add(new('agui-horiz-seperator', 1, 8, w))
+  self.pkg_history = new('agui-textbox', 1, 1, 1, 1)
+
+  self.flex:add(self.pkg_history)
+  self.flex:add_anchor(self.pkg_history, 'top', 'bottom', -1, 6)
+  self.flex:add_anchor(self.pkg_history, 'left', 'left', -1, 0)
+  self.flex:add_anchor(self.pkg_history, 'right', 'right', -1, 0)
+  self.flex:add_anchor(self.pkg_history, 'bottom', 'bottom', -1, 0)
 
   self.shown_package = nil
 
@@ -47,13 +65,13 @@ function Widget:init(app, x, y, w, h)
 
   -- TODO: This should be more possible.
 
-  self.menu.agui_widget.x = w - self.menu.agui_widget.width + 1
-  self.menu.agui_widget.y = 100
+  --self.menu.agui_widget.x = w - self.menu.agui_widget.width + 1
+  self.menu.agui_widget.y = 2
   self.menu:set_enabled(false)
 
   self.exit_menu = self.menu:add_option("Close")
 
-  self.agui_container:add(self.menu)
+  --self.app:add(self.menu)
 
   self.agui_widget.main.event_loop:subscribe("gui.button.pressed", function(_, id)
     if id == self.exit_menu.agui_widget.id then
@@ -77,14 +95,17 @@ function Widget:init(app, x, y, w, h)
 end
 
 function Widget:show_menu()
-  self.menu.agui_widget.y = 2
+  self.agui_container:add(self.menu)
+  self.menu.agui_widget.x = self.agui_widget.width - 10
+
   self.menu:set_enabled(true)
 
   self.agui_container:select(self.menu)
 end
 
 function Widget:hide_menu()
-  self.menu.agui_widget.y = 100
+  --self.menu.agui_widget.y = 100
+  self.agui_container:remove(self.menu)
   self.menu:set_enabled(false)
   
   self.agui_container.cur_focus = 0
@@ -141,10 +162,9 @@ function Widget:draw(canvas, theme)
   else
     canvas:clear()
 
-    local msg = "Select a package on the left."
+    local msg = "Select a package."
 
     canvas:move(math.floor(canvas.width / 2 - #msg / 2), math.floor(canvas.height / 2))
-
     canvas:write(msg)
   end
 end   

@@ -1,0 +1,5 @@
+# 2 #
+  * Fixed up to work with newer lib-agui utilities, adds pocket-specific UI.
+
+# 1 #
+  * Initial Release

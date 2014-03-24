@@ -5,4 +5,4 @@ lib-kidven::2::An "Object" library for cc.
 lib-canvas::5::A Canvas API
 lib-event::2::Event Library
 lib-thread::2::Thread Library
-kaxui::1::A graphical ac-get frontend.
+kaxui::2::A graphical ac-get frontend.
