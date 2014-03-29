@@ -119,13 +119,17 @@ function Canvas:write(text)
   end
 
   if x < 1 then
-    text = text:sub(math.abs(x) + 2)
+    local start = #text
 
-    x = self.offset_x + 1
+    text = text:sub(math.abs(x))
+
+    self.x = self.x + #text - start
+
+    x = self.x + self.offset_x
   end
 
-  if x + #text > self.width then
-    text = text:sub(1, self.width - x + 1)
+  if x + #text > self.width + 1 then
+    text = text:sub(1, self.width - x)
   end
 
   if text == "" then
@@ -136,8 +140,8 @@ function Canvas:write(text)
     repeat table.insert(self.buffer, {}) until #self.buffer > y
 
     local line = self.buffer[y]
-
-    for c_x=0,#text do
+    
+    for c_x=0,#text-1 do
       local clobber = line[x + c_x]
 
       if clobber then
@@ -145,10 +149,12 @@ function Canvas:write(text)
 
 	if clobber.text ~= "" then
 	  line[x + #text] = clobber
+
+	  break
 	end
       end
     end
-
+    
     line[x] = {
       fg = self.fg,
       bg = self.bg,
@@ -159,7 +165,7 @@ function Canvas:write(text)
       line[x + i] = nil
     end
 
-    self.x = self.x + #text
+    self.x = x + #text
 
     self.buffer[y] = line
   else
@@ -182,12 +188,12 @@ function Canvas:blit(x, y, width, height, ctx)
     error('Canvas is not a buffered canvas.', 2)
   end
 
-  height = height or self.height
-  width = width or self.width
-  ctx = ctx or self.ctx
+  local height = height or self.height
+  local width = width or self.width
+  local ctx = ctx or self.ctx
 
-  fg = nil
-  bg = nil
+  local fg = nil
+  local bg = nil
 
   for i=1,height do
     local line = self.buffer[i + self.offset_y]
@@ -310,10 +316,14 @@ function Canvas:as_redirect(x, y, width, height)
   end
 
   redir.clear = function()
+    local x, y = self.x, self.y
+
     for line=redir.y,redir.y+redir.height do
       self:move(redir.x, line)
       self:write(string.rep(" ", redir.width))
     end
+
+    self:move(self.x, self.y)
   end
 
   -- Bloody Americans.
