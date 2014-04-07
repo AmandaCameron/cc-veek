@@ -120,11 +120,11 @@ end
 function verify(args, ...)
   local types = { ... }
   for i, v in ipairs(args) do
-    if typeof(v) == "table" and types[i] ~= "table" then
+    if type(v) == "table" and types[i] ~= "table" then
       if not v.is_a or not v:is_a(types[i]) then
         error("Expected: " .. table.concat(types, ", "), 2)
       end
-    elseif typeof(v) ~= types[i] then
+    elseif type(v) ~= types[i] then
       error("Expected: " .. table.concat(types, ", "), 2)
     end
   end
