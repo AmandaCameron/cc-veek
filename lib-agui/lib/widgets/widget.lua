@@ -107,16 +107,16 @@ function Widget:char(ch)
 	-- Do Nothing.
 end
 
--- Helper function for draw_raw
+-- Helper functions for draw_raw
 
-function Widget:prep_canvas(widget, c)
-	local fg = widget:cast('agui-widget').fg or 'transparent'
-	local bg = widget:cast('agui-widget').bg or 'transparent'
+function Widget:resolve_colours()
+	local fg = self.fg or 'transparent'
+	local bg = self.bg or 'transparent'
 
-	if widget:cast('agui-widget').focused then
+	if self.focused then
 		fg = fg:gsub('([-][-])', '-focused-', 1)
 		bg = bg:gsub('([-][-])', '-focused-', 1)
-	elseif not widget:cast('agui-widget').enabled then
+	elseif not self.enabled then
 		fg = fg:gsub('([-][-])', '-disabled-', 1)
 		bg = bg:gsub('([-][-])', '-disabled-', 1)
 	else
@@ -124,28 +124,37 @@ function Widget:prep_canvas(widget, c)
 		bg = bg:gsub('([-][-])', '-', 1)
 	end
 
-	if fg ~= 'transparent' then
-		c:set_fg(fg)
+	return fg, bg
+end
+
+function Widget:prep_canvas(widget, c)
+	local w_fg, w_bg = widget:resolve_colours()
+	local p_fg, p_bg = self:resolve_colours()
+
+	if w_fg ~= 'transparent' then
+		c:set_fg(w_fg)
 	else
-		c:set_fg(self.fg)
+		c:set_fg(p_fg)
 	end
 
-	if bg ~= 'transparent' then
-		c:set_bg(bg)
+	if w_bg ~= 'transparent' then
+		c:set_bg(w_bg)
 	else
-		c:set_bg(self.bg)
+		c:set_bg(p_bg)
 	end
 end
 
 -- This should NOT be over-written
 
-function Widget:draw_raw(widget, canvas, theme)
+function Widget:draw_raw(widget, pc, theme)
 	if widget:cast('agui-widget'):has_flag('buffered') then
 		if not widget:cast('agui-widget').canvas then
-			widget:cast('agui-widget').canvas = canvas:sub(widget:cast('agui-widget').x, widget:cast('agui-widget').y,
-				widget:cast('agui-widget').width, widget.height)
-
-			widget:cast('agui-widget').canvas.buffered = true
+			widget:cast('agui-widget').canvas = canvas.new(
+				pc.ctx,
+				pc.lookup,
+				widget:cast('agui-widget').width,
+				widget:cast('agui-widget').height,
+				true)
 
 			widget:cast('agui-widget').dirty = true
 		end
@@ -156,12 +165,11 @@ function Widget:draw_raw(widget, canvas, theme)
 			widget:draw(widget:cast('agui-widget').canvas, theme)
 		end
 
-		widget:cast('agui-widget').canvas.ctx = canvas:as_redirect(widget:cast('agui-widget').x, widget:cast('agui-widget').y,
-		 widget:cast('agui-widget').width, widget:cast('agui-widget').height)
-
-		widget:cast('agui-widget').canvas:blit(1, 1)
+		widget:cast('agui-widget').canvas:blit(1, 1,
+			nil, nil,
+			pc:as_redirect(widget:cast('agui-widget').x, widget:cast('agui-widget').y, widget:cast('agui-widget').width, widget:cast('agui-widget').height))
 	else
-		local c = canvas:sub(widget:cast('agui-widget').x, widget:cast('agui-widget').y, widget:cast('agui-widget').width, widget:cast('agui-widget').height)
+		local c = pc:sub(widget:cast('agui-widget').x, widget:cast('agui-widget').y, widget:cast('agui-widget').width, widget:cast('agui-widget').height)
 
 		c:set_cursor(1, 1, false)
 
