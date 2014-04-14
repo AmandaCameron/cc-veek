@@ -10,13 +10,15 @@ function Widget:init(label)
 	self.agui_widget.fg = 'list-item--fg'
 	self.agui_widget.bg = 'list-item--bg'
 
-	self.agui_widget:add_flag('buffered')
+	-- self.agui_widget:add_flag('buffered')
 
 	self.data = {}
 	self.label = label
 end
 
 function Widget:draw(canvas, theme)
+	c:clear()
+
 	local lbl = self.label
 
 	if #lbl > self.agui_widget.width then
@@ -25,6 +27,4 @@ function Widget:draw(canvas, theme)
 
 	canvas:move(1, 1)
 	canvas:write(lbl)
-
-	canvas:write(string.rep(' ', canvas.width - #lbl))
 end
