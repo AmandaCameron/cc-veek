@@ -22,8 +22,8 @@ function Widget:init(app)
 
   local function add_label(y, text)
     local lbl = new('agui-label', 1, y, text, lbl_w)
-    lbl.agui_widget.bg = 'grey'
-    lbl.agui_widget.fg = 'yellow'
+    lbl.agui_widget.bg = 'lightGrey'
+    lbl.agui_widget.fg = 'black'
 
     self.flex:add(lbl)
     self.flex:add_anchor(lbl, "top", "top", -1, y)
