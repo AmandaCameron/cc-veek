@@ -22,6 +22,7 @@ Library: widgets/search => agui/widgets/search
 Library: widgets/horiz-seperator => agui/widgets/horiz-seperator
 Library: widgets/virt-seperator => agui/widgets/virt-seperator
 Library: widgets/menu => agui/widgets/menu
+Library: widgets/progress-bar => agui/widgets/progress-bar
 Library: agui/objects/
 Library: objects/agui-app => agui/objects/agui-app
 Library: objects/agui-app-window => agui/objects/agui-app-window
@@ -43,4 +44,5 @@ Docs: agui-widget
 Docs: agui-window
 Docs: agui-menu
 Docs: agui-layout
+Docs: agui-progress-bar
 Docs: lib-agui
