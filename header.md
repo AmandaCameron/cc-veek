@@ -5,6 +5,7 @@ Project Veek is a series of libraries to make making graphical programs easier
 in ComputerCraft. It consists of the following libraries:
 
   * lib-agui -- Graphical GUI toolkit
+  * agui-images -- Image loading library.
   * lib-canvas -- Canvas API
   * lib-thread -- Multi-"threading" API
   * lib-event -- Event processing and distribution API
@@ -18,9 +19,11 @@ This will install the repo to your ac-get instalation.
 Sauce?
 ======
 
-The source code for this project can be found at [The GitLab for DarkDNA](http://git.darkdna.net/amanda/veek)
+The source code for this project can be found on [My GitHub](https://github.com/AmandaCameron/cc-veek)
 
 Docs?
 =====
 
 The Docs are included below, for your viewing pleasure.
+
+----

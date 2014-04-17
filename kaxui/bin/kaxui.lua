@@ -17,7 +17,7 @@ local main = kidven.new('agui-tab-bar', 1, 1, w, h)
 
 local prog_win = kidven.new('agui-window', 'Progress', w / 3 * 2, 5)
 
-local prog_bar = kidven.new('kaxui-progress-bar', 2, 4,
+local prog_bar = kidven.new('agui-progress-bar', 2, 4,
 prog_win.agui_widget.width - 4)
 
 local prog_text = kidven.new('agui-label', 2, 2,

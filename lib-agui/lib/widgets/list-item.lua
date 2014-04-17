@@ -17,7 +17,7 @@ function Widget:init(label)
 end
 
 function Widget:draw(canvas, theme)
-	c:clear()
+	canvas:clear()
 
 	local lbl = self.label
 
