@@ -14,6 +14,13 @@ function Widget:init(x, y, w, h)
 
   self.tabs = {}
   self.selected = 0
+
+  self.show_options = false
+  self.style = 'horiz'
+
+  if pocket then
+    self.style = 'drop-down'
+  end
 end
 
 function Widget:add_tab(label, contents)
@@ -64,12 +71,89 @@ function Widget:blur()
 end
 
 function Widget:draw(canvas, theme)
-  local lblWidth = self:get_tab_width()
+  if self.selected > 0 then
+    local c = canvas:sub(1, 2, canvas.width, canvas.height - 1)
 
-  canvas:move(1, 1)
+    local contents = self:get_contents()
+
+    contents.agui_widget.x = 1
+    contents.agui_widget.y = 1
+    contents.agui_widget.width = c.width
+    contents.agui_widget.height = c.height
+
+    self:draw_raw(contents, c, theme)
+  end
+
+  if self.style == 'horiz' then
+    self:draw_horiz(canvas)
+  elseif self.style == 'drop-down' then
+    self:draw_drop_down(canvas)
+  end
+end
+
+function Widget:draw_drop_down(canvas)
+  if self.show_options or self.selected == 0 then
+    for n, tab in ipairs(self.tabs) do
+      local label = tab.label
+
+      if #label > canvas.width then
+        label = label:sub(0, canvas.width - 3) .. "..."
+      end
+
+      if self.agui_widget.focused then
+        if n == self.selected then
+          canvas:set_bg("tab-focused-active-bg")
+          canvas:set_fg("tab-focused-active-fg")
+        else
+          canvas:set_bg("tab-focused-inactive-bg")
+          canvas:set_fg("tab-foucsed-inactive-fg")
+        end
+      else
+        if n == self.selected then
+          canvas:set_bg("tab-active-bg")
+          canvas:set_fg("tab-active-fg")
+        else
+          canvas:set_bg("tab-inactive-bg")
+          canvas:set_fg("tab-inactive-fg")
+        end
+      end
+
+      canvas:move(1, n)
+      canvas:write(label)
+      canvas:write(string.rep(' ', canvas.width - #label))
+    end
+  else
+    local tab = self.tabs[self.selected]
+    local label = tab.label
+
+    if #label > canvas.width then
+      label = label:sub(0, canvas.width - 3) .. "..."
+    end
+
+    if self.agui_widget.focused then
+      canvas:set_bg("tab-focused-active-bg")
+      canvas:set_fg("tab-focused-active-fg")
+    else
+      canvas:set_bg("tab-active-bg")
+      canvas:set_fg("tab-active-fg")
+    end
+    canvas:set_fg()
+
+    canvas:move(1, 1)
+
+    canvas:write(label)
+    canvas:write(string.rep(' ', canvas.width - #label))
+  end
+
+  return canvas:sub(1, 2, canvas.width, canvas.height - 1)
+end
+
+function Widget:draw_horiz(canvas)
+  local lblWidth = self:get_tab_width()
 
   for name, tab in ipairs(self.tabs) do
     local label = tab.label
+    
     if #label > lblWidth then
       label = label:sub(0, lblWidth-3) .. "..."
     end
@@ -102,25 +186,26 @@ function Widget:draw(canvas, theme)
 
   canvas:write(string.rep(" ", canvas.width - canvas.x + 1))
 
-  if self.selected > 0 then
-    local c = canvas:sub(1, 2, canvas.width, canvas.height - 1)
-
-    local contents = self:get_contents()
-
-    contents.agui_widget.x = 1
-    contents.agui_widget.y = 1
-    contents.agui_widget.width = c.width
-    contents.agui_widget.height = c.height
-
-    self:draw_raw(contents, c, theme)
-  end
+  return canvas:sub(1, 2, canvas.width, canvas.height - 1)
 end
 
 function Widget:clicked(x, y, button)
-  if y == 1 then
-    self:select_tab(math.floor(x / self:get_tab_width()) + 1)
-  elseif self.selected > 0 then
-    self:get_contents():clicked(x, y - 1, button)
+  if self.style == 'horiz' then
+    if y == 1 then
+      self:select_tab(math.floor(x / self:get_tab_width()) + 1)
+    elseif self.selected > 0 then
+      self:get_contents():clicked(x, y - 1, button)
+    end
+  elseif self.style == 'drop-down' then
+    if self.show_options then
+      self:select_tab(y)
+
+      self.show_options = false
+    elseif y == 1 then
+      self.show_options = true
+    else
+      self:get_contents():clicked(x, y - 1, button)
+    end
   end
 end
 
