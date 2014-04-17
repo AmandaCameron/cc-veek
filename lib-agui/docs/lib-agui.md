@@ -17,7 +17,8 @@ Input Widgets
 
 Display Widgets
 ===============
-
+  
+  * agui-split-pane -- Shows a common side-bar pattern for two widgets.
   * agui-tab-bar -- Shows a tab bar that allows you to change tabs, each tab can contain a single widget.
   * agui-window -- A window that is bound inside the app's display canvas
   * agui-virt-seperator -- A Vertical seperator.
@@ -25,6 +26,7 @@ Display Widgets
   * agui-textbox -- Multi-line auto-wrapping textbox widget, showing plaintext stuff.
   * agui-label -- Shows a single-line bit of text, ellipsising it if nessary.
   * agui-search -- A search bar widget, a combonation of a agui-input and an agui-list
+  * agui-progress-bar -- Progress bar! Takes a 0-1 number and shows a percentage!
 
 Notes for Users
 ===============

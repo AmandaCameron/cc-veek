@@ -6,9 +6,9 @@ function compile-agui {
 	rm $1.bbcode
 }
 
-bbcode "[namedspoiler=lib-agui Documentation]"
+bbcode "[namedspoiler=Documentation]"
 
-for i in lib-agui/docs/*.md; do
+for i in agui-docs/docs/*.md; do
 	compile-agui $i
 	bbcode "[hr]"
 done
