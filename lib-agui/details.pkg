@@ -23,6 +23,7 @@ Library: widgets/horiz-seperator => agui/widgets/horiz-seperator
 Library: widgets/virt-seperator => agui/widgets/virt-seperator
 Library: widgets/menu => agui/widgets/menu
 Library: widgets/progress-bar => agui/widgets/progress-bar
+Library: widgets/split-pane => agui/widgets/split-pane
 Library: agui/objects/
 Library: objects/agui-app => agui/objects/agui-app
 Library: objects/agui-app-window => agui/objects/agui-app-window
