@@ -29,21 +29,4 @@ Library: objects/agui-app => agui/objects/agui-app
 Library: objects/agui-app-window => agui/objects/agui-app-window
 Library: objects/agui-virtual-window => agui/objects/agui-virtual-window
 Library: objects/agui-layout => agui/objects/agui-layout
-Docs: agui-app
-Docs: agui-button
-Docs: agui-checkbox
-Docs: agui-container
-Docs: agui-input
-Docs: agui-label
-Docs: agui-list-item
-Docs: agui-list
-Docs: agui-search
-Docs: agui-seperator
-Docs: agui-tab-bar
-Docs: agui-textbox
-Docs: agui-widget
-Docs: agui-window
-Docs: agui-menu
-Docs: agui-layout
-Docs: agui-progress-bar
 Docs: lib-agui
