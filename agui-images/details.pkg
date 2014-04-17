@@ -1,0 +1,9 @@
+Description: Image file support for lib-agui
+Library: agui-images/
+Library: base => agui-images/agimages
+Library: image => agui-images/agi-image
+Library: widget => agui-images/agi-display
+Library: agui-images/formats/
+Library: format/paint => agui-images/formats/paint
+Dependency: lib-canvas
+Dependency: lib-agui
