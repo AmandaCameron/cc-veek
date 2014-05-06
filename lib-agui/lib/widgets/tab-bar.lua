@@ -151,6 +151,8 @@ end
 function Widget:draw_horiz(canvas)
   local lblWidth = self:get_tab_width()
 
+  canvas:move(1, 1)
+
   for name, tab in ipairs(self.tabs) do
     local label = tab.label
     
