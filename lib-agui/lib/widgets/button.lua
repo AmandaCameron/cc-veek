@@ -1,9 +1,11 @@
 -- Simple Button for aGUI
 
-_parent = 'agui-label'
+_parent = 'agui-widget'
 
 function Widget:init(x, y, text, width)
-	self.agui_label:init(x, y, text, width)
+	local width = width or #text
+
+	self.agui_widget:init(x, y, width, 1)
 
 	self.text = text
 
@@ -13,11 +15,26 @@ function Widget:init(x, y, text, width)
 	self.agui_widget:add_flag('active')
 end
 
+function Widget:draw(canvas)
+	local val = self.text
+
+	if #val > self.agui_widget.width - 2 then
+		val = string.sub(val, 1, self.agui_widget.width - 5) .. "..."
+	else
+		val = val .. string.rep(' ', self.agui_widget.width - #val)
+	end
+
+	if self.agui_widget.focused then
+		canvas:write("{" .. val .. "}")
+	else
+		canvas:write("[" .. val .. "]")
+	end
+end
+
 -- Maybe this should be handled by the toolkit?
 
 function Widget:key(k)
 	if k == keys.enter then
-		--event.trigger("gui.button.pressed", self.agui_widget.id)
 		self.agui_widget:trigger('gui.button.pressed')
 	end
 
@@ -25,6 +42,5 @@ function Widget:key(k)
 end
 
 function Widget:clicked(x, y, btn)
-	--event.trigger("gui.button.pressed", self.agui_widget.id)
 	self.agui_widget:trigger('gui.button.pressed')
 end

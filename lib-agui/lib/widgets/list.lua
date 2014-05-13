@@ -163,14 +163,18 @@ function Widget:draw(c, theme)
 	local y = 1
 
 	for n, item in ipairs(self.items) do
-		self.agui_widget:prep_canvas(self, c)
-
 		item.agui_widget.width = self.agui_widget.width
 		item.agui_widget.x = 1
 		item.agui_widget.y = y
 
 		y = y + item.agui_widget.height
 
-		self:draw_raw(item, c, theme)
+		if n ~= self.current_item then
+			self:draw_raw(item, c, theme)
+		end
+	end
+
+	if self:get_current() then
+		self:draw_raw(self:get_current(), c, theme)
 	end
 end

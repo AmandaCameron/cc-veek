@@ -14,6 +14,84 @@ function Widget:init(title, width, height)
   self.flags = {}
 end
 
+function Widget:key(kc)
+  if kc == keys.f10 then
+    local menu = new('agui-menu', self.agui_widget.main)
+
+    menu:add('Move', function()
+      self.moving = true
+
+      menu:hide()
+    end)
+
+    if self.flags.resizable then
+      menu:add('Resize', function()
+        self.resizing = true
+
+        menu:hide()
+      end)
+    end
+
+    menu:add_seperator()
+
+    if self.flags.closable then
+      menu:add('Close', function()
+        self.agui_widget:trigger('gui.window.closed')
+
+        menu:hide()
+      end)
+    end
+
+    if self.flags.maximisable then
+      menu:add('Maximise', function()
+        self.agui_widget:trigger('gui.window.maximised')
+
+        menu:hide()
+      end)
+    end
+
+    if self.flags.minimisable then
+      menu:add('Minimise', function()
+        self.agui_widget:trigger('gui.window.minimised')
+
+        menu:hide()
+      end)
+    end
+
+    menu:show(self.agui_widget.x, self.agui_widget.y)
+
+  -- Resizing Controls
+  elseif kc == keys.up and self.resizing then
+    self.agui_widget.height = self.agui_widget.height - 1
+    self.agui_widget:trigger('gui.window.resize')
+  elseif kc == keys.down and self.resizing then
+    self.agui_widget.height = self.agui_widget.height + 1
+    self.agui_widget:trigger('gui.window.resize')
+  elseif kc == keys.left and self.resizing then
+    self.agui_widget.width = self.agui_widget.width - 1
+    self.agui_widget:trigger('gui.window.resize')
+  elseif kc == keys.right and self.resizing then
+    self.agui_widget.width = self.agui_widget.width + 1
+    self.agui_widget:trigger('gui.window.resize')
+  -- Moving Controls
+  elseif kc == keys.up and self.moving then
+    self.agui_widget.y = self.agui_widget.y - 1
+  elseif kc == keys.down and self.moving then
+    self.agui_widget.y = self.agui_widget.y + 1
+  elseif kc == keys.left and self.moving then
+    self.agui_widget.x = self.agui_widget.x - 1
+  elseif kc == keys.right and self.moving then
+    self.agui_widget.x = self.agui_widget.x + 1
+  elseif kc == keys.enter and (self.moving or self.resizing) then
+    self.moving = false
+    self.resizing = false
+  else
+    return self.agui_container:key(kc)
+  end
+
+  return true
+end
+
 function Widget:clicked(x, y, btn)
   self.moving = false
   self.resizing = false
@@ -74,12 +152,14 @@ function Widget:blur()
   self.agui_widget:trigger('gui.window.blur')
 
   self.agui_container:blur()
+  self.agui_widget:blur()
 end
 
 function Widget:focus()
   self.agui_widget:trigger('gui.window.focus')
 
   self.agui_container:focus()
+  self.agui_widget:focus()
 end
 
 function Widget:draw(pc, theme)
@@ -111,7 +191,12 @@ function Widget:draw(pc, theme)
   pc:set_fg('window-title-fg')
 
   pc:move(math.floor(pc.width / 2 - #lbl / 2), 1)
-  pc:write("[ " .. lbl .. " ]")
+
+  if self.agui_widget.focused then
+    pc:write("{ " .. lbl .. " }")
+  else
+    pc:write("[ " .. lbl .. " ]")
+  end
 
   -- Draw the controls, batman!
 

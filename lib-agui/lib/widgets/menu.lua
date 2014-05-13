@@ -50,12 +50,16 @@ function Widget:show(x, y)
 
   self.agui_widget.height = #self.items
 
+  self.prev = self.parent:get_focus()
+
   self.parent:add(self)
   self.parent:select(self)
 end
 
 function Widget:hide()
   self.parent:remove(self)
+
+  self.parent:select(self.prev)
 end
 
 -- The Actual impmlementation
@@ -85,6 +89,10 @@ function Widget:draw(c, t)
     if item[1] == "option" then
       local text = item[2]
 
+      if i == self.selected then
+        text = ">" .. text .. "<"
+      end
+
       if #text < self.agui_widget.width then
         local padding = string.rep(" ", math.floor((self.agui_widget.width - #text) / 2)) 
         text = padding .. text
@@ -107,25 +115,41 @@ function Widget:clicked(x, y, btn)
   end
 end
 
-function Widget:key(k)
+function Widget:key(key)
   if key == keys.up then
     self.selected = self.selected - 1
+          
     if self.selected <= 0 then
       self.selected = #self.items
+    end
+
+    while self.items[self.selected][1] ~= "option" do            
+      if self.selected < 0 then
+        self.selected = #self.items
+      end
+
+      self.selected = self.selected - 1
     end
 
     return true
   elseif key == keys.down then
     self.selected = self.selected + 1
+
     if self.selected > #self.items then
       self.selected = 1
     end
 
+    while self.items[self.selected][1] ~= "option" do            
+      if self.selected > #self.items then
+        self.selected = 1
+      end
+
+      self.selected = self.selected + 1
+    end
+
     return true
   elseif key == keys.enter then
-    if self.items[self.selected][1] == "option" then
-      self.items[self.selected][3]()
-    end
+    self.items[self.selected][3]()
 
     return true
   end

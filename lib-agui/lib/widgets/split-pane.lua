@@ -5,10 +5,12 @@ function Widget:init(side_bar, main_view)
 
   self.agui_widget:add_flag('active')
 
-  self.position = 25
-
   self.min_pos = 1
-  self.max_pos = 25
+  self.max_pos = 8
+
+  self.position = self.max_pos
+  
+  self.active = 1
 
   self.moving = false
 
@@ -25,9 +27,8 @@ function Widget:init(side_bar, main_view)
   self.mouse_x = 0
   self.mouse_y = 0
 
-  self.active = 1
-
   self:update_active()
+  self:update_sizes()
 end
 
 -- Updates the child widget's sizes
@@ -41,8 +42,8 @@ function Widget:update_sizes()
     self.main_view:resize(self.agui_widget.width - self.min_pos + 1, self.agui_widget.height)
     self.main_view:move(self.min_pos + 1, 1)
   else
-    self.main_view:move(self.position + 1, 1)
-    self.main_view:resize(self.agui_widget.width - self.position + 1, self.agui_widget.height)
+    self.main_view:move(self.position + 2, 1)
+    self.main_view:resize(self.agui_widget.width - self.position - 1, self.agui_widget.height)
   end
 end
 
