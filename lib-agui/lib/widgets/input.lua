@@ -41,21 +41,24 @@ end
 
 function Widget:draw(c, theme)
 	local str = self.value
+	local prefix = ''
+
+	if not c.is_colour then
+		prefix = '> '
+	end
 
 	if self.placeholder then
 		str = string.rep(self.placeholder, #str)
 	end
 
-	if #str > self.agui_widget.width - 1 then
-		str = string.sub(str, #str - self.agui_widget.width + 2)
-	else
-		str = str
+	if #str > self.agui_widget.width - 1 - #prefix then
+		str = string.sub(str, #str - self.agui_widget.width + 1 + #prefix)
 	end
 
 	c:move(1, 1)
 
-	c:write(str)
-	c:write(string.rep(' ', self.agui_widget.width - #str))
+	c:write(prefix .. str)
+	c:write(string.rep(' ', self.agui_widget.width - #str - #prefix))
 
- 	c:set_cursor(#str + 1, 1, true)
+ 	c:set_cursor(#str + #prefix + 1, 1, true)
 end
