@@ -156,8 +156,12 @@ function Widget:draw_horiz(canvas)
   for name, tab in ipairs(self.tabs) do
     local label = tab.label
     
-    if #label > lblWidth then
-      label = label:sub(0, lblWidth-3) .. "..."
+    if #label > lblWidth - 2 then
+      label = label:sub(0, lblWidth-5) .. "..."
+    end
+
+    if self.show_options and name == self.selected then
+      label = "{" .. label .. "}"
     end
 
     if #label < lblWidth then
@@ -214,16 +218,28 @@ end
 function Widget:key(key)
   if self.selected > 0 and self:get_contents():key(key) then
     return true
-  elseif key == keys.pageDown then
+  elseif key == keys.pageDown or ((key == keys.right or key == keys.down) and self.show_options) then
     self.selected = self.selected + 1
     if self.selected > #self.tabs then
       self.selected = 1
     end
-  elseif key == keys.pageUp then
+
+    return true
+  elseif key == keys.pageUp  or ((key == keys.left or key == keys.up) and self.show_options)then
     self.selected = self.selected - 1
     if self.selected <= 0 then
       self.selected = #self.tabs
     end
+
+    return true
+  elseif key == keys.enter and self.show_options then
+    self.show_options = false
+
+    return true
+  elseif key == keys.leftCtrl or key == keys.rightCtrl then
+    self.show_options = true
+
+    return true
   else
     return false
   end

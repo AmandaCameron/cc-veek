@@ -13,11 +13,11 @@ end
 
 function Widget:set_text(new)
 	self.text = new
+
+	self.agui_widget.dirty = true
 end
 
 function Widget:draw(canvas, theme)
-	-- TODO: Rendering of borders or similar for mono-only displays?
-
 	local text = self.text
 
 	local c = canvas
@@ -25,7 +25,7 @@ function Widget:draw(canvas, theme)
 	c:clear()
 	c:move(1, 1)
 
-	for word in text:gmatch("[^%s]+[ \t\n]?") do
+	for word in text:gmatch("[^%s]*[ \t\n]?") do
 			if c.x + #word > c.width then
 				if c.y + 1 > c.height then
 					break
@@ -35,7 +35,7 @@ function Widget:draw(canvas, theme)
 				c.y = c.y + 1
 		end
 
-		c:write(word)
+		c:write(word:gsub("\n", ""))
 
 		if word:sub(#word) == "\n" then
 			if c.y + 1 > c.height then

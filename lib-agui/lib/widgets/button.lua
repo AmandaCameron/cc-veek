@@ -18,16 +18,20 @@ end
 function Widget:draw(canvas)
 	local val = self.text
 
-	if #val > self.agui_widget.width - 2 then
-		val = string.sub(val, 1, self.agui_widget.width - 5) .. "..."
+	if #val > canvas.width - 2 then
+		val = string.sub(val, 1, canvas.width - 5) .. "..."
 	else
-		val = val .. string.rep(' ', self.agui_widget.width - #val)
+		val = string.rep(' ', math.floor((canvas.width - #val - 2) / 2)) .. val .. string.rep(' ', math.floor((canvas.width - #val - 2) / 2))
 	end
 
-	if self.agui_widget.focused then
-		canvas:write("{" .. val .. "}")
+	if not canvas.is_colour then
+		if self.agui_widget.focused then
+			canvas:write("{" .. val .. "}")
+		else
+			canvas:write("[" .. val .. "]")
+		end
 	else
-		canvas:write("[" .. val .. "]")
+		canvas:write(' ' .. val .. ' ')
 	end
 end
 
