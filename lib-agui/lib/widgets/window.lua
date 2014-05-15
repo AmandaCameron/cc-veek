@@ -36,29 +36,29 @@ function Widget:key(kc)
 
     if self.flags.closable then
       menu:add('Close', function()
-        self.agui_widget:trigger('gui.window.closed')
-
         menu:hide()
+        
+        self.agui_widget:trigger('gui.window.closed')
       end)
     end
 
     if self.flags.maximisable then
       menu:add('Maximise', function()
-        self.agui_widget:trigger('gui.window.maximised')
-
         menu:hide()
+        
+        self.agui_widget:trigger('gui.window.maximised')
       end)
     end
 
     if self.flags.minimisable then
       menu:add('Minimise', function()
-        self.agui_widget:trigger('gui.window.minimised')
-
         menu:hide()
+
+        self.agui_widget:trigger('gui.window.minimised')
       end)
     end
 
-    menu:show(self.agui_widget.x, self.agui_widget.y)
+    menu:show(self.agui_widget.x + 1, self.agui_widget.y + 1)
 
   -- Resizing Controls
   elseif kc == keys.up and self.resizing then

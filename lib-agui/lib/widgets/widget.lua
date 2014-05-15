@@ -68,18 +68,14 @@ function Widget:move(x, y)
 	self.x = math.floor(x)
 	self.y = math.floor(y)
 
-	if self:has_flag('buffered') then
-		self.canvas = nil
-	end
+	self.dirty = true
 end
 
 function Widget:resize(width, height)
 	self.width = math.floor(width)
 	self.height = math.floor(height)
 
-	if self:has_flag('buffered') then
-		self.canvas = nil
-	end
+	self.dirty = true
 end
 
 
@@ -148,7 +144,7 @@ end
 
 function Widget:draw_raw(widget, pc, theme)
 	if widget:cast('agui-widget'):has_flag('buffered') then
-		if not widget:cast('agui-widget').canvas then
+		if not widget:cast('agui-widget').canvas or widget:cast('agui-widget').dirty then
 			widget:cast('agui-widget').canvas = canvas.new(
 				pc.ctx,
 				pc.lookup,

@@ -47,6 +47,10 @@ function Widget:remove(child)
 end
 
 function Widget:select(child)
+  if not child then
+    return
+  end
+
   if self:get_focus() then
     if self:get_focus().agui_widget.id == child.agui_widget.id then
       -- Shortcut to avoid bluring an already-selected widget.
