@@ -9,6 +9,9 @@
 		['button-fg'] = 'black',
 		['button-bg'] = 'white',
 
+                ['button-focused-fg'] = 'button-fg',
+                ['button-focused-bg'] = 'button-bg',
+
                 ['input-fg'] = 'black',
                 ['input-bg'] = 'white',
 
