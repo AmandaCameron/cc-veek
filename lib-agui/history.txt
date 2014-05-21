@@ -1,6 +1,10 @@
 === 16 ===
 * Massive Normal Computer improvements.
+  * Buttons now draw []s and {}s around them for normal and selected states, respectively.
+  * Menus now show ><s around the currently active widget.
+  * Mono theme has been enhansed for better use.
 * agui-layout can now accept an agui-app-window object.
+* Buttons are now centered in their width.
 
 === 15 ===
 * Fix bug in the tab-bar widget on non-pocket computers.
