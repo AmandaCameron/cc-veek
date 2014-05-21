@@ -5,5 +5,6 @@ Library: image => agui-images/agi-image
 Library: widget => agui-images/agi-display
 Library: agui-images/formats/
 Library: format/paint => agui-images/formats/paint
+Library: format/nft => agui-images/formats/nft
 Dependency: lib-canvas
 Dependency: lib-agui

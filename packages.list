@@ -1,7 +1,7 @@
 lib-agui::16::A GUI framework for CC.
 agui-demos::2::Demos for lib-agui
 agui-themes::4::Themes for lib-agui
-agui-images::1::Image loader and displayer for lib-agui
+agui-images::2::Image loader and displayer for lib-agui
 agui-docs::14::A GUI Documentation.
 lib-kidven::2::An "Object" library for cc.
 lib-canvas::5::A Canvas API

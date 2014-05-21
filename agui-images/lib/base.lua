@@ -16,9 +16,21 @@ for _, file in ipairs(fs.list("__LIB__/agui-images/formats/")) do
 end
 
 function load(path, format)
+  local f = fs.open(path, "r")
+  if not f then
+    return nil
+  end
+
+  local data = f.readAll()
+  f.close()
+
+  return load_string(data, format)
+end
+
+function load_string(str, format)
   if not format then
     for typ, cb in pairs(formats) do
-      if cb.is_a(path) then
+      if cb.is_a(str) then
         format = typ
         break
       end
@@ -29,7 +41,7 @@ function load(path, format)
     return nil
   end
 
-  return kidven.new('agi-image', formats[format].decode(path))
+  return kidven.new('agi-image', formats[format].decode(str))
 end
 
 function save(path, format)
