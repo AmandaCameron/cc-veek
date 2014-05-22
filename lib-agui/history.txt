@@ -1,3 +1,6 @@
+=== 17 ===
+* New agui-scroll-view widget, which handles genericising the scrolling of a larger-than-the-canvas widget.
+
 === 16 ===
 * Massive Normal Computer improvements.
   * Buttons now draw []s and {}s around them for normal and selected states, respectively.

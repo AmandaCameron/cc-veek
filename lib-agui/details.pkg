@@ -24,9 +24,11 @@ Library: widgets/virt-seperator => agui/widgets/virt-seperator
 Library: widgets/menu => agui/widgets/menu
 Library: widgets/progress-bar => agui/widgets/progress-bar
 Library: widgets/split-pane => agui/widgets/split-pane
+Library: widgets/scroll-view => agui/widgets/scroll-view
 Library: agui/objects/
 Library: objects/agui-app => agui/objects/agui-app
 Library: objects/agui-app-window => agui/objects/agui-app-window
 Library: objects/agui-virtual-window => agui/objects/agui-virtual-window
 Library: objects/agui-layout => agui/objects/agui-layout
+Library: objects/agui-mouse-track => agui/objects/agui-mouse-track
 Docs: lib-agui
