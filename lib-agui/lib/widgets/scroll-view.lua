@@ -28,7 +28,7 @@ function Widget:scroll_into_view(x, y)
   if not (y - self.scroll_y > 0 and y - self.scroll_y < self.agui_widget.height) then
     self.scroll_y = math.floor(y)
 
-    if self.scroll_y > self.height - self.agui_widget.height then
+    if self.scroll_y > self.height - self.agui_widget.height and self.height > self.agui_widget.height then
       self.scroll_y = self.height - self.agui_widget.height
     end
   end
