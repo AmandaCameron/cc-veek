@@ -15,7 +15,4 @@ function Widget:draw(c, theme)
 
   c:move(1, 2)
   c:write("v"..self.pkg.version)
-
-  c:move(self.agui_widget.width - #self.pkg.state + 1, 2)
-  c:write(self.pkg.state)
 end

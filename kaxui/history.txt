@@ -1,5 +1,8 @@
-# 2 #
-  * Fixed up to work with newer lib-agui utilities, adds pocket-specific UI.
+=== 3 ===
+* Complete re-write, to allow better utilisation of the lib-agui API that backs it.
 
-# 1 #
-  * Initial Release
+=== 2 ===
+* Fixed up to work with newer lib-agui utilities, adds pocket-specific UI.
+
+=== 1 ===
+* Initial Release

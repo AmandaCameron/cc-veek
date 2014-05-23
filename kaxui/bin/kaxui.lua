@@ -1,332 +1,150 @@
-os.loadAPI("__LIB__/acg/acg")
-
-local state = acg.load_state()
+-- @Name: Kaxui
+-- @Description: Graphical package manager for ac-get
+-- @Author: Amanda Cameron
 
 os.loadAPI("__LIB__/kaxui/kaxui")
-os.loadAPI("__LIB__/agui/agui") 
-
-local w, h = term.getSize()
+os.loadAPI("__LIB__/acg/acg")
 
 local app = kidven.new('agui-app')
 
-local main = kidven.new('agui-tab-bar', 1, 1, w, h)
-
------------------------------------------------------------
--- Output Redirection                                    --
------------------------------------------------------------
-
-local prog_win = kidven.new('agui-window', 'Progress', w / 3 * 2, 5)
-
-local prog_bar = kidven.new('agui-progress-bar', 2, 4,
-prog_win.agui_widget.width - 4)
-
-local prog_text = kidven.new('agui-label', 2, 2,
-'Loading...', prog_win.agui_widget.width - 4)
-
-prog_win:add(prog_bar)
-prog_win:add(prog_text)
-
-prog_win.agui_widget.x = math.floor(w / 2 - w / 6 * 2)
-prog_win.agui_widget.y = math.floor(h / 2) - 3
-
-state:hook("task_begin",
-function(id)
-  --prog_win.agui_widget.y = math.floor(h / 2 - prog_win.agui_widget.height / 2)
-  app:add(prog_win)
-  app:select(prog_win)
-
-  prog_bar.format = "%d%%"
-
-  app:draw()
-end)
-
-state:hook("task_update",
-function(id, detail, cur, max)
-  prog_text.text = detail
-  
-  if max > 0 then
-    prog_bar.progress = cur / max
-    prog_bar.format = "%d%%"
-  else
-    prog_bar.progress = 0
-    prog_bar.format = cur .. " / ??"
-  end
-
-  app:draw()
-end)
-
-state:hook("task_complete",
-function(id, detail)
-  app:select(main)
-  app:remove(prog_win)
-
-  app:draw()
-end)
-
------------------------------------------------------------
--- Available Tab                                         --
------------------------------------------------------------
-
-function add_available()
-  local available_tab = kidven.new('agui-container', 1, 1, w, h - 1)
-  main:add_tab('Available', available_tab)
-
-  local package_list = kidven.new('agui-list', 1, 1, 1, 1)
-  local details_pane = kidven.new('kaxui-detail-pane', app, 1, 1, 1, 1)
-
-  local flex = kidven.new('agui-layout', available_tab)
-  
-  flex:add(package_list)
-  flex:add(details_pane)
-
-  flex:add_anchor(package_list, 'top', 'top', -1, 0)
-  flex:add_anchor(package_list, 'left', 'left', -1, 0)
-
-  if pocket ~= nil then
-    flex:add_anchor(package_list, 'right', 'right', -1, 0)
-    flex:add_anchor(package_list, 'bottom', 'top', -1, -5)
-
-    local splitter = kidven.new('agui-horiz-seperator', 1, 1, 1)
-    flex:add(splitter)
-
-    flex:add_anchor(splitter, 'top', 'bottom', package_list, 0)
-    flex:add_anchor(splitter, 'left', 'left', -1, 0)
-    flex:add_anchor(splitter, 'right', 'right', -1, 0)
-
-    flex:add_anchor(details_pane, 'top', 'bottom', splitter, 0)
-    flex:add_anchor(details_pane, 'left', 'left', -1, 0)
-  else
-    flex:add_anchor(package_list, 'right', 'middle', -1, 7)
-    flex:add_anchor(package_list, 'bottom', 'bottom', -1, 10)
-
-
-    local splitter = kidven.new('agui-virt-seperator', 1, 1, 1)
-    flex:add(splitter)
-
-    flex:add_anchor(splitter, 'left', 'right', package_list, 0)
-    flex:add_anchor(splitter, 'top', 'top', -1, 0)
-    flex:add_anchor(splitter, 'bottom', 'bottom', -1, 0)
-
-    flex:add_anchor(details_pane, 'left', 'right', splitter, 0)
-    flex:add_anchor(details_pane, 'top', 'top', -1, 0)
-  end
-
-  flex:add_anchor(details_pane, 'bottom', 'bottom', -1, 0)
-  flex:add_anchor(details_pane, 'right', 'right', -1, 0)
-
-  flex:reflow()
-  details_pane.flex:reflow()
-
-  app:subscribe("gui.resized",
-  function()
-    flex:reflow()
-    details_pane.flex:reflow()
-  end)
-
-  local install_opt = details_pane.menu:add_option("Install")
-
-  app:subscribe("gui.button.pressed", function(_, id)
-    if id == install_opt.agui_widget.id then
-      details_pane:hide_menu()
-
-      app.pool:new(function()
-        state:install(details_pane.shown_package.name)
-
-        state:save()
-        
-        app:trigger("kaxui.data.load")
-		   end)
-    end
-				      end)
-
-  app:subscribe("kaxui.data.load", function()
-    available_tab:select(package_list)
-
-    package_list.items = {}
-
-    for _, pkg in pairs(state:get_packages()) do
-      if pkg.state == "available" then
-        package_list:add(kidven.new('kaxui-pkg-list-item', pkg))
-      end
-    end
-				   end)
-
-  app:subscribe("gui.list.changed", function(_, id, itemid, item)
-    if id == package_list.agui_widget.id then
-      details_pane:show_package(item.pkg)
-    end
-				    end)
+if term.isColour() then
+  app:load_theme("__LIB__/kaxui/res/theme")
 end
 
------------------------------------------------------------
--- Installed Tab                                         --
------------------------------------------------------------
+local state = acg.load_state()
 
-local function add_installed()
-  local installed_tab = kidven.new('agui-container', 1, 1, w, h - 1)
-  main:add_tab("Installed", installed_tab)
+-- Main Window.
 
-  local package_list = kidven.new('agui-list', 1, 1, 1, 1)
-  local details_pane = kidven.new('kaxui-detail-pane', app, 1, 1, 1, 1)
+local details_pane = kidven.new('kaxui-detail-pane', app)
+local sidebar = kidven.new('kaxui-sidebar', state)
 
-  local flex = kidven.new('agui-layout', installed_tab)
+local main = kidven.new('agui-split-pane', sidebar, details_pane)
 
-  flex:add(package_list)
-  flex:add(details_pane)
+main.active = 2
 
-
-  flex:add_anchor(package_list, 'top', 'top', -1, 0)
-  flex:add_anchor(package_list, 'left', 'left', -1, 0)
-
-
-  if pocket ~= nil then
-    flex:add_anchor(package_list, 'right', 'right', -1, 0)
-    flex:add_anchor(package_list, 'bottom', 'top', -1, -5)
-
-    local splitter = kidven.new('agui-horiz-seperator', 1, 1, 1)
-    flex:add(splitter)
-
-    flex:add_anchor(splitter, 'top', 'bottom', package_list, 0)
-    flex:add_anchor(splitter, 'left', 'left', -1, 0)
-    flex:add_anchor(splitter, 'right', 'right', -1, 0)
-
-    flex:add_anchor(details_pane, 'top', 'bottom', splitter, 0)
-    flex:add_anchor(details_pane, 'left', 'left', -1, 0)
-  else
-    flex:add_anchor(package_list, 'right', 'middle', -1, 7)
-    flex:add_anchor(package_list, 'bottom', 'bottom', -1, 10)
-
-
-    local splitter = kidven.new('agui-virt-seperator', 1, 1, 1)
-    flex:add(splitter)
-
-    flex:add_anchor(splitter, 'left', 'right', package_list, 0)
-    flex:add_anchor(splitter, 'top', 'top', -1, 0)
-    flex:add_anchor(splitter, 'bottom', 'bottom', -1, 0)
-
-    flex:add_anchor(details_pane, 'left', 'right', splitter, 1)
-    flex:add_anchor(details_pane, 'top', 'top', -1, 0)
-  end
-
-  flex:add_anchor(details_pane, 'bottom', 'bottom', -1, 0)
-  flex:add_anchor(details_pane, 'right', 'right', -1, 0)
-
-  flex:reflow()
-  details_pane.flex:reflow()
-
-
-  app:subscribe("gui.resized",
-  function()
-    flex:reflow()
-    details_pane.flex:reflow()
-  end)
-
-  local reinstall_opt = details_pane.menu:add_option("Reinstall")
-  local update_opt = details_pane.menu:add_option("Update")
-  local remove_opt = details_pane.menu:add_option("Remove")
-
-  app:subscribe("gui.button.pressed", function(_, id)
-    if id == reinstall_opt.agui_widget.id then
-      details_pane:hide_menu()
-
-      app.pool:new(function()
-        state:install(details_pane.shown_package.name)
-        state:save()
-		   end)
-    elseif id == update_opt.agui_widget.id then
-      details_pane:hide_menu()
-
-      app.pool:new(function()
-        state:install(details_pane.shown_package.name)
-        state:save()
-
-        app:trigger("kaxui.data.load")
-		   end)
-    elseif id == remove_opt.agui_widget.id then
-      details_pane:hide_menu()
-
-      app.pool:new(function()
-        state:remove(details_pane.shown_package.name)
-        state:save()
-
-        app:trigger("kaxui.data.load")
-		   end)
-    end
-				      end)
-
-  app:subscribe("kaxui.data.load", function()
-    installed_tab:select(package_list)
-
-    package_list.items = {}
-    
-    for _, pkg in pairs(state:get_packages()) do
-      if pkg.state == "installed" or pkg.state == "update" then
-        package_list:add(kidven.new('kaxui-pkg-list-item', pkg))
-      end
-    end
-				   end)
-
-  app:subscribe("gui.list.changed", function(_, id, itemid, item)
-    if id == package_list.agui_widget.id then
-      update_opt:set_enabled(item.pkg.state == "update")
-
-      details_pane:show_package(item.pkg)
-    end
-				    end)
+if not pocket then
+  main.min_pos = 15
 end
 
------------------------------------------------------------
--- Misc Settings
------------------------------------------------------------
+main.max_pos = 15
 
-local function add_settings()
-  local settings = kidven.new('agui-container', 1, 1, w, h - 1)
-  main:add_tab("Settings", settings)
+main.position = 15
 
-  local menu = kidven.new('kaxui-menu')
-  settings:add(menu)
-
-  local btn_reload = menu:add_option('Reload')
-  local btn_exit = menu:add_option('Exit')
-
-  btn_exit.agui_widget.fg = "exit-button--fg"
-  btn_exit.agui_widget.bg = "exit-button--bg"
-
-  menu.agui_widget.x = math.floor(w / 2) - 5
-  menu.agui_widget.y = math.floor(h / 2) - math.floor(menu.agui_widget.height / 2)
-
-  settings:select(menu)
-
-  app:subscribe("gui.button.pressed", 
-  function(_, id)
-    if id == btn_reload.agui_widget.id then
-      app.pool:new(
-      function() 
-	for _, repo in pairs(state.repos) do
-	  repo:update()
-	end
-
-	app:trigger("kaxui.data.load")
-      end)
-    elseif id ==  btn_exit.agui_widget.id then
-      app:quit()
-    end
-  end)
-end
-
-
--- Setup the main GUI
-app:subscribe("gui.resized",
-function()
-  main:resize(term.getSize())
-end)
-
-add_available()
-add_installed()
-add_settings()
+main:update_active()
 
 app:add(main)
-app:add(prog_win)
+
+main:resize(term.getSize())
+
+app:subscribe('gui.list.changed', function(_, id, iid, item)
+  if id == sidebar.package_list.agui_widget.id then
+    if item:is_a('kaxui-list-pkg') then
+      details_pane:show_package(item.pkg)
+    end
+  end
+end)
+
+
+-- Loading Window
+
+local loading_win = kidven.new('agui-container', 1, 1, term.getSize())
+
+loading_win.agui_widget.fg = 'black'
+loading_win.agui_widget.bg = 'white'
+
+local loading_layout = kidven.new('agui-layout', loading_win)
+
+local loading_prog_bar = kidven.new('agui-progress-bar', 2, 4, 16)
+local loading_text = kidven.new('agui-label', 2, 2, 'Loading', 16)
+
+loading_layout:add(loading_text)
+
+loading_layout:add_anchor(loading_text, 'left', 'left', -1, 1)
+loading_layout:add_anchor(loading_text, 'top', 'middle', -1, 1)
+loading_layout:add_anchor(loading_text, 'right', 'right', -1, 1)
+
+loading_layout:add(loading_prog_bar)
+
+loading_layout:add_anchor(loading_prog_bar, 'left', 'left', -1, 1)
+loading_layout:add_anchor(loading_prog_bar, 'top', 'middle', -1, -1)
+loading_layout:add_anchor(loading_prog_bar, 'right', 'right', -1, 1)
+
+loading_layout:reflow()
+
+state:hook("task_begin", function(id)
+  app:add(loading_win)
+  app:remove(main)
+  app:select(loading_win)
+
+  loading_prog_bar.format = "%d%%"
+  loading_prog_bar.progress = 0
+
+  app:draw()
+end)
+
+state:hook("task_update", function(id, detail, cur, max)
+  loading_text.text = detail
+
+  if max > 0 then
+    loading_prog_bar.format = "%d%%"
+    loading_prog_bar:set_progress(cur / max)
+  else
+    loading_prog_bar.format = cur .. " / ???"
+    loading_prog_bar:set_indetermenate(true)
+  end
+
+  app:draw()
+end)
+
+state:hook("task_complete", function(id, detail)
+  app:remove(loading_win)
+  app:add(main)
+  app:select(main)
+
+  app:draw()
+end)
+
+-- Package install/uninstall/etc events.
+
+app:subscribe('kaxui.app.uninstall', function(_, _, pkg)
+  app.pool:new(function()
+    state:uninstall(pkg.name)
+
+    sidebar:load()
+
+    state:save()
+  end)
+end)
+
+app:subscribe('kaxui.app.install', function(_, _, pkg)
+  app.pool:new(function()
+    state:install(pkg.name)
+
+    sidebar:load()
+
+    state:save()
+  end)
+end)
+
+app:subscribe('kaxui.app.reinstall', function(_, _, pkg)
+  app.pool:new(function()
+    state:remove(pkg.name)
+    state:install(pkg.name)
+
+    sidebar:load()
+
+    state:save()
+  end)
+end)
+
+-- More events.
+
+app:subscribe('gui.resized', function()
+  main:resize(term.getSize())
+  loading_win:resize(term.getSize())
+
+  loading_layout:reflow()
+end)
 
 
 app:subscribe("program.start", 
@@ -337,11 +155,8 @@ function()
       repo:update()
     end
 
-    app:trigger("kaxui.data.load")
-    app:draw()
+    sidebar:load()
   end)
 end)
-
--- Hook events.
 
 app:main()
