@@ -83,16 +83,14 @@ function Object:init(display)
 
   self:load_theme("__CFG__/agui/themes/user")
 
-  self.mouse_x = 1
-  self.mouse_y = 1
+  self.mouse = new('agui-mouse-track')
 
   self.event_loop:subscribe("event.mouse_click", function(_, btn, x, y)
     local ok, err = pcall(function()
       self.screens[self:active_window()].gooey:clicked(x, y, btn)
     end)
 
-    self.mouse_x = x
-    self.mouse_y = y
+    self.mouse:set(x, y)
 
     if not ok then
       self.main_err = err
@@ -102,11 +100,10 @@ function Object:init(display)
 
   self.event_loop:subscribe("event.mouse_drag", function(_, btn, x, y)
     local ok, err = pcall(function()
-      self.screens[self:active_window()].gooey:dragged(x - self.mouse_x, y - self.mouse_y, btn)
+      self.screens[self:active_window()].gooey:dragged(x - self.mouse.x, y - self.mouse.y, btn)
     end)
 
-    self.mouse_x = x
-    self.mouse_y = y
+    self.mouse:set(x, y)
 
     if not ok then
       self.main_err = err
@@ -119,8 +116,7 @@ function Object:init(display)
       self.screens[self:active_window()].gooey:scroll(x, y, dir)
     end)
 
-    self.mouse_x = x
-    self.mouse_y = y
+    self.mouse:set(x, y)
 
     if not ok then
       self.main_err = err
