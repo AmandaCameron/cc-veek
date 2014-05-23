@@ -17,7 +17,16 @@ function Widget:load()
   local installed = {}
   local available = {}
 
-  for _, pkg in pairs(self.state:get_packages()) do
+  local task = self.state:begin_task('kaxui-load-packages', 0)
+
+  local packages = self.state:get_packages()
+  local i = 0
+
+  for _, pkg in pairs(packages) do
+    i = i + 1
+
+    task:update("Processing " .. pkg.name, i)
+
     if pkg.state == "update" then
       update[#update + 1] = pkg
     elseif pkg.state == "installed" then
@@ -26,6 +35,8 @@ function Widget:load()
       available[#available + 1] = pkg
     end
   end
+
+  task:done('Processed Packages.')
 
   if #update > 0 then
     self.package_list:add(new('kaxui-list-header', 'Updates'))

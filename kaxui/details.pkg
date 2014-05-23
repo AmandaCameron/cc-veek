@@ -3,14 +3,12 @@ Description: A graphical front-end for ac-get
 Executable: kaxui
 Docs: kaxui
 Library: kaxui/
-Library: kaxui/widgets/
-Library: kaxui/res/
 Library: kaxui => kaxui/kaxui
+Library: kaxui/widgets/
 Library: widgets/detail-pane => kaxui/widgets/detail-pane
 Library: widgets/list-pkg => kaxui/widgets/list-pkg
 Library: widgets/list-header => kaxui/widgets/list-header
-Library: widgets/menu => kaxui/widgets/menu
-Library: widgets/menu-button => kaxui/widgets/menu-button
 Library: widgets/sidebar => kaxui/widgets/sidebar
+Library: kaxui/res/
 Library: res/theme => kaxui/res/theme
 Dependency: lib-agui

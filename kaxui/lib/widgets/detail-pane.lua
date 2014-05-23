@@ -9,11 +9,11 @@ function Widget:init(app)
 
   self.agui_widget.main = app
 
-  self.btn_menu = new('agui-button', 1, 2, 'Actions', 10)
+  self.btn_menu = new('agui-button', 1, 2, 'Actions', 12)
   self.btn_menu:set_enabled(false)
 
   self.flex:add(self.btn_menu)
-  self.flex:add_anchor(self.btn_menu, 'top', 'top', -1, 0)
+  self.flex:add_anchor(self.btn_menu, 'top', 'top', -1, 1)
   self.flex:add_anchor(self.btn_menu, 'left', 'right', -1, -10)
   
   --self.agui_container:add(self.btn_menu)
@@ -47,7 +47,7 @@ function Widget:init(app)
 
   self.flex:add(self.pkg_name)
 
-  self.flex:add_anchor(self.pkg_name, 'top', 'top', -1, 0)
+  self.flex:add_anchor(self.pkg_name, 'top', 'top', -1, 1)
   self.flex:add_anchor(self.pkg_name, 'left', 'left', -1, 1)
   self.flex:add_anchor(self.pkg_name, 'right', 'right', -1, 12)
 
