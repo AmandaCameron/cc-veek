@@ -1,5 +1,7 @@
 === 17 ===
 * New agui-scroll-view widget, which handles genericising the scrolling of a larger-than-the-canvas widget.
+* Misc. Logic & Colour fix-ups of the agui-split-pane widget.
+* Fix a bug on the agui-menu widget that caused it to crash the app when an invalid option was selected.
 
 === 16 ===
 * Massive Normal Computer improvements.

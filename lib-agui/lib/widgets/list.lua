@@ -97,7 +97,7 @@ function Widget:move_up()
 
 	self:get_current():focus()
 	
-	self:trigger('gui.list.changed', self.current_item, self:get_current())
+	self.agui_widget:trigger('gui.list.changed', self.current_item, self:get_current())
 end
 
 function Widget:move_down()
@@ -119,7 +119,7 @@ function Widget:move_down()
 
 	self:get_current():focus()
 
-	self:trigger('gui.list.changed', self.current_item, self:get_current())
+	self.agui_widget:trigger('gui.list.changed', self.current_item, self:get_current())
 end
 
 
@@ -185,6 +185,8 @@ end
 
 function Widget:draw_contents(c, theme)
 	for n, item in ipairs(self.items) do
+		item.agui_widget.enabled = self.agui_widget.focused
+		
 		if n ~= self.current_item then
 			self:draw_raw(item, c, theme)
 		end
