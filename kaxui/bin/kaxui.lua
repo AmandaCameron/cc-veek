@@ -110,6 +110,8 @@ app:subscribe('kaxui.app.uninstall', function(_, _, pkg)
   app.pool:new(function()
     state:uninstall(pkg.name)
 
+    sidebar:load()
+
     state:save()
   end)
 end)
@@ -117,6 +119,8 @@ end)
 app:subscribe('kaxui.app.install', function(_, _, pkg)
   app.pool:new(function()
     state:install(pkg.name)
+
+    sidebar:load()
 
     state:save()
   end)
@@ -126,6 +130,8 @@ app:subscribe('kaxui.app.reinstall', function(_, _, pkg)
   app.pool:new(function()
     state:remove(pkg.name)
     state:install(pkg.name)
+
+    sidebar:load()
 
     state:save()
   end)
@@ -149,20 +155,7 @@ function()
       repo:update()
     end
 
-    app:add(loading_win)
-    app:remove(main)
-    app:select(loading_win)
-
-    loading_text.text = "Parsing package list..."
-    loading_prog_bar:set_indetermenate(true)
-
     sidebar:load()
-
-    app:remove(loading_win)
-    app:add(main)
-    app:select(main)
-
-    app:draw()
   end)
 end)
 
