@@ -1,7 +1,6 @@
 Name: Kaxui
 Description: A graphical front-end for ac-get
 Executable: kaxui
-Docs: kaxui
 Library: kaxui/
 Library: kaxui => kaxui/kaxui
 Library: kaxui/widgets/

@@ -1,3 +1,5 @@
+-- lint-ignore-global-set: new
+
 -- Canvas API -- Ripped out of agui as it's rather useful
 -- on it's own.
 
@@ -79,7 +81,7 @@ function Canvas:scroll(lines)
   if self.buffered then
     local x, y = self.x, self.y
     self:move(1, self.height)
-    
+
     for i=1,lines do
       table.remove(self.buffer, 1)
       self:write((" "):rep(self.width))
@@ -140,30 +142,32 @@ function Canvas:write(text)
     repeat table.insert(self.buffer, {}) until #self.buffer > y
 
     local line = self.buffer[y]
-    
-    for c_x=0,#text-1 do
-      local clobber = line[x + c_x]
 
-      if clobber then
-	clobber.text = clobber.text:sub(#text - c_x + 1)
+    if #text > 1 then
+      for c_x=0,#text-1 do
+        local clobber = line[x + c_x]
 
-	if clobber.text ~= "" then
-	  line[x + #text] = clobber
+        if clobber then
+        	clobber.text = clobber.text:sub(#text - c_x + 1)
 
-	  break
-	end
+        	if clobber.text ~= "" then
+        	  line[x + #text] = clobber
+
+        	  break
+        	end
+        end
+      end
+
+      for c_x=1,#text-1 do
+        line[x + c_x] = nil
       end
     end
-    
+
     line[x] = {
       fg = self.fg,
       bg = self.bg,
       text = text,
     }
-
-    for i=1,#text-1 do
-      line[x + i] = nil
-    end
 
     self.x = x + #text
 
@@ -200,24 +204,24 @@ function Canvas:blit(x, y, width, height, ctx)
 
     if line then
       for j=1,width do
-	c = line[j + self.offset_x]
+        local c = line[j + self.offset_x]
 
-	if c then	
-	  if c.fg and c.fg ~= fg then
-	    fg = c.fg
+      	if c then
+      	  if c.fg and c.fg ~= fg then
+      	    fg = c.fg
 
-	    ctx.setTextColour(fg)
-	  end
+      	    ctx.setTextColour(fg)
+      	  end
 
-	  if c.bg and c.bg ~= bg then
-	    bg = c.bg
-	    ctx.setBackgroundColour(bg)
-	  end
-	  
-	  
-	  ctx.setCursorPos(j, i)
-	  ctx.write(c.text)
-	end
+      	  if c.bg and c.bg ~= bg then
+      	    bg = c.bg
+      	    ctx.setBackgroundColour(bg)
+      	  end
+
+
+      	  ctx.setCursorPos(j, i)
+      	  ctx.write(c.text)
+      	end
       end
     end
   end

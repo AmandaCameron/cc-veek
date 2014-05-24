@@ -101,13 +101,13 @@ function Widget:init(app)
 
   app:subscribe("event.http_success", function(_, url, handle)
     if self.shown_package and url == self.shown_package:get_url() .. "/history.txt" then
-      self.pkg_history.text = handle.readAll()
+      self.pkg_history:set_text(handle.readAll())
     end
   end)
 
   app:subscribe("event.http_failure", function(_, url)
     if self.shown_package and url == self.shown_package:get_url() .. "/history.txt" then
-      self.pkg_history.text = "No history to show."
+      self.pkg_history:set_text("No history to show.")
     end
   end)
 end
@@ -192,7 +192,7 @@ function Widget:show_package(pkg)
   end
 
 
-  self.pkg_history.text = "Loading..."
+  self.pkg_history:set_text("Loading...")
 
   http.request(pkg:get_url() .. "/history.txt")
 end
