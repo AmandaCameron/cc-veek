@@ -143,24 +143,21 @@ function Canvas:write(text)
 
     local line = self.buffer[y]
 
+
     if #text > 1 then
       for c_x=0,#text-1 do
         local clobber = line[x + c_x]
 
         if clobber then
-        	clobber.text = clobber.text:sub(#text - c_x + 1)
+          clobber.text = clobber.text:sub(#text - c_x + 1)
 
-        	if clobber.text ~= "" then
-        	  line[x + #text] = clobber
-
-        	  break
-        	end
+          line[x + #text] = clobber
         end
       end
+    end
 
-      for c_x=1,#text-1 do
-        line[x + c_x] = nil
-      end
+    for c_x=0,#text-1 do
+      line[x + c_x] = nil
     end
 
     line[x] = {
