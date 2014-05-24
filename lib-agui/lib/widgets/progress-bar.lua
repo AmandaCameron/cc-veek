@@ -60,6 +60,6 @@ function Widget:draw(canvas, theme)
   else
     canvas:set_bg("progress-bar-ind-bg")
     canvas:set_fg("progress-bar-ind-fg")
-    canvas:write(("/"):rep(#canvas.width))
+    canvas:write(("/"):rep(canvas.width))
   end
 end

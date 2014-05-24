@@ -51,7 +51,7 @@ function Widget:set_enabled(enabled)
 
 	self.dirty = true
 end
-	
+
 function Widget:focus()
 	self.focused = true
 

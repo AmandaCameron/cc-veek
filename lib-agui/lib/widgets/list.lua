@@ -82,7 +82,7 @@ function Widget:move_up()
 	if #self.items == 0 then
 		return
 	end
-	
+
 	if self:get_current() then
 		self:get_current():blur()
 	end
@@ -96,7 +96,7 @@ function Widget:move_up()
 	self:scroll_into_view(0, self:get_current():cast('agui-widget').y - 1)
 
 	self:get_current():focus()
-	
+
 	self.agui_widget:trigger('gui.list.changed', self.current_item, self:get_current())
 end
 
@@ -108,10 +108,10 @@ function Widget:move_down()
 	if self:get_current() then
 		self:get_current():blur()
 	end
-	
+
 	self.current_item = self.current_item + 1
 
-	if self.current_item > #self.items then	
+	if self.current_item > #self.items then
 		self.current_item = 1
 	end
 
@@ -159,7 +159,7 @@ function Widget:key(k)
 
 		return self:get_current():key(k)
 	end
-	
+
 	return false
 end
 
@@ -186,7 +186,7 @@ end
 function Widget:draw_contents(c, theme)
 	for n, item in ipairs(self.items) do
 		item.agui_widget.enabled = self.agui_widget.focused
-		
+
 		if n ~= self.current_item then
 			self:draw_raw(item, c, theme)
 		end
