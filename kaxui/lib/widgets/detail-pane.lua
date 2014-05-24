@@ -13,17 +13,18 @@ function Widget:init(app)
   self.btn_menu:set_enabled(false)
 
   self.flex:add(self.btn_menu)
+
   self.flex:add_anchor(self.btn_menu, 'top', 'top', -1, 1)
   self.flex:add_anchor(self.btn_menu, 'left', 'right', -1, -10)
-  
-  --self.agui_container:add(self.btn_menu)
+
+  self.agui_container:add(self.btn_menu)
 
   local lbl_w = 7
 
   local function add_label(y, text)
     local lbl = new('agui-label', 1, y, text, lbl_w)
     lbl.agui_widget.bg = 'kaxui-label-bg'
-    lbl.agui_widget.fg = 'kaxui-label-fg' 
+    lbl.agui_widget.fg = 'kaxui-label-fg'
 
     self.flex:add(lbl)
     self.flex:add_anchor(lbl, "top", "top", -1, y)
@@ -43,7 +44,23 @@ function Widget:init(app)
     return val
   end
 
+  local bar = new('agui-widget', 1, 1, 1, 3)
+  bar.bg = 'kaxui-title-bg'
+
+  -- Haaaack
+  bar.draw = function(_, c)
+    c:clear()
+  end
+
+  self.flex:add(bar)
+
+  self.flex:add_anchor(bar, 'left', 'left', -1, 0)
+  self.flex:add_anchor(bar, 'right', 'right', -1, 0)
+
   self.pkg_name = new('agui-label', 1, 1, "")
+
+  self.pkg_name.agui_widget.fg = "kaxui-title-fg"
+  self.pkg_name.agui_widget.bg = "kaxui-title-bg"
 
   self.flex:add(self.pkg_name)
 
@@ -51,9 +68,10 @@ function Widget:init(app)
   self.flex:add_anchor(self.pkg_name, 'left', 'left', -1, 1)
   self.flex:add_anchor(self.pkg_name, 'right', 'right', -1, 12)
 
-  self.pkg_version = add_label(3, "Version")
-  self.pkg_repo = add_label(4, "Repo.")
-  self.pkg_desc = add_label(5, "Desc.")
+
+  self.pkg_version = add_label(4, "Version")
+  self.pkg_repo = add_label(5, "Repo.")
+  self.pkg_desc = add_label(6, "Desc.")
 
 
   self.pkg_history = new('agui-textbox', 1, 1, 1, 1)
@@ -132,7 +150,7 @@ function Widget:show_menu()
       self:trigger('kaxui.app.uninstall', self.shown_package)
 
       self:hide_menu()
-    end) 
+    end)
 
     if self.shown_package.state ~= "orphan" then
       self.menu:add("Reinstall", function()
@@ -180,7 +198,7 @@ function Widget:show_package(pkg)
 end
 
 function Widget:key(key)
-  -- Do Nothing when we have no package.  
+  -- Do Nothing when we have no package.
   if not self.shown_package then
     return false
   end
@@ -207,4 +225,4 @@ function Widget:draw(canvas, theme)
     canvas:move(math.floor(canvas.width / 2 - #msg / 2), math.floor(canvas.height / 2))
     canvas:write(msg)
   end
-end   
+end

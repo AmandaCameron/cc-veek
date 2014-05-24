@@ -17,7 +17,7 @@ function Widget:load()
   local installed = {}
   local available = {}
 
-  local task = self.state:begin_task('kaxui-load-packages', 0)
+  local task = self.state:begin_task('kaxui::packages::load', 0)
 
   local packages = self.state:get_packages()
   local i = 0
