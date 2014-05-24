@@ -1,7 +1,7 @@
 local format = {}
 
 function format.is_a(s)
-  for line in s:gmatch("(.+)\r?\n") do
+  for line in s:gmatch("(.-)[\r\n]+") do
     if not line:match("^[ 0123456789abcdef" .. string.char(31) .. string.char(30) .."]+$") then
       return false
     end
@@ -19,7 +19,7 @@ end
 function format.decode(s)
   local data = {}
 
-  for line in s:gmatch("(.+)\r?\n") do
+  for line in s:gmatch("(.-)[\r\n]+") do
     local pixels = {}
 
     local state = 0
