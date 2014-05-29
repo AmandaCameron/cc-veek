@@ -5,11 +5,14 @@ function Widget:init(side_bar, main_view)
 
   self.agui_widget:add_flag('active')
 
+  self.agui_widget.fg = 'seperator-fg'
+  self.agui_widget.bg = 'seperator-bg'
+
   self.min_pos = 1
-  self.max_pos = 8
+  self.max_pos = 10
 
   self.position = self.max_pos
-  
+
   self.active = 1
 
   self.moving = false
@@ -39,11 +42,11 @@ function Widget:update_sizes()
   end
 
   if pocket then
-    self.main_view:resize(self.agui_widget.width - self.min_pos + 1, self.agui_widget.height)
+    self.main_view:resize(self.agui_widget.width - self.min_pos, self.agui_widget.height)
     self.main_view:move(self.min_pos + 1, 1)
   else
-    self.main_view:move(self.position + 2, 1)
-    self.main_view:resize(self.agui_widget.width - self.position - 1, self.agui_widget.height)
+    self.main_view:move(self.position + 1, 1)
+    self.main_view:resize(self.agui_widget.width - self.position, self.agui_widget.height)
   end
 end
 
@@ -66,12 +69,18 @@ end
 -- Widget function overrides
 
 function Widget:resize(w, h)
+  self.main_view:cast('agui-widget').main = self.agui_widget.main
+  self.side_bar:cast('agui-widget').main = self.agui_widget.main
+
   self.agui_widget:resize(w, h)
 
   self:update_sizes()
 end
 
 function Widget:clicked(x, y, button)
+  self.main_view:cast('agui-widget').main = self.agui_widget.main
+  self.side_bar:cast('agui-widget').main = self.agui_widget.main
+
   self.mouse_x = x
   self.mouse_y = y
 
@@ -101,13 +110,14 @@ function Widget:clicked(x, y, button)
 end
 
 function Widget:dragged(x_del, y_del, button)
+  self.main_view:cast('agui-widget').main = self.agui_widget.main
+  self.side_bar:cast('agui-widget').main = self.agui_widget.main
+
   self.mouse_x = self.mouse_x + x_del
   self.mouse_y = self.mouse_y + y_del
 
   if self.moving then
     self.position = self.position + x_del
-
-    self:update_sizes()
 
     if self.position == 1 and pocket then
       self.position = 0
@@ -120,6 +130,8 @@ function Widget:dragged(x_del, y_del, button)
 
       self.moving = false
     end
+
+    self:update_sizes()
   elseif self.mouse_x > self.position then
     self.main_view:dragged(x_del, y_del, button)
   else
@@ -128,6 +140,9 @@ function Widget:dragged(x_del, y_del, button)
 end
 
 function Widget:scroll(x, y, dir)
+  self.main_view:cast('agui-widget').main = self.agui_widget.main
+  self.side_bar:cast('agui-widget').main = self.agui_widget.main
+
   self.mouse_x = x
   self.mouse_y = y
 
@@ -141,6 +156,9 @@ end
 function Widget:focus()
   self.agui_widget:focus()
 
+  self.main_view:cast('agui-widget').main = self.agui_widget.main
+  self.side_bar:cast('agui-widget').main = self.agui_widget.main
+
   if self.active == 1 then
     self.main_view:focus()
   else
@@ -149,6 +167,9 @@ function Widget:focus()
 end
 
 function Widget:blur()
+  self.main_view:cast('agui-widget').main = self.agui_widget.main
+  self.side_bar:cast('agui-widget').main = self.agui_widget.main
+
   self.agui_widget:blur()
 
   self.main_view:blur()
@@ -156,26 +177,33 @@ function Widget:blur()
 end
 
 function Widget:key(k)
-  if k == keys.leftCtrl or k == keys.rightCtrl then
-    self.active = self.active + 1
+  self.main_view:cast('agui-widget').main = self.agui_widget.main
+  self.side_bar:cast('agui-widget').main = self.agui_widget.main
 
-    if self.active > 2 then
+  if self.active == 1 and self.main_view:key(k) then
+    return true
+  elseif self.active == 2 and self.side_bar:key(k) then
+    return true
+  elseif k == keys.tab or k == keys.leftCtrl or k == keys.rightCtrl then
+
+    if self.active == 1 then
+      self.active = 2
+    else
       self.active = 1
     end
 
     self:update_active()
 
     return true
-  else
-    if self.active == 1 then
-      return self.main_view:key(k)
-    else
-      return self.side_bar:key(k)
-    end
   end
+
+  return false
 end
 
 function Widget:char(c)
+  self.main_view:cast('agui-widget').main = self.agui_widget.main
+  self.side_bar:cast('agui-widget').main = self.agui_widget.main
+
   if self.active == 1 then
     self.main_view:char(c)
   else
@@ -184,20 +212,31 @@ function Widget:char(c)
 end
 
 function Widget:draw(c)
-  self:draw_raw(self.main_view, c)
+  self.main_view:cast('agui-widget').main = self.agui_widget.main
+  self.side_bar:cast('agui-widget').main = self.agui_widget.main
+
+  if self.min_pos == 0 then
+    self:draw_raw(self.main_view, c)
+  end
 
   if self.position > 1 then
     self:draw_raw(self.side_bar, c)
   end
 
   if self.position > 0 then
-    c:set_fg('white')
-    c:set_bg('grey')
+    local sub = c:sub(self.position, 1, 1, c.height)
 
-    for y=1,c.height do
-      c:move(self.position, y)
+    sub:set_fg('seperator-fg')
+    sub:set_bg('seperator-bg')
 
-      c:write("|")
+    for y=1,sub.height do
+      sub:move(1, y)
+
+      sub:write("|")
     end
+  end
+
+  if self.min_pos > 0 then
+    self:draw_raw(self.main_view, c)
   end
 end

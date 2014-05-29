@@ -47,6 +47,35 @@ function Canvas:init(ctx, lookup, width, height, buffered)
 
   self.offset_x = 0
   self.offset_y = 0
+
+  self.stack = {}
+end
+
+function Canvas:push()
+  self.stack[#self.stack + 1] = {
+    fg = self.fg,
+    bg = self.bg,
+
+    x = self.x,
+    y = self.y,
+
+    offset_x = self.offset_x,
+    offset_y = self.offset_y,
+  }
+end
+
+function Canvas:pop()
+  if #self.stack == 0 then
+    error("Invalid state for Canvas:pop.", 2)
+  end
+
+  local state = self.stack[#self.stack]
+
+  self.stack[#self.stack] = nil
+
+  for k, v in pairs(state) do
+    self[k] = v
+  end
 end
 
 function Canvas:sub(x, y, width, height)
@@ -143,22 +172,20 @@ function Canvas:write(text)
 
     local line = self.buffer[y]
 
+    for c_x=#text-1,0,-1 do
+      local clobber = line[x + c_x]
+
+      if clobber then
+        clobber.text = clobber.text:sub(#text - c_x + 1)
+
+        line[x + #text] = clobber
+
+        break
+      end
+    end
+
     if #text > 1 then
       for c_x=0,#text-1 do
-        local clobber = line[x + c_x]
-
-        if clobber then
-        	clobber.text = clobber.text:sub(#text - c_x + 1)
-
-        	if clobber.text ~= "" then
-        	  line[x + #text] = clobber
-
-        	  break
-        	end
-        end
-      end
-
-      for c_x=1,#text-1 do
         line[x + c_x] = nil
       end
     end
@@ -271,12 +298,12 @@ function Canvas:as_redirect(x, y, width, height)
   redir.width = width or (self.width - redir.x + 1)
   redir.height = height or (self.height - redir.y + 1)
 
-  redir.setBackgroundColour = function(clr)
-    self:set_bg(clr)
-  end
-
   redir.setTextColour = function(clr)
     self:set_fg(clr)
+  end
+
+  redir.setBackgroundColour = function(clr)
+    self:set_bg(clr)
   end
 
   redir.isColour = function()
@@ -311,23 +338,23 @@ function Canvas:as_redirect(x, y, width, height)
   end
 
   redir.clearLine = function()
-    local x = self.x
+    self:push()
 
     self:move(redir.x, self.y)
     self:write(string.rep(" ", redir.width))
 
-    self:move(x, self.y)
+    self:pop()
   end
 
   redir.clear = function()
-    local x, y = self.x, self.y
+    self:push()
 
     for line=redir.y,redir.y+redir.height do
       self:move(redir.x, line)
       self:write(string.rep(" ", redir.width))
     end
 
-    self:move(self.x, self.y)
+    self:pop()
   end
 
   -- Bloody Americans.

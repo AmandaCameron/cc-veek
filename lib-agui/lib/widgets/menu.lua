@@ -123,7 +123,7 @@ function Widget:key(key)
       self.selected = #self.items
     end
 
-    while self.items[self.selected][1] ~= "option" do            
+    while self.items[self.selected][1] ~= "option" do
       if self.selected < 0 then
         self.selected = #self.items
       end
@@ -139,7 +139,7 @@ function Widget:key(key)
       self.selected = 1
     end
 
-    while self.items[self.selected][1] ~= "option" do            
+    while self.items[self.selected][1] ~= "option" do
       if self.selected > #self.items then
         self.selected = 1
       end
@@ -149,7 +149,9 @@ function Widget:key(key)
 
     return true
   elseif key == keys.enter then
-    self.items[self.selected][3]()
+    if self.items[self.selected] then
+      self.items[self.selected][3]()
+    end
 
     return true
   end

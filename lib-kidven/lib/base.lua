@@ -120,12 +120,24 @@ end
 function verify(args, ...)
   local types = { ... }
   for i, v in ipairs(args) do
+    local opt = false
+
+    if types[i]:sub(-1) == "?" then
+      opt = true
+      
+      types[i] = types[i]:sub(1, -2)
+    end
+
     if type(v) == "table" and types[i] ~= "table" then
       if not v.is_a or not v:is_a(types[i]) then
-        error("Expected: " .. table.concat(types, ", "), 2)
+        if not opt then
+          error("Expected: " .. table.concat(types, ", "), 2)
+        end
       end
     elseif type(v) ~= types[i] then
-      error("Expected: " .. table.concat(types, ", "), 2)
+      if not opt then
+        error("Expected: " .. table.concat(types, ", "), 2)
+      end
     end
   end
 end

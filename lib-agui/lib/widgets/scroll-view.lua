@@ -144,11 +144,15 @@ function Widget:draw(c)
     x_bar_pos = c.height - self.x_bar_size
   end
 
+  c:clear()
+  c:move(1, 1)
+
+  c:push()
   c:translate(0 - self.scroll_x, 0 - self.scroll_y)
 
   self.draw_contents(c)
 
-  c:translate(0, 0)
+  c:pop()
 
   if self.height > c.height then
     for y=1,c.height - 1 do
@@ -210,4 +214,6 @@ function Widget:reflow()
   if self.x_bar_size < 3 then
     self.x_bar_size = 3
   end
+
+  self.agui_widget.dirty = true
 end

@@ -11,6 +11,8 @@ function Image:lines()
 end
 
 function Image:render(canvas, trans)
+  canvas:push()
+
   for y, line in ipairs(self.data) do
     for x, pixel in ipairs(line) do
       canvas:move(x, y)
@@ -31,6 +33,8 @@ function Image:render(canvas, trans)
       end
     end
   end
+
+  canvas:pop()
 end
 
 function Image:size()

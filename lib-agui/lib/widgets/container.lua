@@ -39,7 +39,7 @@ function Widget:remove(child)
   end
 
   for c, wid in ipairs(self.children) do
-    if wid.agui_widget.id == child.agui_widget.id then
+    if wid:cast('agui-widget').id == child:cast('agui-widget').id then
       table.remove(self.children, c)
       return
     end
@@ -52,7 +52,7 @@ function Widget:select(child)
   end
 
   if self:get_focus() then
-    if self:get_focus().agui_widget.id == child.agui_widget.id then
+    if self:get_focus():cast('agui-widget').id == child:cast('agui-widget').id then
       -- Shortcut to avoid bluring an already-selected widget.
       return
     end
@@ -127,8 +127,8 @@ function Widget:focus_next()
       found = 1 + found
     end
 
-    if self:get_focus():cast('agui-widget'):has_flag('active') 
-      and self:get_focus():cast('agui-widget').enabled 
+    if self:get_focus():cast('agui-widget'):has_flag('active')
+      and self:get_focus():cast('agui-widget').enabled
     and self.cur_focus ~= start then
       break
     end
@@ -178,7 +178,7 @@ function Widget:char(ch)
 end
 
 function Widget:clicked(x, y, button)
-  if self:get_focus() and in_widget(x, y, self:get_focus().agui_widget) then
+  if self:get_focus() and in_widget(x, y, self:get_focus():cast('agui-widget')) then
     local child = self:get_focus()
 
     if child:has_flag("active") then
@@ -189,11 +189,11 @@ function Widget:clicked(x, y, button)
   end
 
   for _, child in ipairs(self.children) do
-    if in_widget(x, y, child.agui_widget) then
+    if in_widget(x, y, child:cast('agui-widget')) then
       if child:has_flag("active") then
 	self:select(child)
 
-	child:clicked(x - child.agui_widget.x + 1, y - child.agui_widget.y + 1, button)
+	child:clicked(x - child:cast('agui-widget').x + 1, y - child:cast('agui-widget').y + 1, button)
 
 	return
       end
@@ -202,7 +202,7 @@ function Widget:clicked(x, y, button)
 end
 
 function Widget:scroll(x, y, dir)
-  if self:get_focus() and in_widget(x, y, self:get_focus().agui_widget) then
+  if self:get_focus() and in_widget(x, y, self:get_focus():cast('agui-widget')) then
     local child = self:get_focus()
 
     if child:has_flag("active") then
@@ -213,11 +213,11 @@ function Widget:scroll(x, y, dir)
   end
 
   for _, child in ipairs(self.children) do
-    if in_widget(x, y, child.agui_widget) then
+    if in_widget(x, y, child:cast('agui-widget')) then
       if child:has_flag("active") then
 	self:select(child)
 
-	child:scroll(x - child.agui_widget.x + 1, y - child.agui_widget.y + 1, dir)
+	child:scroll(x - child:cast('agui-widget').x + 1, y - child:cast('agui-widget').y + 1, dir)
       end
     end
   end

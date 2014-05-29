@@ -51,7 +51,7 @@ function Widget:set_enabled(enabled)
 
 	self.dirty = true
 end
-	
+
 function Widget:focus()
 	self.focused = true
 
@@ -143,6 +143,8 @@ end
 -- This should NOT be over-written
 
 function Widget:draw_raw(widget, pc, theme)
+	pc:push()
+
 	if widget:cast('agui-widget'):has_flag('buffered') then
 		if not widget:cast('agui-widget').canvas or widget:cast('agui-widget').dirty then
 			widget:cast('agui-widget').canvas = canvas.new(
@@ -173,4 +175,6 @@ function Widget:draw_raw(widget, pc, theme)
 
 		widget:draw(c, theme)
 	end
+
+	pc:pop()
 end

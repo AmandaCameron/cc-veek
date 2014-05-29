@@ -66,10 +66,16 @@
 		['list-focused-fg'] = 'black',
 
 		-- List Items
-		['list-item-bg'] = 'transparent',
-		['list-item-fg'] = 'transparent',
+		['list-item-bg'] = 'list-focused-bg',
+		['list-item-fg'] = 'list-focused-fg',
+
 		['list-item-focused-bg'] = 'lightBlue',
 		['list-item-focused-fg'] = 'black',
+
+    -- We re-purpose the disabled tag for list-items for
+    -- the list un-focused state.
+    ['list-item-disabled-bg'] = 'list-bg',
+    ['list-item-disabled-fg'] = 'list-fg',
 
 		-- Tab Bar
 		['tab-focused-active-bg'] = 'grey',
@@ -97,11 +103,25 @@
 
     ['progress-bar-ind-fg'] = 'white',
     ['progress-bar-ind-bg'] = 'lightGrey',
+
     -- Menus
     ['menuitem-selected-bg'] = 'lightBlue',
     ['menuitem-selected-fg'] = 'black',
     
     ['menuitem-bg'] = 'white',
     ['menuitem-fg'] = 'black',
+    
+    -- Scroll Views
+    ['scroll-bar-bg'] = 'white',
+    ['scroll-bar-fg'] = 'lightBlue',
+
+    ['scroll-bar-knob-bg'] = 'blue',
+    ['scroll-bar-knob-fg'] = 'white',
+
+    ['scroll-bar-knob-begin-bg'] = 'scroll-bar-knob-bg',
+    ['scroll-bar-knob-begin-fg'] = 'scroll-bar-knob-fg',
+
+    ['scroll-bar-knob-end-bg'] = 'scroll-bar-knob-bg',
+    ['scroll-bar-knob-end-fg'] = 'scroll-bar-knob-fg',
 	}
 }
