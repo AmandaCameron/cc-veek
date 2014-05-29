@@ -5,9 +5,12 @@
 		['screen-fg'] = 'black',
 		['screen-bg'] = 'white',
 
+		['container-fg'] = 'screen-fg',
+		['container-bg'] = 'screen-bg',
+
 		-- Label
-		['label-fg'] = 'black',
-		['label-bg'] = 'transparent',
+		['label-fg'] = 'screen-fg',
+		['label-bg'] = 'screen-bg',
 
 		-- Button
 		['button-fg'] = 'white',
@@ -36,13 +39,13 @@
 		-- Controls
     ['window-controls-fg'] = 'white',
     ['window-controls-bg'] = 'window-border-bg',
-    
+
     ['window-close-fg'] = 'black',
     ['window-close-bg'] = 'red',
-    
+
     ['window-minimise-fg'] = 'black',
     ['window-minimise-bg'] = 'yellow',
-    
+
     ['window-maximise-fg'] = 'black',
     ['window-maximise-bg'] = 'green',
 
@@ -66,16 +69,16 @@
 		['list-focused-fg'] = 'black',
 
 		-- List Items
-		['list-item-bg'] = 'list-focused-bg',
-		['list-item-fg'] = 'list-focused-fg',
+		['list-item-bg'] = 'transparent',
+		['list-item-fg'] = 'transparent',
 
 		['list-item-focused-bg'] = 'lightBlue',
 		['list-item-focused-fg'] = 'black',
 
     -- We re-purpose the disabled tag for list-items for
     -- the list un-focused state.
-    ['list-item-disabled-bg'] = 'list-bg',
-    ['list-item-disabled-fg'] = 'list-fg',
+    --['list-item-disabled-bg'] = 'list-bg',
+    --['list-item-disabled-fg'] = 'list-fg',
 
 		-- Tab Bar
 		['tab-focused-active-bg'] = 'grey',
@@ -107,10 +110,10 @@
     -- Menus
     ['menuitem-selected-bg'] = 'lightBlue',
     ['menuitem-selected-fg'] = 'black',
-    
+
     ['menuitem-bg'] = 'white',
     ['menuitem-fg'] = 'black',
-    
+
     -- Scroll Views
     ['scroll-bar-bg'] = 'white',
     ['scroll-bar-fg'] = 'lightBlue',
