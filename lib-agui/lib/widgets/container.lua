@@ -76,8 +76,6 @@ function Widget:select(child)
 end
 
 function Widget:draw(pc, theme)
-  pc:set_bg(self.agui_widget.bg)
-  pc:set_fg(self.agui_widget.fg)
   pc:clear()
 
   self:draw_children(pc, theme)
