@@ -1,6 +1,10 @@
 local format = {}
 
 function format.is_a(s)
+  if s:sub(-1) ~= "\r" and s:sub(-1) ~= "\n" then
+    s = s .. "\n"
+  end
+
   for line in s:gmatch("(.-)[\r\n]+") do
     if not line:match("^[ 1234567890abcdef]+$") then
       return false
@@ -17,9 +21,17 @@ for n = 1,16 do
 end
 
 function format.decode(s)
+  if s:sub(-1) ~= "\r" and s:sub(-1) ~= "\n" then
+    s = s .. "\n"
+  end
+
   local data = {}
 
   for line in s:gmatch("(.-)[\r\n]+") do
+    if line == "" then
+      break
+    end
+
     local pixels = {}
     table.insert(data, pixels)
     for pixel in line:gmatch(".") do
