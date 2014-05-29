@@ -13,6 +13,8 @@ function Widget:init(parent, width)
     self.parent = parent:cast('agui-app-window').gooey
   end
 
+  self.visible = false
+
   self:clear()
 end
 
@@ -36,6 +38,8 @@ function Widget:add_seperator()
 end
 
 function Widget:show(x, y)
+  self.visible = true
+
   if x > self.parent.agui_widget.width - self.agui_widget.width then
     x = x - self.agui_widget.width
   end
@@ -57,6 +61,8 @@ function Widget:show(x, y)
 end
 
 function Widget:hide()
+  self.visible = false
+
   self.parent:remove(self)
 
   self.parent:select(self.prev)
@@ -94,7 +100,7 @@ function Widget:draw(c, t)
       end
 
       if #text < self.agui_widget.width then
-        local padding = string.rep(" ", math.floor((self.agui_widget.width - #text) / 2)) 
+        local padding = string.rep(" ", math.floor((self.agui_widget.width - #text) / 2))
         text = padding .. text
       end
 
@@ -118,7 +124,7 @@ end
 function Widget:key(key)
   if key == keys.up then
     self.selected = self.selected - 1
-          
+
     if self.selected <= 0 then
       self.selected = #self.items
     end
