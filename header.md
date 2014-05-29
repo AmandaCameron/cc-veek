@@ -21,6 +21,13 @@ Sauce?
 
 The source code for this project can be found on [My GitHub](https://github.com/AmandaCameron/cc-veek)
 
+Screenshots?
+============
+
+![Kaxui](http://amanda.darkdna.net/i/669df.png)
+
+**More to come**
+
 Docs?
 =====
 
