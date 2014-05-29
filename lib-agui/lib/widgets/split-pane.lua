@@ -5,6 +5,9 @@ function Widget:init(side_bar, main_view)
 
   self.agui_widget:add_flag('active')
 
+  self.agui_widget.fg = 'seperator-fg'
+  self.agui_widget.bg = 'seperator-bg'
+
   self.min_pos = 1
   self.max_pos = 10
 
@@ -212,32 +215,28 @@ function Widget:draw(c)
   self.main_view:cast('agui-widget').main = self.agui_widget.main
   self.side_bar:cast('agui-widget').main = self.agui_widget.main
 
-  c:clear()
-  c:move(1, 1)
-
-  if self.active == 2 then
-    self:draw_raw(self.main_view, c)
-
-    if self.position > 1 then
-      self:draw_raw(self.side_bar, c)
-    end
-  else
-    if self.position > 1 then
-      self:draw_raw(self.side_bar, c)
-    end
-
+  if self.min_pos == 0 then
     self:draw_raw(self.main_view, c)
   end
 
+  if self.position > 1 then
+    self:draw_raw(self.side_bar, c)
+  end
 
   if self.position > 0 then
-    c:set_fg('seperator-fg')
-    c:set_bg('seperator-bg')
+    local sub = c:sub(self.position, 1, 1, c.height)
 
-    for y=1,c.height do
-      c:move(self.position, y)
+    sub:set_fg('seperator-fg')
+    sub:set_bg('seperator-bg')
 
-      c:write("|")
+    for y=1,sub.height do
+      sub:move(1, y)
+
+      sub:write("|")
     end
+  end
+
+  if self.min_pos > 0 then
+    self:draw_raw(self.main_view, c)
   end
 end

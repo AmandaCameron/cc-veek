@@ -147,11 +147,12 @@ function Widget:draw(c)
   c:clear()
   c:move(1, 1)
 
+  c:push()
   c:translate(0 - self.scroll_x, 0 - self.scroll_y)
 
   self.draw_contents(c)
 
-  c:translate(0, 0)
+  c:pop()
 
   if self.height > c.height then
     for y=1,c.height - 1 do

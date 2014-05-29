@@ -132,6 +132,8 @@ end
 -- Main Loop Callbacks.
 
 function Widget:focus()
+	self.agui_widget:focus()
+
 	self:mark_dirty()
 
 	if self:get_current() then
@@ -140,6 +142,8 @@ function Widget:focus()
 end
 
 function Widget:blur()
+	self.agui_widget:blur()
+
 	self:mark_dirty()
 end
 
@@ -183,10 +187,8 @@ function Widget:resize(w, h)
 	self:reflow()
 end
 
-function Widget:draw_contents(c, theme)
+function Widget:draw_contents(c)
 	for n, item in ipairs(self.items) do
-		item.agui_widget.enabled = self.agui_widget.focused
-
 		if n ~= self.current_item then
 			self:draw_raw(item, c, theme)
 		end
