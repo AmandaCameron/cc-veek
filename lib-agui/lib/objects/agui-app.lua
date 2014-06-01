@@ -1,5 +1,7 @@
 -- Main Loop object.
 
+-- lint-mode: veek-object
+
 _parent = 'event-loop'
 
 -- Helper function for theme loading.
@@ -44,7 +46,7 @@ function Object:init(display)
   if display.current then
     display = display.current()
   end
-  
+
   self.event_loop:init()
 
   self.pool = new('thread-pool')
@@ -128,7 +130,7 @@ function Object:init(display)
     local ok, err = pcall(function()
       self.screens[self:active_window()].gooey:key(k)
     end)
-    
+
     if not ok then
       self.main_err = err
       self:quit()
@@ -139,7 +141,7 @@ function Object:init(display)
     local ok, err = pcall(function()
       self.screens[self:active_window()].gooey:char(c)
     end)
-    
+
     if not ok then
       self.main_err = err
       self:quit()
@@ -166,7 +168,7 @@ function Object:init(display)
   end
 
   self.event_loop:subscribe('event.window_resize', resize_func)
-  
+
   self.event_loop:subscribe('event.term_resize', function(e)
     resize_func(e, self:active_window())
   end)

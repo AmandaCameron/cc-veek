@@ -1,3 +1,5 @@
+-- lint-mode: veek-widget
+
 _parent = 'agui-scroll-view'
 
 function Widget:init(x, y, width, height, text)

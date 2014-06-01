@@ -1,3 +1,5 @@
+-- lint-mode: veek-widget
+
 -- Scroll-View container for Veek
 
 _parent = "agui-widget"

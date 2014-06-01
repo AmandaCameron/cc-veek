@@ -1,13 +1,15 @@
 -- Layout engine for agui.
 -- Supports anchors and stuff.
 
+-- lint-mode: veek-object
+
 _parent = 'object'
 
 function Object:init(container)
   if container:is_a('agui-app-window') then
     container = container:cast('agui-app-window').gooey
   end
-  
+
   self.container = container
 
   self.anchors = {}

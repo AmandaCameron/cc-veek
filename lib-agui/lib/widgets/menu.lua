@@ -1,3 +1,5 @@
+-- lint-mode: veek-widget
+
 _parent = "agui-widget"
 
 function Widget:init(parent, width)
@@ -94,7 +96,7 @@ function Widget:draw(c, t)
       end
 
       if #text < self.agui_widget.width then
-        local padding = string.rep(" ", math.floor((self.agui_widget.width - #text) / 2)) 
+        local padding = string.rep(" ", math.floor((self.agui_widget.width - #text) / 2))
         text = padding .. text
       end
 
@@ -118,7 +120,7 @@ end
 function Widget:key(key)
   if key == keys.up then
     self.selected = self.selected - 1
-          
+
     if self.selected <= 0 then
       self.selected = #self.items
     end

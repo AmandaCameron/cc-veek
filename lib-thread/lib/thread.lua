@@ -1,3 +1,5 @@
+-- lint-mode: api
+
 -- Threading library.
 -- This is just an easy-to-use wrapper around coroutines
 -- and implements a main loop for the threads.
@@ -20,7 +22,7 @@ function Object:init()
 end
 
 -- Creates a new thread and adds it to it's queue.
------------------------------------------------------------ 
+-----------------------------------------------------------
 -- Arguments:
 --     func: The thread's function.
 --     handler: Event handlers.
@@ -51,7 +53,7 @@ end
 
 -- Runs the coroutines sequentially, careful to handle
 -- ones that have since been stopped.
------------------------------------------------------------ 
+-----------------------------------------------------------
 -- Arguments: None.
 function Object:main()
   local evt = nil
@@ -72,7 +74,7 @@ function Object:main()
     end
 
     local graves = {}
-    
+
     local n = 0
 
     for id, t in pairs(self.coroutines) do

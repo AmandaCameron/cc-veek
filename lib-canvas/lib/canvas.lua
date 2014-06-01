@@ -1,4 +1,4 @@
--- lint-ignore-global-set: new
+-- lint-mode: api
 
 -- Canvas API -- Ripped out of agui as it's rather useful
 -- on it's own.

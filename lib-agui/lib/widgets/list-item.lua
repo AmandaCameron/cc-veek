@@ -1,4 +1,4 @@
--- List Item! For all your List-Item Needs!
+-- lint-mode: veek-widget
 
 _parent = 'agui-widget'
 

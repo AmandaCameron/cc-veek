@@ -1,5 +1,7 @@
 -- Window Object!
 
+-- lint-mode: veek-object
+
 _parent = 'object'
 
 function Object:init(app, display)
@@ -8,7 +10,7 @@ function Object:init(app, display)
 	self.display = display
 	self.canvas = canvas.new(display, function(c) return app:lookup(c) end, display.getSize())
 	self.canvas.buffered = true
-	
+
 	self.gooey = new('agui-container', 1, 1, display.getSize())
 	self.gooey.agui_widget.main = app
 	self.gooey.agui_widget.fg = 'window-body-fg'
@@ -30,7 +32,7 @@ end
 
 function Object:add(widget)
 	widget.agui_widget.main = self.app
-	
+
 	self.gooey:add(widget)
 end
 

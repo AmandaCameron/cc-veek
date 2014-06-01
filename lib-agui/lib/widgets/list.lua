@@ -1,4 +1,4 @@
--- List Widget! It's what's for dinner!
+-- lint-mode: veek-widget
 
 _parent = 'agui-scroll-view'
 
@@ -190,11 +190,11 @@ end
 function Widget:draw_contents(c)
 	for n, item in ipairs(self.items) do
 		if n ~= self.current_item then
-			self:draw_raw(item, c, theme)
+			self:draw_raw(item, c)
 		end
 	end
 
 	if self:get_current() then
-		self:draw_raw(self:get_current(), c, theme)
+		self:draw_raw(self:get_current(), c)
 	end
 end

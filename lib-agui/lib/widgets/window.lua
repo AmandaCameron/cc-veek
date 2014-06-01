@@ -1,3 +1,5 @@
+-- lint-mode: veek-widget
+
 _parent = 'agui-container'
 
 function Widget:init(title, width, height)
@@ -37,7 +39,7 @@ function Widget:key(kc)
     if self.flags.closable then
       menu:add('Close', function()
         menu:hide()
-        
+
         self.agui_widget:trigger('gui.window.closed')
       end)
     end
@@ -45,7 +47,7 @@ function Widget:key(kc)
     if self.flags.maximisable then
       menu:add('Maximise', function()
         menu:hide()
-        
+
         self.agui_widget:trigger('gui.window.maximised')
       end)
     end

@@ -1,3 +1,5 @@
+-- lint-mode: kidven
+
 -- Object class.
 
 _parent = nil

@@ -1,5 +1,7 @@
 -- Tracks the mouse between events for better handling.
 
+-- lint-mode: kidven
+
 _parent = "object"
 
 function Object:init()

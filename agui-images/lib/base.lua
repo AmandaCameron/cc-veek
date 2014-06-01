@@ -1,10 +1,12 @@
 -- Base Image Loader for agui-images
 
+-- lint-mode: api
+
 os.loadAPI("__LIB__/kidven/kidven")
 
 local formats = {}
 
-kidven.load("Image", "agi-image", "__LIB__/agui-images/agi-image")
+kidven.load("Object", "agi-image", "__LIB__/agui-images/agi-image")
 kidven.load("Widget", "agi-display", "__LIB__/agui-images/agi-display")
 
 for _, file in ipairs(fs.list("__LIB__/agui-images/formats/")) do

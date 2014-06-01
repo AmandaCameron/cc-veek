@@ -1,6 +1,8 @@
 -- This is an agui-app-window subclass that is backed by a agui-window instance inside of an agui-app's main_window
 -- This should only get used by the agui-app instance when the term.newWindow protocol is unavailable.
 
+-- lint-mode: veek-object
+
 _parent = 'agui-app-window'
 
 function Object:init(app, title, width, height)

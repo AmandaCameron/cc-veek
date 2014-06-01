@@ -1,3 +1,5 @@
+-- lint-mode: veek-widget
+
 -- Progress Bar Widget, stolen and improved from kaxui.
 -- Supports indetermenate mode and custom formatting of the
 -- middle text.

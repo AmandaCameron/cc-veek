@@ -1,3 +1,5 @@
+-- lint-mode: api
+
 -- Dependencies!
 os.loadAPI("__LIB__/kidven/kidven")
 os.loadAPI("__LIB__/event")

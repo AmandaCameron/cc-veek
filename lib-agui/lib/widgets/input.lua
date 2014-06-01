@@ -1,3 +1,5 @@
+-- lint-mode: veek-widget
+
 _parent = 'agui-widget'
 
 function Widget:init(x, y, width)

@@ -1,5 +1,7 @@
 -- Base Widget for aGUI
 
+-- lint-mode: veek-widget
+
 _parent = 'object'
 
 local _wid_ids = 1

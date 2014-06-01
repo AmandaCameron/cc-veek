@@ -1,3 +1,5 @@
+-- lint-mode: veek-widget
+
 -- A simple tab-bar container.
 -- Right now it's hard-coded to use a single-line tab bar,
 -- that may change in the future.
@@ -155,7 +157,7 @@ function Widget:draw_horiz(canvas)
 
   for name, tab in ipairs(self.tabs) do
     local label = tab.label
-    
+
     if #label > lblWidth - 2 then
       label = label:sub(0, lblWidth-5) .. "..."
     end

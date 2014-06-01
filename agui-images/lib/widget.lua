@@ -1,5 +1,7 @@
 -- Display Widget for agui-image images objects.
 
+-- lint-mode: veek-widget
+
 _parent = "agui-widget"
 
 function Widget:init(img, x, y, w, h)
@@ -29,6 +31,6 @@ function Widget:draw(canvas)
     y_off = 0 - math.floor((canvas.height - h) / 2)
   end
 
-  c:translate(x_off, y_off)
+  canvas:translate(x_off, y_off)
   self.img:render(canvas)
 end

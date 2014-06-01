@@ -1,4 +1,4 @@
--- Label Widget for aGUI
+-- lint-mode: veek-widget
 
 _parent = 'agui-widget'
 

@@ -1,3 +1,6 @@
+-- lint-mode: api
+-- lint-ignore-global-get: kidven
+
 local class_reg = {}
 
 if kidven then
@@ -124,7 +127,7 @@ function verify(args, ...)
 
     if types[i]:sub(-1) == "?" then
       opt = true
-      
+
       types[i] = types[i]:sub(1, -2)
     end
 

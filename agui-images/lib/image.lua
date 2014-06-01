@@ -1,16 +1,16 @@
--- AGUI Image object.
+-- lint-mode: veek-object
 
 _parent = "object"
 
-function Image:init(data)
+function Object:init(data)
   self.data = data
 end
 
-function Image:lines()
+function Object:lines()
   return ipairs(self.data)
 end
 
-function Image:render(canvas, trans)
+function Object:render(canvas, trans)
   canvas:push()
 
   for y, line in ipairs(self.data) do
@@ -37,7 +37,7 @@ function Image:render(canvas, trans)
   canvas:pop()
 end
 
-function Image:size()
+function Object:size()
   local w, h = 0, 0
 
   h = #self.data

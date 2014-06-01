@@ -1,3 +1,5 @@
+-- lint-mode: veek-widget
+
 _parent = 'agui-widget'
 
 local function in_widget(x, y, widget)

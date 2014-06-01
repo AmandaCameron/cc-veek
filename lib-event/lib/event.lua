@@ -1,3 +1,5 @@
+-- lint-mode: api
+
 -- Converted from a private library written by Hako
 -- and myself(Amanda)
 
@@ -22,7 +24,7 @@ function Object:_must_event(evt_name)
   end
 end
 
-function Object:_trigger_raw(evt_name, ...)  
+function Object:_trigger_raw(evt_name, ...)
   if not self.events[evt_name] then
     return
   end
@@ -78,7 +80,7 @@ function Object:subscribe_once(evt_name, callback)
   end)
 end
 
--- Unsubscribes from the given event 
+-- Unsubscribes from the given event
 -----------------------------------------------------------
 -- Arguments: evt_name, eid
 --     evt_name: The event for which you wish to unsubscribe
@@ -103,7 +105,7 @@ end
 function Object:trigger(evt_name, ...)
   local s = ""
   self:_trigger_raw(evt_name, evt_name, ...)
-  
+
   for match in evt_name:gmatch("[^.]+[.]") do
     self:_trigger_raw(s .. match .. '*', evt_name, ...)
     s = s .. match
@@ -116,7 +118,7 @@ end
 
 
 --[[
--- Creates a new Event Group, for mass connecions 
+-- Creates a new Event Group, for mass connecions
 -- and disconnections from events.
 -----------------------------------------------------------
 -- Arguments: none
