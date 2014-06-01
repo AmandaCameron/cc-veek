@@ -1,3 +1,5 @@
+-- lint-mode: veek-widget
+
 _parent = "agui-container"
 
 function Widget:init(state)

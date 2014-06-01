@@ -1,3 +1,5 @@
+-- lint-mode: veek-widget
+
 _parent = 'agui-list-item'
 
 function Widget:init(pkg)

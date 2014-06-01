@@ -1,3 +1,5 @@
+-- lint-mode: veek-widget
+
 -- Details pane widget
 
 _parent = "agui-container"
