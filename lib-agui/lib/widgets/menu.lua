@@ -15,6 +15,8 @@ function Widget:init(parent, width)
     self.parent = parent:cast('agui-app-window').gooey
   end
 
+  self.visible = false
+
   self:clear()
 end
 
@@ -38,6 +40,8 @@ function Widget:add_seperator()
 end
 
 function Widget:show(x, y)
+  self.visible = true
+
   if x > self.parent.agui_widget.width - self.agui_widget.width then
     x = x - self.agui_widget.width
   end
@@ -59,6 +63,8 @@ function Widget:show(x, y)
 end
 
 function Widget:hide()
+  self.visible = false
+
   self.parent:remove(self)
 
   self.parent:select(self.prev)

@@ -12,6 +12,18 @@ function Widget:init(w, h)
 
 	self.agui_container:add(self.input_box)
 	self.agui_container:add(self.results)
+
+	self.agui_container:select(self.input_box)
+end
+
+function Widget:focus()
+	self.input_box:focus()
+	self.results:focus()
+end
+
+function Widget:blur()
+	self.input_box:blur()
+	self.results:blur()
 end
 
 function Widget:key(k)
