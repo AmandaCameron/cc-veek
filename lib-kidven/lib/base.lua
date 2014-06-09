@@ -1,3 +1,6 @@
+--- Kidven objecting library.
+-- @module kidven
+
 -- lint-mode: api
 -- lint-ignore-global-get: kidven
 
@@ -6,10 +9,6 @@ local class_reg = {}
 if kidven then
   class_reg = kidven.get_registery()
 end
-
------------------------------------------------------------
--- Internal Functions (Do not use!)
------------------------------------------------------------
 
 function get_registery()
   return class_reg
@@ -95,7 +94,10 @@ function _new(cls_name, ret, skip_parents)
 end
 
 
--- Registers a new class
+--- Registers a new class
+-- @string name
+-- @tab cls
+-- @string parent
 function register(name, cls, parent)
   class_reg[name] = {
     class = cls,
@@ -103,6 +105,9 @@ function register(name, cls, parent)
   }
 end
 
+--- Creates a new instance of the given class.
+-- @string cls_name The class name to create.
+-- @param ... The parameters to pass to the class's init()
 function new(cls_name, ...)
   local ret = _new(cls_name, {})
 
@@ -117,9 +122,9 @@ function new(cls_name, ...)
   return ret
 end
 
--- Verifys a function's signature.
--- This accepts a table containing all the arguments, and
--- a varargs containing all the expected types.
+--- Verifys a function's signature.
+-- @tparam table args The arguments to check.
+-- @param ... The types to check against.
 function verify(args, ...)
   local types = { ... }
   for i, v in ipairs(args) do
@@ -145,6 +150,11 @@ function verify(args, ...)
   end
 end
 
+--- Loads a class from a file.
+-- @string ns_name The in-file object name.
+-- @string obj_name The object's name.
+-- @string file The file to load from.
+-- @tparam ?|table e The environment to use.
 function load(ns_name, obj_name, file, e)
   local env = {}
   setmetatable(env, { __index = (e or _G) })

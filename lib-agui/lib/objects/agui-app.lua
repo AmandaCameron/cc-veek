@@ -1,4 +1,6 @@
--- Main Loop object.
+--- App Object, encapsolating the main loop, and all the app's threads.
+-- @parent event-loop
+-- @classmod agui-app
 
 -- lint-mode: veek-object
 
@@ -40,6 +42,8 @@ end
 
 -- Object itself.
 
+--- Initialise an agui-app object.
+-- @tparam ?|term display A term.redirect capable display object, or nil for term.
 function Object:init(display)
   display = display or term
 
@@ -188,12 +192,14 @@ function Object:init(display)
   end)
 end
 
+--- Draws the app to it's terminal.
 function Object:draw()
   for _, screen in pairs(self.screens) do
     screen:draw()
   end
 end
 
+--- Runs the main loop.
 function Object:main()
   self.main_window.display.clear()
 
@@ -221,12 +227,15 @@ end
 
 -- Other Helpers.
 
+--- Kills the main loop.
 function Object:quit()
   self.event_loop:stop()
 end
 
 -- Window API!
 
+--- Gets the currently-active window.
+-- @treturn string The window ID of the active window.
 function Object:active_window()
   if self.main_window.display.activeWindow then
     return self.main_window.display.activeWindow()
@@ -235,6 +244,11 @@ function Object:active_window()
   return 'main-window'
 end
 
+--- Create a new window.
+-- @string title The window's title.
+-- @int width The window's width.
+-- @int height The window's height.
+-- @treturn agui-app-widnow The app window that was created.
 function Object:new_window(title, width, height)
   if self.main_window.display.newWindow then
     local id, t = self.main_window.display.newWindow(title, width, height)
@@ -257,20 +271,28 @@ end
 
 -- GUI Helpers.
 
+--- Select a widget in the main window.
+-- @tparam agui-widget|int view
 function Object:select(view)
   self.main_window:select(view)
 end
 
+--- Add a widget in the main window.
+-- @tparam agui-widget view
 function Object:add(view)
   self.main_window:add(view)
 end
 
+--- Remove a widget from the main window.
+-- @tparam agui-widget|int view
 function Object:remove(view)
   self.main_window:remove(view)
 end
 
 -- Theme Stuff.
 
+--- Load the given theme into the graphics stack.
+-- @string fname
 function Object:load_theme(fname)
   local f = fs.open(fname, "r")
 

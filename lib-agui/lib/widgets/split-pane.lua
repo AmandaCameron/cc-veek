@@ -1,7 +1,17 @@
+--- Split-Pane widget.
+-- This shows two agui-widgets side-by-side, allowing the user to
+-- resize the left one. This also supports making the left agui-widget invisible
+-- until the user drags right from the left-most position.
+-- @parent agui-widget
+-- @classmod agui-split-pane
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-widget'
 
+--- Initalises an agui-split-pane widget.
+-- @tparam agui-widget side_bar The left-side pane.
+-- @tparam agui-widget main_view The right-side pane.
 function Widget:init(side_bar, main_view)
   self.agui_widget:init(1, 1, 1, 1)
 

@@ -1,3 +1,8 @@
+--- Search + Results Widget.
+-- This shows a combination of an agui-input and an agui-list for displaying
+-- a search field in a consistant way.
+-- @classmod agui-search
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-container'

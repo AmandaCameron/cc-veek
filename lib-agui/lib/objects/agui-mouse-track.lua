@@ -1,4 +1,7 @@
--- Tracks the mouse between events for better handling.
+--- Tracks the mouse between events for better handling.
+-- This is used to keep tabs on the mouse position in several places in
+-- Project Veek.
+-- @classmod agui-mouse-track
 
 -- lint-mode: kidven
 

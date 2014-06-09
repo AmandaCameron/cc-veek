@@ -1,14 +1,18 @@
+--- Tab Bar Widget.
+-- This displays a set of containers in a way that only one of them is visible
+-- at a time.
+-- @parent agui-widget
+-- @classmod agui-tab-bar
+
 -- lint-mode: veek-widget
 
--- A simple tab-bar container.
--- Right now it's hard-coded to use a single-line tab bar,
--- that may change in the future.
-
-
--- This is a kinda special widget. It should probably decend
--- from container, but I'm not sure yet about that.
 _parent = 'agui-widget'
 
+--- Initialise an agui-tab-bar
+-- @int x The X position to begin at.
+-- @int y The Y position to begin at.
+-- @int w The widget's width.
+-- @int h The widget's height.
 function Widget:init(x, y, w, h)
   self.agui_widget:init(x, y, w, h)
 
@@ -25,6 +29,10 @@ function Widget:init(x, y, w, h)
   end
 end
 
+
+--- Adds a tab to the controller.
+-- @string label The label for the tab.
+-- @tparam agui-widget contents The thing to show.
 function Widget:add_tab(label, contents)
   table.insert(self.tabs, {
     label=label,

@@ -1,7 +1,17 @@
+--- List Widget.
+-- This shows a collection of agui-list-item's, and allows the user to scroll through them.
+-- @parent agui-scroll-view
+-- @classmod agui-list
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-scroll-view'
 
+--- Initalises the list view.
+-- @int x The X position to draw in.
+-- @int y The Y position to draw in.
+-- @int width The list's width.
+-- @int height The list's height.
 function Widget:init(x, y, width, height)
 	self.agui_scroll_view:init(width, height)
 
@@ -44,6 +54,7 @@ end
 
 -- List Manupulation
 
+--- Clear the list's items.
 function Widget:clear()
 	self.current_item = 0
 	self.items = {}
@@ -51,6 +62,9 @@ function Widget:clear()
 	self:reflow()
 end
 
+--- Add a list item.
+-- @tparam agui-list-item item The `agui-list-item` to add.
+-- @tparam int|nil pos The position in the list to add the item.
 function Widget:add(item, pos)
 	if item._type ~= 'agui-list-item' and not item.agui_list_item then
 		error('Invalid List Item.', 2)
@@ -70,6 +84,8 @@ function Widget:add(item, pos)
 	self:reflow()
 end
 
+--- Remove a list item
+-- @tparam int item The item to remove.
 function Widget:remove(item)
 	table.remove(self.items, item)
 
@@ -125,6 +141,8 @@ end
 
 -- Lookup of State
 
+--- Gets the currently-selected item.
+-- @treturn agui-list-item|nil The item that is currently selected, or nil
 function Widget:get_current()
 	return self.items[self.current_item]
 end

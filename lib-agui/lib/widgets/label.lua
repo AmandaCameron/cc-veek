@@ -1,7 +1,16 @@
+--- Label Widget.
+-- This displays some short text, ellipsiing it if it's too long.
+-- @classmod agui-label
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-widget'
 
+--- Initalise an agui-label
+-- @int x The X position for the widget.
+-- @int y The Y position for the widget.
+-- @tparam ?|string text The label's text.
+-- @tparam ?|int width The label's width.
 function Widget:init(x, y, text, width)
 	local text = text or ''
 

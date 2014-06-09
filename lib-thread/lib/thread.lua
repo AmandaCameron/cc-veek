@@ -1,31 +1,29 @@
--- lint-mode: api
-
--- Threading library.
+--- Threading library.
 -- This is just an easy-to-use wrapper around coroutines
 -- and implements a main loop for the threads.
-
 -- Keep in mind that Lua uses cooperative multitasking.
 -- Meaning at some point you must still yield.
+-- @module thread
+
+-- lint-mode: api
 
 -- Dependencies!
 
 os.loadAPI("__LIB__/kidven/kidven")
 
+--- Thread Pool Object.
+-- @type thread-pool
 local Object = {}
 
--- Initializes a new thread-pool object.
------------------------------------------------------------
--- Arguments: None.
+--- Initializes a new thread-pool object.
 function Object:init()
   self.coroutines = {}
   self.id = 0
 end
 
--- Creates a new thread and adds it to it's queue.
------------------------------------------------------------
--- Arguments:
---     func: The thread's function.
---     handler: Event handlers.
+--- Creates a new thread and adds it to it's queue.
+-- @tparam function func The thread's function.
+-- @tparam thread-handler handler Event handlers.
 function Object:new(func, handler)
   local handler = handler or {}
 
@@ -44,17 +42,12 @@ function Object:new(func, handler)
   return self.id
 end
 
--- Stops all coroutines, uncleanly.
------------------------------------------------------------
--- Arguments: None.
+--- Stops all coroutines, uncleanly.
 function Object:stop()
   self.coroutines = {}
 end
 
--- Runs the coroutines sequentially, careful to handle
--- ones that have since been stopped.
------------------------------------------------------------
--- Arguments: None.
+--- Runs the coroutines sequentially, careful to handle ones that have since been stopped.
 function Object:main()
   local evt = nil
   local args = {}

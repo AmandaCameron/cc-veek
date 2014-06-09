@@ -1,7 +1,15 @@
+--- Vertical Seperatpr.
+-- @parent agui-widget
+-- @classmod agui-virt-seperator
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-widget'
 
+--- Initialise an agui-vert-seperator
+-- @int x The X position of the seperator.
+-- @int y The Y position of the seperator.
+-- @int h The Height of the seperator.
 function Widget:init(x, y, h)
   self.agui_widget:init(x, y, 1, h)
 

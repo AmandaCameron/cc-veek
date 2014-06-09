@@ -1,3 +1,6 @@
+--- lib-agui widget API.
+-- @module agui
+
 -- lint-mode: api
 
 -- Dependencies!

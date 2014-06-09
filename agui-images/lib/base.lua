@@ -1,4 +1,7 @@
--- Base Image Loader for agui-images
+--- Image Loading Library for agui.
+-- This loads images from files and strings, and has a common representation
+-- format for the images in it's code, in the form of the `agi-image` class.
+-- @module agimages
 
 -- lint-mode: api
 
@@ -17,6 +20,10 @@ for _, file in ipairs(fs.list("__LIB__/agui-images/formats/")) do
   end
 end
 
+--- Load the given image.
+-- @string path The path to the image.
+-- @tparam ?|string format The format of the image.
+-- @treturn nil|agi-image the loaded image, or nil on failure.
 function load(path, format)
   local f = fs.open(path, "r")
   if not f then
@@ -29,6 +36,10 @@ function load(path, format)
   return load_string(data, format)
 end
 
+--- Load the given image from the given string.
+-- @string str The image's data in string format.
+-- @tparam ?|string format The format of the image.
+-- @treturn nil|agi-image the loaded image, or nil on failure.
 function load_string(str, format)
   if not format then
     for typ, cb in pairs(formats) do
@@ -54,6 +65,8 @@ function save(path, format)
   formats[format].encode(path, format)
 end
 
+--- Gets a list of loaded and supported image formats.
+-- @treturn table Table of supported formats.
 function get_formats()
   return formats
 end

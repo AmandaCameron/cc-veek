@@ -1,7 +1,16 @@
+--- Checkbox input widget.
+-- @parent agui-widget
+-- @classmod agui-checkbox
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-input'
 
+--- Intialise the widget.
+-- @int x The X Position of the widget.
+-- @int y The Y position of the widget.
+-- @string text The label for the widget.
+-- @tparam ?|int width The width of the label.
 function Widget:init(x, y, text, width)
 	self.agui_input:init(x, y, width or (#text + 4))
 
@@ -10,12 +19,15 @@ function Widget:init(x, y, text, width)
 	self.agui_input.value = false
 end
 
+--- Sets the value for the widget.
+-- @bool new_value The new value to set.
 function Widget:set_value(new_value)
 	self.agui_input.value = new_value
 
 	self.agui_input:notify()
 end
 
+--- Toggles the value.
 function Widget:toggle()
 	self:set_value(not self.agui_input.value)
 end

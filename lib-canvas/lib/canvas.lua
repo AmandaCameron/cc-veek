@@ -1,27 +1,31 @@
+--- Canvas API.
+-- Provides a canvas object for stuff and things.
+-- @module canvas
+
 -- lint-mode: api
 
 -- Canvas API -- Ripped out of agui as it's rather useful
 -- on it's own.
 
-local Canvas = {}
+--- Canvas Object.
+-- @field x number The X position of the cursor.
+-- @field y number The Y position of the cursor.
+local Object = {}
 
--- Public API
+--- Creates a new Canvas object and returns it.
+-- @tparam term ctx The backing terminal.
+-- @tparam function lookup A colour lookup function.
+-- @tparam ?|int width Canvas' width, or nil for auto-detect from ths context.
+-- @tparam ?|int height Canvas' height, or nil to auto-detect.
+-- @tparam ?|bool buffered If this should be a buffered canvas.
+-- @treturn Canvas The new canvas object.
+function new(ctx, lookup, width, height, buffered)
+  local self = {}
 
-function new(...)
-  local ret = {}
-
-  for k, v in pairs(Canvas) do
-    ret[k] = v
+  for k, v in pairs(Object) do
+    self[k] = v
   end
 
-  ret:init(...)
-
-  return ret
-end
-
--- Implemtation
-
-function Canvas:init(ctx, lookup, width, height, buffered)
   self.ctx = ctx
   self.lookup = lookup
 
@@ -49,8 +53,14 @@ function Canvas:init(ctx, lookup, width, height, buffered)
   self.offset_y = 0
 
   self.stack = {}
+
+  return self
 end
 
+--- Canvas object returned by new
+-- @type Canvas
+
+--- Push the state onto the canvas' stack.
 function Canvas:push()
   self.stack[#self.stack + 1] = {
     fg = self.fg,
@@ -64,6 +74,7 @@ function Canvas:push()
   }
 end
 
+--- Pop the context from the canvas' stack.
 function Canvas:pop()
   if #self.stack == 0 then
     error("Invalid state for Canvas:pop.", 2)
@@ -78,10 +89,20 @@ function Canvas:pop()
   end
 end
 
+--- Sub-section the canvas, returning a new child canvas.
+-- @tparam (number?) x The X to start the sub-canvas at.
+-- @tparam (number?) y The Y to start the sub-canvas at.
+-- @tparam (number?) width The child canvas's width.
+-- @tparam (number?) height The child canvas's height.
+-- @treturn Canvas
+-- @return new Canvas object showing the sub-section of this canvas.
 function Canvas:sub(x, y, width, height)
   return new(self:as_redirect(x, y, width, height), self.lookup, width, height)
 end
 
+
+--- Sets the foreground (Text) colour.
+-- @param colour (string|number) The foreground colour to set, if it's a string, it will call the lookup function you gave in the new() call to look it up.
 function Canvas:set_fg(colour)
   if type(colour) == 'string' then
     self.fg = self.lookup(colour)
@@ -94,6 +115,9 @@ function Canvas:set_fg(colour)
   end
 end
 
+
+--- Sets the background colour.
+-- @param colour (string|number) The background colour to set, if it's a string, it will call the lookup function you gave in the new() call to look it up.
 function Canvas:set_bg(colour)
   if type(colour) == 'string' then
     self.bg = self.lookup(colour)
@@ -106,6 +130,8 @@ function Canvas:set_bg(colour)
   end
 end
 
+--- Scrolls the canvas, pushing blank lines to the bottom and popping lines from the top.
+-- @param lines (number) The number of lines to move.
 function Canvas:scroll(lines)
   if self.buffered then
     local x, y = self.x, self.y
@@ -122,11 +148,18 @@ function Canvas:scroll(lines)
   end
 end
 
+
+--- Translates the cursor position for drawing.
+-- @param x (number) The number of text cells to move the cursor in the x direction.
+-- @param y (number) The numbe rof text cells to move the cursor in the y direction.
 function Canvas:translate(x, y)
   self.offset_x = x
   self.offset_y = y
 end
 
+
+--- Writes to the canvas, at the given x, y -- offset by the translation posistion.
+-- @param text (string) The text to write.
 function Canvas:write(text)
   local x, y = self.x, self.y
 
@@ -214,6 +247,12 @@ function Canvas:write(text)
   end
 end
 
+--- Blits the canvas's contents to it's backing terminal, or to ctx.
+-- @param x (number?) The X offset to blit to.
+-- @param y (number?) The Y Offset to blit to.
+-- @param width (number?) Only blit this many columns.
+-- @param height (number?) Only blit this many rows.
+-- @param ctx (term.redirect object) Blit to this instead of our built-in context.
 function Canvas:blit(x, y, width, height, ctx)
   if not self.buffered then
     error('Canvas is not a buffered canvas.', 2)
@@ -257,7 +296,7 @@ function Canvas:blit(x, y, width, height, ctx)
   ctx.setCursorBlink(self.blinking)
 end
 
-
+--- Clear the canvas.
 function Canvas:clear()
   if self.buffered then
     self.buffer = {}
@@ -270,6 +309,10 @@ function Canvas:clear()
   end
 end
 
+
+--- Move the cursor.
+-- @param x (number) The column to move to, 1-based.
+-- @param y (number) The row to move to, 1-based.
 function Canvas:move(x, y)
   self.x = math.floor(tonumber(x))
   self.y = math.floor(tonumber(y))
@@ -279,6 +322,10 @@ function Canvas:move(x, y)
   end
 end
 
+--- Sets where the cursor should appear in the canvas.
+-- @param x (number) The X position of the cursor.
+-- @param y (number) The Y position of the cursor.
+-- @param visible (boolean) Weather or not it should be visible.
 function Canvas:set_cursor(x, y, visible)
   self:move(x, y)
 
@@ -289,6 +336,13 @@ function Canvas:set_cursor(x, y, visible)
   end
 end
 
+
+--- Converts the canvas into a term.redirect-capable object.
+-- @param x (number?) The X offset to sub-section for this.
+-- @param y (number?) The Y offset to sub-section for this.
+-- @param width (number?) The width to subsection.
+-- @param height (number?) The height for the sub-section.
+-- @return A term.redirect-capable object.
 function Canvas:as_redirect(x, y, width, height)
   local redir = {
     x = x or 1,

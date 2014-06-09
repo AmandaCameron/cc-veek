@@ -1,7 +1,17 @@
+--- Window Widget.
+-- This is a widget that displays a window inside the main display.
+-- This window is constrained to the widget it resides in.
+-- @parent agui-container
+-- @classmod agui-window
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-container'
 
+--- Initalise an agui-window
+-- @string title The window's title.
+-- @int width The content width.
+-- @int height The content height.
 function Widget:init(title, width, height)
   self.agui_container:init(1, 1, width + 2, height + 2)
 

@@ -1,7 +1,16 @@
+--- Menu Widget.
+-- @parent agui-widget
+-- @classmod agui-menu
+-- @tfield bool visible Weather or not the menu is currently visible.
+
 -- lint-mode: veek-widget
 
 _parent = "agui-widget"
 
+
+--- Initalise a agui-menu object.
+-- @tparam agui-container|agui-app|agui-app-window parent The parent widget to display inside.
+-- @tparam ?|int width The menu's width.
 function Widget:init(parent, width)
   self.agui_widget:init(1, 1, width or 10, 1)
 
@@ -22,11 +31,15 @@ end
 
 -- The API of APIitude
 
+--- Clear the widget's items.
 function Widget:clear()
   self.selected = 0
   self.items = {}
 end
 
+--- Add a menu item.
+-- @string label The human-visible label of the menu item.
+-- @func func The function to call when the menu item is activated.
 function Widget:add(label, func)
   if #label > self.agui_widget.width then
     self.agui_widget.width = #label + 2
@@ -35,10 +48,19 @@ function Widget:add(label, func)
   table.insert(self.items, { "option", label, func })
 end
 
+
+--- Add a seperator to the widget.
+-- Seperators are non-selectable and view-only widgets.
 function Widget:add_seperator()
   table.insert(self.items, { "seperator" })
 end
 
+
+--- Show the menu at the given position.
+-- If the given position are off-screen, the menu will be moved to compensate
+-- for this.
+-- @int x The X position to show.
+-- @int y The Y posittion to show.
 function Widget:show(x, y)
   self.visible = true
 
@@ -62,6 +84,7 @@ function Widget:show(x, y)
   self.parent:select(self)
 end
 
+--- Hide the menu.
 function Widget:hide()
   self.visible = false
 

@@ -1,12 +1,18 @@
+--- Event Loop.
+-- This class is houses an event-loop object. It is loaded using
+-- os.loadAPI("__LIB__/event") and then can be constructed the usual way.
+-- @classmod event-loop
+
 -- lint-mode: api
 
 -- Converted from a private library written by Hako
--- and myself(Amanda)
+-- and myself (Amanda)
 
 local Object = {}
 
 -- Object Essensials
 
+--- Initialise an event-loop.
 function Object:init()
   self.object:init() -- Pass up for funsies.
 
@@ -14,9 +20,7 @@ function Object:init()
   self.eid = 0
 end
 
------------------------------------------------------------
 -- Helpers.
------------------------------------------------------------
 
 function Object:_must_event(evt_name)
   if not self.events[evt_name] then
@@ -46,16 +50,12 @@ function Object:_trigger_raw(evt_name, ...)
   end
 end
 
------------------------------------------------------------
 -- Subscription handling.
------------------------------------------------------------
 
--- Subscribes to an event, returns the unique ID for
--- passing to unsubscribe()
------------------------------------------------------------
--- Arguments: evt_name, callback
---    evt_name: The event to subscribe to.
---    callback: The function to call on the event.
+--- Subscribes to an event.
+-- @string evt_name The event to trigger on.
+-- @func callback The function to call when the event is triggered.
+-- @treturn int The event handler's unique ID.
 function Object:subscribe(evt_name, callback)
   self:_must_event(evt_name)
 
@@ -67,12 +67,10 @@ function Object:subscribe(evt_name, callback)
   return self.eid
 end
 
--- Subscribes to an event once, when it fires
+--- Subscribes to an event once, when it fires
 -- it disconnects itself
------------------------------------------------------------
--- Arguments: evt_name, callback
---    evt_name: The event to subscribe to.
---    callback: The function to call on the event.
+-- @string evt_name The event to trigger on.
+-- @func callback The function to call when the event is triggered.
 function Object:subscribe_once(evt_name, callback)
   local eid = self:subscribe(evt_name, function(...)
     callback(...)
@@ -80,11 +78,9 @@ function Object:subscribe_once(evt_name, callback)
   end)
 end
 
--- Unsubscribes from the given event
------------------------------------------------------------
--- Arguments: evt_name, eid
---     evt_name: The event for which you wish to unsubscribe
---     eid: The event ID returned by subscribe()
+--- Ubsubscribe from the given event
+-- @string evt_name The event to un-subscribe from.
+-- @int eid The event handler ID to unsubscribe from.
 function Object:unsubscribe(evt_name, eid)
   self:_must_event(evt_name)
 
@@ -96,12 +92,9 @@ end
 
 -- Triggering
 
--- Triggers an event.
------------------------------------------------------------
--- Arguments: evt_name, ...
---     evt_name: The event to fire. Takes the form of
---     ...: The arguments for the event. evt_name
---            will be prepended to this.
+--- Trigger an event.
+-- @string evt_name The name of the event to trigger.
+-- @param ... The event's paramaters.
 function Object:trigger(evt_name, ...)
   local s = ""
   self:_trigger_raw(evt_name, evt_name, ...)
@@ -161,16 +154,12 @@ end
 
 -- Main Loop
 
--- Stops the main loop.
------------------------------------------------------------
--- Arguments: None.
+--- Stop the main loop.
 function Object:stop()
   self.running = false
 end
 
--- Runs the main loop.
------------------------------------------------------------
--- Arguments: None
+--- Runs the main loop.
 function Object:main()
   self:trigger("program.start")
 

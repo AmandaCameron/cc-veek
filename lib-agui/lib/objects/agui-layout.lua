@@ -1,10 +1,12 @@
--- Layout engine for agui.
--- Supports anchors and stuff.
+--- Layout Engine.
+-- @classmod agui-layout
 
 -- lint-mode: veek-object
 
 _parent = 'object'
 
+--- Initialises an agui-layout.
+-- @tparam agui-app-window|agui-container container The contains this layout acts on.
 function Object:init(container)
   if container:is_a('agui-app-window') then
     container = container:cast('agui-app-window').gooey
@@ -17,6 +19,8 @@ function Object:init(container)
   self.deps = {}
 end
 
+--- Removes the given widget and it's constraints from the agui-layout.
+-- @tparam agui-widget widget The widget to remove.
 function Object:remove(widget)
   self.container:remove(widget)
 
@@ -25,6 +29,8 @@ function Object:remove(widget)
   self.deps[widget:cast('agui-widget').id] = nil
 end
 
+--- Add the given widget to the layout.
+-- @tparam agui-widget widget The widget to add.
 function Object:add(widget)
   self.anchors[widget:cast('agui-widget').id] = {}
   self.deps[widget:cast('agui-widget').id] = {}
@@ -33,6 +39,15 @@ function Object:add(widget)
   self.container:add(widget)
 end
 
+--- Adds an anchor to the layout.
+-- Anchors are made up of two side paramaters.
+-- They can be one of top, bottom, left, right and how they are joined depends
+-- on how they are implemented.
+-- @tparam agui-widget|int id The widget this constraint will act on.
+-- @tparam side side The side this constraint will act on for.
+-- @tparam side other_side The side this will anchor to.
+-- @tparam agui-widget|int other The widget to anchor to.
+-- @tparam int dist The distance to anchor from.
 function Object:add_anchor(id, side, other_side, other, dist)
   if type(id) == 'table' and id.is_a and id:is_a('agui-widget') then
     id = id:cast('agui-widget').id
@@ -53,6 +68,7 @@ function Object:add_anchor(id, side, other_side, other, dist)
   table.insert(self.anchors[id], { side, other_side, other, dist })
 end
 
+--- Reflows the layout of the widget.
 function Object:reflow()
   self.done = {}
 

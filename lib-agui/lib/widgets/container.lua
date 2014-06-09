@@ -1,3 +1,7 @@
+--- Container Widget.
+-- @parent agui-widget
+-- @classmod agui-container
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-widget'
@@ -10,7 +14,11 @@ local function in_widget(x, y, widget)
   return (x >= widget.x and y >= widget.y and x <= x2 and y <= y2)
 end
 
-
+--- Initalises an agui-container.
+-- @int x The X position to be in.
+-- @int y The Y Position ot be in.
+-- @int width The container's width.
+-- @int height The container's height.
 function Widget:init(x, y, width, height)
   self.agui_widget:init(x, y, width, height)
 
@@ -24,6 +32,9 @@ function Widget:init(x, y, width, height)
   self.agui_widget:add_flag('active')
 end
 
+--- Adds a widget to the container.
+-- @tparam agui-widget child The widget to add.
+-- @raise Invalid Widget
 function Widget:add(child)
   if not child:is_a('agui-widget') then
     error('Invalid Widget', 2)
@@ -34,6 +45,9 @@ function Widget:add(child)
   table.insert(self.children, child)
 end
 
+
+--- Removes the given widget from the container.
+-- @tparam agui-widget child The widget to remove.
 function Widget:remove(child)
   if type(child) == "number" then
     table.remove(self.children, child)
@@ -48,6 +62,8 @@ function Widget:remove(child)
   end
 end
 
+--- Sets the given widget to be the active one.
+-- @tparam agui-widget child The widget to set active-ness.
 function Widget:select(child)
   if not child then
     return
@@ -103,6 +119,8 @@ function Widget:blur()
   end
 end
 
+--- Focuses the next widget.
+-- @treturn bool true if there was a focus change, false otherwise.
 function Widget:focus_next()
   if #self.children == 0 then
     return false

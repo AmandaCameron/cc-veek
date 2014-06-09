@@ -1,3 +1,8 @@
+--- TextBox widget.
+-- This is a wraping text display widget. It can also scroll it's contents.
+-- @parent agui-scroll-view
+-- @classmod agui-textbox
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-scroll-view'

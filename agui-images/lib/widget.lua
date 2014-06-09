@@ -1,15 +1,25 @@
--- Display Widget for agui-image images objects.
+--- Display Widget for agui-image images objects.
+-- @parent agui-widget
+-- @classmod agi-widget
 
 -- lint-mode: veek-widget
 
 _parent = "agui-widget"
 
+--- Initalise an agi-widget
+-- @tparam agi-image img The image to display.
+-- @int x The X position of the widget.
+-- @int y The Y position of the widget.
+-- @int w The widget's width.
+-- @int h The widget's height
 function Widget:init(img, x, y, w, h)
   self.agui_widget:init(x, y, w, h)
 
   self.img = img
 end
 
+--- Change the image.
+-- @tparam agi-image img
 function Widget:set_image(img)
   self.img = img
 end

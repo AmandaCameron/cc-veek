@@ -1,7 +1,15 @@
+--- Horizontal Seperator Widget.
+-- @parent agui-widget
+-- @classmod agui-horiz-seperator
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-widget'
 
+--- Initialise an agui-horiz-seperator
+-- @int x The X position of the seperator.
+-- @int y The Y position of the seperator.
+-- @int w The Width of the seperator.
 function Widget:init(x, y, w)
   self.agui_widget:init(x, y, w, 1)
 

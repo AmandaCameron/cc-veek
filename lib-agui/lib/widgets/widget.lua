@@ -1,4 +1,5 @@
--- Base Widget for aGUI
+--- Base Widget.
+-- @classmod agui-widget
 
 -- lint-mode: veek-widget
 
@@ -6,6 +7,12 @@ _parent = 'object'
 
 local _wid_ids = 1
 
+
+--- Constructs an agui-widget object.
+-- @tparam int x The X co-ord to base ourselves in.
+-- @tparam int y The Y co-ord to base outselved in.
+-- @tparam int width The widget's width.
+-- @tparam int height The widget's height.
 function Widget:init(x, y, width, height)
 	self.x = math.floor(x)
 	self.y = math.floor(y)
@@ -28,10 +35,16 @@ function Widget:init(x, y, width, height)
 	self.flags = {}
 end
 
+
+--- Add a widget flag.
+-- @tparam string flag The flag to add.
 function Widget:add_flag(flag)
 	table.insert(self.flags, flag)
 end
 
+--- Check if the widget has a flag.
+-- @tparam string flag
+-- @return bool If the flag is present.
 function Widget:has_flag(flag)
 	for _,f in pairs(self.flags) do
 		if f == flag then
@@ -165,7 +178,7 @@ function Widget:draw_raw(widget, pc, theme)
 			widget:draw(widget:cast('agui-widget').canvas, theme)
 		end
 
-		widget:cast('agui-widget').canvas:blit(1, 1,
+		widget:cast('agui-widget').Object:blit(1, 1,
 			nil, nil,
 			pc:as_redirect(widget:cast('agui-widget').x, widget:cast('agui-widget').y, widget:cast('agui-widget').width, widget:cast('agui-widget').height))
 	else

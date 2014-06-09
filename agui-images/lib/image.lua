@@ -1,6 +1,12 @@
+--- Image in-memory representation.
+-- @parent object
+-- @classmod agi-image
+
 -- lint-mode: veek-object
 
 _parent = "object"
+
+-- These are both private, and should not be used.
 
 function Object:init(data)
   self.data = data
@@ -10,6 +16,9 @@ function Object:lines()
   return ipairs(self.data)
 end
 
+--- Render an image to an `Canvas`
+-- @tparam Canvas canvas The lib-canvas canvas to render to.
+-- @tparam string|int trans The transparency colour.
 function Object:render(canvas, trans)
   canvas:push()
 
@@ -37,6 +46,9 @@ function Object:render(canvas, trans)
   canvas:pop()
 end
 
+--- Get the image's size.
+-- @treturn int Image's Width
+-- @treturn int Image's Height
 function Object:size()
   local w, h = 0, 0
 

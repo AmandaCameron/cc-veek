@@ -1,7 +1,15 @@
+--- Text Input Widget.
+-- @parent agui-widget
+-- @classmod agui-input
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-widget'
 
+--- Initialise an agui-input
+-- @int x The X position to be in.
+-- @int y The Y position to be in.
+-- @int width The widget's width
 function Widget:init(x, y, width)
 	self.agui_widget:init(x, y, width, 1)
 
