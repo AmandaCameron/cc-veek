@@ -2,12 +2,14 @@
 -- This shows a configurable string to the user, wrapping it in []s if it's on
 -- a monochrome display. The []s change to {}s when the widget is the active
 -- one.
+-- @parent agui-widget
 -- @classmod agui-button
 
 -- lint-mode: veek-widget
 
-_parent = 'agui-widget'
-
+----------
+-- Button Pressed.
+-- @event gui.button.pressed
 
 --- Initalise the agui-button
 -- @int x The X position for the widget.

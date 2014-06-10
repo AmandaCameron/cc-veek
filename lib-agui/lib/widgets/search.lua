@@ -3,10 +3,26 @@
 -- a search field in a consistant way.
 -- @classmod agui-search
 
+--------
+-- Input Changed.
+-- This is triggered when the user adds or removes text from the widget.
+-- Note that before this event is fired, the results list is emptied.
+-- @event gui.search.input
+-- @string input The current input of the search widget.
+
+--------
+-- Result Selected.
+-- This is fired when a result is selected by the user.
+-- @event gui.search.selected
+-- @tparam agui-list-item selection The selected item.
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-container'
 
+--- Initalise the agui-search widget.
+-- @int w Search widget's width.
+-- @int h Search widget's height.
 function Widget:init(w, h)
 	self.agui_container:init(1, 1, w, h)
 

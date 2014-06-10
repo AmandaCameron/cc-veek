@@ -2,6 +2,15 @@
 -- @parent event-loop
 -- @classmod agui-app
 
+--------
+-- Main Window Resized.
+-- @event gui.resized
+
+--------
+-- Child Window Resized.
+-- @event window.resized
+-- @string window_id The ID of the window that's been resized.
+
 -- lint-mode: veek-object
 
 _parent = 'event-loop'

@@ -3,6 +3,13 @@
 -- @parent agui-scroll-view
 -- @classmod agui-list
 
+--- Selection Changed.
+-- This is fired when the user changes the currently-selected item.
+-- @event gui.list.changed
+-- @int index The index of the now-selected item.
+-- @tparam agui-list-item item The item that is now selected.
+local sel_changed = {}
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-scroll-view'

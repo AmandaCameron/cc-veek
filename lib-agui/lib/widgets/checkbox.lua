@@ -6,6 +6,11 @@
 
 _parent = 'agui-input'
 
+----------
+-- Input Changed
+-- @event gui.input.changed
+-- @bool value The new value.
+
 --- Intialise the widget.
 -- @int x The X Position of the widget.
 -- @int y The Y position of the widget.
@@ -20,6 +25,7 @@ function Widget:init(x, y, text, width)
 end
 
 --- Sets the value for the widget.
+-- This triggers the @{gui.input.changed} event.
 -- @bool new_value The new value to set.
 function Widget:set_value(new_value)
 	self.agui_input.value = new_value

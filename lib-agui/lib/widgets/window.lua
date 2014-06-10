@@ -4,6 +4,22 @@
 -- @parent agui-container
 -- @classmod agui-window
 
+----------
+-- agui-window Resized.
+-- @event gui.window.resize
+
+----------
+-- agui-window Closed.
+-- @event gui.window.closed
+
+----------
+-- agui-window Maximise Request.
+-- @event gui.window.maximised
+
+----------
+-- agui-window Minimise Request.
+-- @event gui.window.minimised
+
 -- lint-mode: veek-widget
 
 _parent = 'agui-container'

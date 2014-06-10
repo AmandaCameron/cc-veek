@@ -4,7 +4,10 @@
 
 -- lint-mode: veek-widget
 
-_parent = 'agui-widget'
+--------
+-- Input Changed
+-- @event gui.input.changed
+-- @string value The new value.
 
 --- Initialise an agui-input
 -- @int x The X position to be in.
