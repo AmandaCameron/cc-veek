@@ -10,6 +10,7 @@
 ----------
 -- Button Pressed.
 -- @event gui.button.pressed
+-- @int id The button ID.
 
 --- Initalise the agui-button
 -- @int x The X position for the widget.

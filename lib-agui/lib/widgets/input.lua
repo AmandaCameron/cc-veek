@@ -5,8 +5,9 @@
 -- lint-mode: veek-widget
 
 --------
--- Input Changed
+-- Input Changed.
 -- @event gui.input.changed
+-- @int id The widget ID.
 -- @string value The new value.
 
 --- Initialise an agui-input

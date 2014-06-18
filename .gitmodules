@@ -1,0 +1,3 @@
+[submodule "ldoc-dash"]
+	path = ldoc-dash
+	url = https://github.com/DarkDNA/ldoc-dash.git

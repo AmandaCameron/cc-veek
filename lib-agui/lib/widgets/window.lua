@@ -7,18 +7,22 @@
 ----------
 -- agui-window Resized.
 -- @event gui.window.resize
+-- @int id The window ID.
 
 ----------
--- agui-window Closed.
+-- agui-window Close Request.
 -- @event gui.window.closed
+-- @int id The window ID.
 
 ----------
 -- agui-window Maximise Request.
 -- @event gui.window.maximised
+-- @int id The window ID.
 
 ----------
 -- agui-window Minimise Request.
 -- @event gui.window.minimised
+-- @int id The window ID.
 
 -- lint-mode: veek-widget
 

@@ -8,12 +8,14 @@
 -- This is triggered when the user adds or removes text from the widget.
 -- Note that before this event is fired, the results list is emptied.
 -- @event gui.search.input
+-- @int id The search widget ID.
 -- @string input The current input of the search widget.
 
 --------
 -- Result Selected.
 -- This is fired when a result is selected by the user.
 -- @event gui.search.selected
+-- @int id The search widget ID.
 -- @tparam agui-list-item selection The selected item.
 
 -- lint-mode: veek-widget

@@ -10,7 +10,7 @@
 --- Canvas Object.
 -- @field x number The X position of the cursor.
 -- @field y number The Y position of the cursor.
-local Object = {}
+local Canvas = {}
 
 --- Creates a new Canvas object and returns it.
 -- @tparam term ctx The backing terminal.
@@ -22,7 +22,7 @@ local Object = {}
 function new(ctx, lookup, width, height, buffered)
   local self = {}
 
-  for k, v in pairs(Object) do
+  for k, v in pairs(Canvas) do
     self[k] = v
   end
 
@@ -90,10 +90,10 @@ function Canvas:pop()
 end
 
 --- Sub-section the canvas, returning a new child canvas.
--- @tparam (number?) x The X to start the sub-canvas at.
--- @tparam (number?) y The Y to start the sub-canvas at.
--- @tparam (number?) width The child canvas's width.
--- @tparam (number?) height The child canvas's height.
+-- @tparam ?|number x The X to start the sub-canvas at.
+-- @tparam ?|number y The Y to start the sub-canvas at.
+-- @tparam ?|number width The child canvas's width.
+-- @tparam ?|number height The child canvas's height.
 -- @treturn Canvas
 -- @return new Canvas object showing the sub-section of this canvas.
 function Canvas:sub(x, y, width, height)
@@ -248,10 +248,10 @@ function Canvas:write(text)
 end
 
 --- Blits the canvas's contents to it's backing terminal, or to ctx.
--- @param x (number?) The X offset to blit to.
--- @param y (number?) The Y Offset to blit to.
--- @param width (number?) Only blit this many columns.
--- @param height (number?) Only blit this many rows.
+-- @param x (?|number) The X offset to blit to.
+-- @param y (?|number) The Y Offset to blit to.
+-- @param width (?|number) Only blit this many columns.
+-- @param height (?|number) Only blit this many rows.
 -- @param ctx (term.redirect object) Blit to this instead of our built-in context.
 function Canvas:blit(x, y, width, height, ctx)
   if not self.buffered then
@@ -338,10 +338,10 @@ end
 
 
 --- Converts the canvas into a term.redirect-capable object.
--- @param x (number?) The X offset to sub-section for this.
--- @param y (number?) The Y offset to sub-section for this.
--- @param width (number?) The width to subsection.
--- @param height (number?) The height for the sub-section.
+-- @param x (?|number) The X offset to sub-section for this.
+-- @param y (?|number) The Y offset to sub-section for this.
+-- @param width (?|number) The width to subsection.
+-- @param height (?|number) The height for the sub-section.
 -- @return A term.redirect-capable object.
 function Canvas:as_redirect(x, y, width, height)
   local redir = {
