@@ -24,5 +24,11 @@ file = {
   "lib-thread",
   "lib-canvas",
   "lib-event",
-  "lib-kidven"
+  "lib-kidven",
+
+  "kaxui"
+}
+
+custom_tags = {
+  { 'parent', hidden = true }
 }

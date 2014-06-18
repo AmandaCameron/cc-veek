@@ -1,6 +1,14 @@
 -- @Name: Kaxui
 -- @Description: Graphical package manager for ac-get
 -- @Author: Amanda Cameron
+-- @Icon[4x3]: __LIB__/kaxui/res/icon-4x3
+
+--- Kaxui Graphical Package Manager.
+-- Kaxui is a graphical package interface for ac-get. It supports installing
+-- uninstalling, and reinstalling packages, as well as looking up the data
+-- for them.
+--
+-- @script kaxui
 
 os.loadAPI("__LIB__/kaxui/kaxui")
 os.loadAPI("__LIB__/acg/acg")
@@ -24,11 +32,13 @@ main.active = 2
 
 if not pocket then
   main.min_pos = 15
+  main.max_pos = 15
+else
+  main.max_pos = 20
 end
 
-main.max_pos = 15
 
-main.position = 15
+main.position = main.max_pos
 
 main:update_active()
 
@@ -147,10 +157,8 @@ app:subscribe('gui.resized', function()
 end)
 
 
-app:subscribe("program.start", 
-function()
-  app.pool:new(
-  function() 
+app:subscribe("program.start", function()
+  app.pool:new(function()
     for _, repo in pairs(state.repos) do
       repo:update()
     end
