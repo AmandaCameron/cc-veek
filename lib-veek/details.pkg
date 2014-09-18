@@ -1,0 +1,5 @@
+Description: Text Rendering and wrapping library.
+Dependency: lib-canvas
+Library: veek-objects/
+Library: base => veek/veek
+Library: objects/string => veek/_base/objects/string

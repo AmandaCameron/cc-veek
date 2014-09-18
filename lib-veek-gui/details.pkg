@@ -1,0 +1,35 @@
+Name: Project Veek GUI Library
+Description: A "GUI" toolkit for Computer Craft.
+Dependency: veek-gui-themes
+Dependency: lib-canvas
+Dependency: lib-event
+Dependency: lib-thread
+Dependency: lib-veek
+Library: veek/gui/
+Library: base => veek/gui/_load
+Library: veek/gui/widgets/
+Library: widgets/widget => veek/gui/widgets/widget
+Library: widgets/window => veek/gui/widgets/window
+Library: widgets/label => veek/gui/widgets/label
+Library: widgets/textbox => veek/gui/widgets/textbox
+Library: widgets/checkbox => veek/gui/widgets/checkbox
+Library: widgets/list => veek/gui/widgets/list
+Library: widgets/list-item => veek/gui/widgets/list-item
+Library: widgets/container => veek/gui/widgets/container
+Library: widgets/button => veek/gui/widgets/button
+Library: widgets/input => veek/gui/widgets/input
+Library: widgets/tab-bar => veek/gui/widgets/tab-bar
+Library: widgets/search => veek/gui/widgets/search
+Library: widgets/horiz-seperator => veek/gui/widgets/horiz-seperator
+Library: widgets/virt-seperator => veek/gui/widgets/virt-seperator
+Library: widgets/menu => veek/gui/widgets/menu
+Library: widgets/progress-bar => veek/gui/widgets/progress-bar
+Library: widgets/split-pane => veek/gui/widgets/split-pane
+Library: widgets/scroll-view => veek/gui/widgets/scroll-view
+Library: veek/gui/objects/
+Library: objects/veek-app => veek/gui/objects/veek-app
+Library: objects/veek-app-window => veek/gui/objects/veek-app-window
+Library: objects/veek-virtual-window => veek/gui/objects/veek-virtual-window
+Library: objects/veek-layout => veek/gui/objects/veek-layout
+Library: objects/veek-mouse-track => veek/gui/objects/veek-mouse-track
+Docs: lib-veek

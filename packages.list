@@ -1,8 +1,10 @@
-lib-agui::17::A GUI framework for CC.
-agui-demos::2::Demos for lib-agui
-agui-themes::5::Themes for lib-agui
-agui-images::3::Image loader and display widget for lib-agui
-agui-docs::17::A GUI Documentation.
+lib-agui::18::Old version of lib-veek-gui Will be removed.
+veek-demos::2::Demos for lib-veek
+veek-themes::5::Themes for lib-veek
+veek-docs::17::A GUI Documentation.
+lib-veek-images::3::Image loader and display widget for lib-veek
+lib-veek::1::Base library for Project Veek.
+lib-veek-gui::1::GUI component for lib-veek
 lib-kidven::2::An "Object" library for cc.
 lib-canvas::5::A Canvas API
 lib-event::2::Event Library
