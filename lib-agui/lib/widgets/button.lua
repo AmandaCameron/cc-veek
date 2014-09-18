@@ -7,6 +7,8 @@
 
 -- lint-mode: veek-widget
 
+_parent = "agui-widget"
+
 ----------
 -- Button Pressed.
 -- @event gui.button.pressed

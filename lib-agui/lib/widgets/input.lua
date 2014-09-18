@@ -4,6 +4,8 @@
 
 -- lint-mode: veek-widget
 
+_parent = "agui-widget"
+
 --------
 -- Input Changed.
 -- @event gui.input.changed

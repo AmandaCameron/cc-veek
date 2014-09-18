@@ -24,14 +24,14 @@ end
 
 --- Requests this window be drawed.
 function Object:draw()
-    canvas:set_bg(self.gooey.agui_widget.bg)
-    canvas:set_fg(self.gooey.agui_widget.fg)
+    self.canvas:set_bg(self.gooey.agui_widget.bg)
+    self.canvas:set_fg(self.gooey.agui_widget.fg)
 
-    canvas:clear()
+    self.canvas:clear()
 
     self.gooey:draw(self.canvas)
 
-    canvas:blit(1, 1)
+    self.canvas:blit(1, 1)
 end
 
 -- Gooey constructs.

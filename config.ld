@@ -26,7 +26,8 @@ file = {
   "lib-event",
   "lib-kidven",
 
-  "kaxui"
+  "kaxui/lib/widgets",
+  "kaxui/bin/"
 }
 
 custom_tags = {
