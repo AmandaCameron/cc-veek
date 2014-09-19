@@ -4,59 +4,42 @@ _parent = "object"
 
 function Object:init(body)
   self.body = body
-
-  self.format = {}
-
-  for i = 1, #body do
-    self.format[i] = {}
-  end
 end
 
---- Appends {other} to
 function Object:append(other)
-  if type(other) == "string" then
-    for i in 1, #other do
-      self.format[#self.body + i] = {}
-    end
-
-    self.body = self.body .. other
-  elseif other.is_a and other:is_a("veek-string") then
-    for i in 1, #other.body do
-      self.format[#self.body + i] = other.format[i]
-    end
-
-    self.body = self.body .. other.body
-  else
-    error("Invalid type.", 2)
-  end
+  self.body = other
 end
 
---- Iterates this veek-string object, returning char, format pairs.
 function Object:iter()
-  local i = 0
+  local pos = 0
 
-  local function next()
-    i = i + 1
-    return self.body:gsub(i, i), self.format[i]
+  local function ret()
+    pos = pos + 1
+
+    if pos > #self.body then return nil end
+
+    return self.body:sub(pos, pos)
   end
 
-  return next
+  return ret
 end
 
-function Object:apply(trans, start, stop)
-  for i = start, stop do
-    trans(self.format[i], start - i)
+function Object:index_of(sub, idx)
+  if type(sub) == "string" then
+    -- Do Nothing.
+  elseif sub.is_a and sub:is_a("veek-string") then
+    sub = sub:cast('veek-string').body
+  else
+    error("Unexpected type " .. kidven.type_of(sub))
   end
+
+  return self.body:find(sub, idx)
 end
 
-function Object:apply_colour(colour, start, stop)
-  for i = start, stop do
-    self.format[i].colour = colour
-  end
+function Object:substring(start, stop)
+  return new('veek-string', self.body:sub(start, stop))
 end
 
-function Object:apply_background(colour, start, stop)
-  for i = start, stop do
-    self.format[i].background = colour
-  end
+function Object:length()
+  return #self.body
 end

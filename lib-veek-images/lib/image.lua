@@ -6,10 +6,32 @@
 
 _parent = "object"
 
--- These are both private, and should not be used.
+local formats = {}
 
-function Object:init(data)
-  self.data = data
+for _, file in ipairs(fs.list("__LIB__/veek/images/formats/")) do
+  local f = loadfile("__LIB__/veek/images/formats/" .. file)
+
+  if f then
+    formats[file] = f()
+  end
+end
+
+
+
+--- Initalises a veek-image object with the data from the given `veek-read-handle`
+-- @tparam veek-read-handle handle
+function Object:init(handle)
+  if handle and handle:is_a('veek-read-handle') then
+    local img = handle:all()
+
+    for _, cb in pairs(formats) do
+      if cb.is_a(img) then
+        self.data = cb.load(img)
+      end
+    end
+
+    error("Not in recognised format.", 3)
+  end
 end
 
 function Object:lines()

@@ -1,19 +1,19 @@
---- Display Widget for agui-image images objects.
--- @parent agui-widget
--- @classmod agi-widget
+--- Display Widget for veek-image images objects.
+-- @parent veek-widget
+-- @classmod veek-image-widget
 
 -- lint-mode: veek-widget
 
-_parent = "agui-widget"
+_parent = "veek-widget"
 
---- Initalise an agi-widget
+--- Initalise an veek-image-widget
 -- @tparam agi-image img The image to display.
 -- @int x The X position of the widget.
 -- @int y The Y position of the widget.
 -- @int w The widget's width.
 -- @int h The widget's height
 function Widget:init(img, x, y, w, h)
-  self.agui_widget:init(x, y, w, h)
+  self.veek_widget:init(x, y, w, h)
 
   self.img = img
 end

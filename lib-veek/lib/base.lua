@@ -14,4 +14,6 @@ function load_api(path)
   end
 end
 
-kidven.load("Object", "__LIB__/veek/_base/objects/string", "veek-string")
+for _, file in ipairs(fs.list("__LIB__/veek/_base/")) do
+  kidven.load("Object", 'veek-' .. file, '__LIB__/veek/_base/' .. file)
+end

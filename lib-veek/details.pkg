@@ -2,4 +2,10 @@ Description: Text Rendering and wrapping library.
 Dependency: lib-canvas
 Library: veek-objects/
 Library: base => veek/veek
-Library: objects/string => veek/_base/objects/string
+Library: veek/_base/
+Library: objects/string => veek/_base/string
+Library: objects/attrib-string veek/_base/attrib-string
+Library: objects/io/file => veek/_base/file
+Library: objects/io/file-read-handle veek/_base/file-read-handle
+Library: objects/io/file-write-handle veek/_base/file-write-handle
+Library: objects/io/string-read-handle veek/_base/string-read-handle

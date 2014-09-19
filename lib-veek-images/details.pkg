@@ -1,10 +1,10 @@
 Description: Image file support for lib-agui
-Library: agui-images/
-Library: base => agui-images/agimages
-Library: image => agui-images/agi-image
-Library: widget => agui-images/agi-display
-Library: agui-images/formats/
-Library: format/paint => agui-images/formats/paint
-Library: format/nft => agui-images/formats/nft
+Library: veek/images/
+Library: base => veek/images/_load
+Library: image => veek/images/image
+Library: widget => veek/images/display
+Library: veek/images/formats/
+Library: format/paint => veek/images/formats/paint
+Library: format/nft => veek/images/formats/nft
 Dependency: lib-canvas
-Dependency: lib-agui
+Dependency: lib-veek
