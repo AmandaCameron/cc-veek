@@ -40,7 +40,7 @@ function Widget:add(child)
     error('Invalid Widget', 2)
   end
 
-  child:cast('veek-widget').main = self.agui_widget.main
+  child:cast('veek-widget').main = self.veek_widget.main
 
   table.insert(self.children, child)
 end
@@ -55,7 +55,7 @@ function Widget:remove(child)
   end
 
   for c, wid in ipairs(self.children) do
-    if wid:cast('veek-widget').id == child:cast('agui-widget').id then
+    if wid:cast('veek-widget').id == child:cast('veek-widget').id then
       table.remove(self.children, c)
       return
     end
@@ -70,7 +70,7 @@ function Widget:select(child)
   end
 
   if self:get_focus() then
-    if self:get_focus():cast('veek-widget').id == child:cast('agui-widget').id then
+    if self:get_focus():cast('veek-widget').id == child:cast('veek-widget').id then
       -- Shortcut to avoid bluring an already-selected widget.
       return
     end
@@ -79,7 +79,7 @@ function Widget:select(child)
   end
 
   -- for i, c in ipairs(self.children) do
-  -- 	if c.veek_widget.id == child.agui_widget.id then
+  -- 	if c.veek_widget.id == child.veek_widget.id then
   -- 		self.cur_focus = i
   -- 	end
   -- end
@@ -164,7 +164,7 @@ end
 
 function Widget:get_focus()
   if self:_get_focus() then
-    self:_get_focus():cast('veek-widget').main = self.agui_widget.main
+    self:_get_focus():cast('veek-widget').main = self.veek_widget.main
 
     return self:_get_focus()
   end
@@ -200,7 +200,7 @@ function Widget:clicked(x, y, button)
     local child = self:get_focus()
 
     if child:has_flag("active") then
-      self:get_focus():clicked(x - child:cast('veek-widget').x + 1, y - child:cast('agui-widget').y + 1, button)
+      self:get_focus():clicked(x - child:cast('veek-widget').x + 1, y - child:cast('veek-widget').y + 1, button)
 
       return
     end
@@ -211,7 +211,7 @@ function Widget:clicked(x, y, button)
       if child:has_flag("active") then
 	self:select(child)
 
-	child:clicked(x - child:cast('veek-widget').x + 1, y - child:cast('agui-widget').y + 1, button)
+	child:clicked(x - child:cast('veek-widget').x + 1, y - child:cast('veek-widget').y + 1, button)
 
 	return
       end
@@ -224,7 +224,7 @@ function Widget:scroll(x, y, dir)
     local child = self:get_focus()
 
     if child:has_flag("active") then
-      self:get_focus():scroll(x - child.veek_widget.x + 1, y - child.agui_widget.y + 1, dir)
+      self:get_focus():scroll(x - child.veek_widget.x + 1, y - child.veek_widget.y + 1, dir)
 
       return
     end
@@ -235,7 +235,7 @@ function Widget:scroll(x, y, dir)
       if child:has_flag("active") then
 	self:select(child)
 
-	child:scroll(x - child:cast('veek-widget').x + 1, y - child:cast('agui-widget').y + 1, dir)
+	child:scroll(x - child:cast('veek-widget').x + 1, y - child:cast('veek-widget').y + 1, dir)
       end
     end
   end

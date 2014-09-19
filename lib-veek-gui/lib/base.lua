@@ -1,4 +1,4 @@
---- lib-veek-gui widget API.
+--- lib-veek/gui widget API.
 -- @module veek
 
 -- lint-mode: api
@@ -11,10 +11,10 @@ os.loadAPI("__LIB__/canvas")
 
 -- Load the base objects.
 
-for _, file in ipairs(fs.list("__LIB__/veek/objects")) do
-	kidven.load("Object", "veek-" .. file, "__LIB__/veek/objects/" .. file)
+for _, file in ipairs(fs.list("__LIB__/veek/gui/objects")) do
+	kidven.load("Object", "veek-" .. file, "__LIB__/veek/gui/objects/" .. file)
 end
 
-for _, file in ipairs(fs.list("__LIB__/veek/widgets")) do
-	kidven.load("Widget", 'veek-' .. file, "__LIB__/veek/widgets/" .. file)
+for _, file in ipairs(fs.list("__LIB__/veek/gui/widgets")) do
+	kidven.load("Widget", 'veek-' .. file, "__LIB__/veek/gui/widgets/" .. file)
 end

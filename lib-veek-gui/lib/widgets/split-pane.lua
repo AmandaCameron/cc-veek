@@ -54,11 +54,11 @@ function Widget:update_sizes()
   end
 
   if pocket then
-    self.main_view:resize(self.veek_widget.width - self.min_pos, self.agui_widget.height)
+    self.main_view:resize(self.veek_widget.width - self.min_pos, self.veek_widget.height)
     self.main_view:move(self.min_pos + 1, 1)
   else
     self.main_view:move(self.position + 1, 1)
-    self.main_view:resize(self.veek_widget.width - self.position, self.agui_widget.height)
+    self.main_view:resize(self.veek_widget.width - self.position, self.veek_widget.height)
   end
 end
 
@@ -81,8 +81,8 @@ end
 -- Widget function overrides
 
 function Widget:resize(w, h)
-  self.main_view:cast('veek-widget').main = self.agui_widget.main
-  self.side_bar:cast('veek-widget').main = self.agui_widget.main
+  self.main_view:cast('veek-widget').main = self.veek_widget.main
+  self.side_bar:cast('veek-widget').main = self.veek_widget.main
 
   self.veek_widget:resize(w, h)
 
@@ -90,8 +90,8 @@ function Widget:resize(w, h)
 end
 
 function Widget:clicked(x, y, button)
-  self.main_view:cast('veek-widget').main = self.agui_widget.main
-  self.side_bar:cast('veek-widget').main = self.agui_widget.main
+  self.main_view:cast('veek-widget').main = self.veek_widget.main
+  self.side_bar:cast('veek-widget').main = self.veek_widget.main
 
   self.mouse_x = x
   self.mouse_y = y
@@ -122,8 +122,8 @@ function Widget:clicked(x, y, button)
 end
 
 function Widget:dragged(x_del, y_del, button)
-  self.main_view:cast('veek-widget').main = self.agui_widget.main
-  self.side_bar:cast('veek-widget').main = self.agui_widget.main
+  self.main_view:cast('veek-widget').main = self.veek_widget.main
+  self.side_bar:cast('veek-widget').main = self.veek_widget.main
 
   self.mouse_x = self.mouse_x + x_del
   self.mouse_y = self.mouse_y + y_del
@@ -152,8 +152,8 @@ function Widget:dragged(x_del, y_del, button)
 end
 
 function Widget:scroll(x, y, dir)
-  self.main_view:cast('veek-widget').main = self.agui_widget.main
-  self.side_bar:cast('veek-widget').main = self.agui_widget.main
+  self.main_view:cast('veek-widget').main = self.veek_widget.main
+  self.side_bar:cast('veek-widget').main = self.veek_widget.main
 
   self.mouse_x = x
   self.mouse_y = y
@@ -168,8 +168,8 @@ end
 function Widget:focus()
   self.veek_widget:focus()
 
-  self.main_view:cast('veek-widget').main = self.agui_widget.main
-  self.side_bar:cast('veek-widget').main = self.agui_widget.main
+  self.main_view:cast('veek-widget').main = self.veek_widget.main
+  self.side_bar:cast('veek-widget').main = self.veek_widget.main
 
   if self.active == 1 then
     self.main_view:focus()
@@ -179,8 +179,8 @@ function Widget:focus()
 end
 
 function Widget:blur()
-  self.main_view:cast('veek-widget').main = self.agui_widget.main
-  self.side_bar:cast('veek-widget').main = self.agui_widget.main
+  self.main_view:cast('veek-widget').main = self.veek_widget.main
+  self.side_bar:cast('veek-widget').main = self.veek_widget.main
 
   self.veek_widget:blur()
 
@@ -189,8 +189,8 @@ function Widget:blur()
 end
 
 function Widget:key(k)
-  self.main_view:cast('veek-widget').main = self.agui_widget.main
-  self.side_bar:cast('veek-widget').main = self.agui_widget.main
+  self.main_view:cast('veek-widget').main = self.veek_widget.main
+  self.side_bar:cast('veek-widget').main = self.veek_widget.main
 
   if self.active == 1 and self.main_view:key(k) then
     return true
@@ -213,8 +213,8 @@ function Widget:key(k)
 end
 
 function Widget:char(c)
-  self.main_view:cast('veek-widget').main = self.agui_widget.main
-  self.side_bar:cast('veek-widget').main = self.agui_widget.main
+  self.main_view:cast('veek-widget').main = self.veek_widget.main
+  self.side_bar:cast('veek-widget').main = self.veek_widget.main
 
   if self.active == 1 then
     self.main_view:char(c)
@@ -224,8 +224,8 @@ function Widget:char(c)
 end
 
 function Widget:draw(c)
-  self.main_view:cast('veek-widget').main = self.agui_widget.main
-  self.side_bar:cast('veek-widget').main = self.agui_widget.main
+  self.main_view:cast('veek-widget').main = self.veek_widget.main
+  self.side_bar:cast('veek-widget').main = self.veek_widget.main
 
   if self.min_pos == 0 then
     self:draw_raw(self.main_view, c)

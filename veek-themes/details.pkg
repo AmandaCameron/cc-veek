@@ -1,6 +1,6 @@
-Name: AGui base themes.
-Description: AGui base themes.
-Config: agui/
-Config: agui/themes/
-Config: colour.lua => agui/themes/colour
-Config: no_colour.lua => agui/themes/no_colour
+Name: veek base themes.
+Description: veek base themes.
+Config: veek/
+Config: veek/themes/
+Config: colour.lua => veek/themes/colour
+Config: no_colour.lua => veek/themes/no_colour

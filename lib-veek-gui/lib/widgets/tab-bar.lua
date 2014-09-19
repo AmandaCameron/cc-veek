@@ -56,7 +56,7 @@ function Widget:get_contents()
   local c = self:_get_contents()
 
   if c then
-    c.veek_widget.main = self.agui_widget.main
+    c.veek_widget.main = self.veek_widget.main
   end
 
   return c

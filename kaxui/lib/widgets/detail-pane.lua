@@ -2,16 +2,16 @@
 
 -- Details pane widget
 
-_parent = "agui-container"
+_parent = "veek-container"
 
 function Widget:init(app)
-  self.agui_container:init(1, 1, 1, 1)
+  self.veek_container:init(1, 1, 1, 1)
 
-  self.flex = new('agui-layout', self.agui_container)
+  self.flex = new('veek-layout', self.veek_container)
 
-  self.agui_widget.main = app
+  self.veek_widget.main = app
 
-  self.btn_menu = new('agui-button', 1, 2, 'Actions', 12)
+  self.btn_menu = new('veek-button', 1, 2, 'Actions', 12)
   self.btn_menu:set_enabled(false)
 
   self.flex:add(self.btn_menu)
@@ -19,23 +19,23 @@ function Widget:init(app)
   self.flex:add_anchor(self.btn_menu, 'top', 'top', -1, 1)
   self.flex:add_anchor(self.btn_menu, 'left', 'right', -1, -10)
 
-  self.agui_container:add(self.btn_menu)
+  self.veek_container:add(self.btn_menu)
 
   local lbl_w = 7
 
   local function add_label(y, text)
-    local lbl = new('agui-label', 1, y, text, lbl_w)
-    lbl.agui_widget.bg = 'kaxui-label-bg'
-    lbl.agui_widget.fg = 'kaxui-label-fg'
+    local lbl = new('veek-label', 1, y, text, lbl_w)
+    lbl.veek_widget.bg = 'kaxui-label-bg'
+    lbl.veek_widget.fg = 'kaxui-label-fg'
 
     self.flex:add(lbl)
     self.flex:add_anchor(lbl, "top", "top", -1, y)
     self.flex:add_anchor(lbl, "left", "left", -1, 1)
 
-    local val = new('agui-label', 1, y, "")
+    local val = new('veek-label', 1, y, "")
 
-    val.agui_widget.bg = 'kaxui-value-bg'
-    val.agui_widget.fg = 'kaxui-value-fg'
+    val.veek_widget.bg = 'kaxui-value-bg'
+    val.veek_widget.fg = 'kaxui-value-fg'
 
     self.flex:add(val)
 
@@ -46,7 +46,7 @@ function Widget:init(app)
     return val
   end
 
-  local bar = new('agui-widget', 1, 1, 1, 3)
+  local bar = new('veek-widget', 1, 1, 1, 3)
   bar.bg = 'kaxui-title-bg'
 
   -- Haaaack
@@ -59,10 +59,10 @@ function Widget:init(app)
   self.flex:add_anchor(bar, 'left', 'left', -1, 0)
   self.flex:add_anchor(bar, 'right', 'right', -1, 0)
 
-  self.pkg_name = new('agui-label', 1, 1, "")
+  self.pkg_name = new('veek-label', 1, 1, "")
 
-  self.pkg_name.agui_widget.fg = "kaxui-title-fg"
-  self.pkg_name.agui_widget.bg = "kaxui-title-bg"
+  self.pkg_name.veek_widget.fg = "kaxui-title-fg"
+  self.pkg_name.veek_widget.bg = "kaxui-title-bg"
 
   self.flex:add(self.pkg_name)
 
@@ -76,7 +76,7 @@ function Widget:init(app)
   self.pkg_desc = add_label(6, "Desc.")
 
 
-  self.pkg_history = new('agui-textbox', 1, 1, 1, 1)
+  self.pkg_history = new('veek-textbox', 1, 1, 1, 1)
 
   self.flex:add(self.pkg_history)
   self.flex:add_anchor(self.pkg_history, 'top', 'bottom', -1, -10)
@@ -84,19 +84,19 @@ function Widget:init(app)
   self.flex:add_anchor(self.pkg_history, 'right', 'right', -1, 1)
   self.flex:add_anchor(self.pkg_history, 'bottom', 'bottom', -1, 0)
 
-  self.pkg_history.agui_widget.bg = 'kaxui-label-bg'
-  self.pkg_history.agui_widget.fg = 'kaxui-label-fg'
+  self.pkg_history.veek_widget.bg = 'kaxui-label-bg'
+  self.pkg_history.veek_widget.fg = 'kaxui-label-fg'
 
   self.shown_package = nil
 
-  self.menu = new('agui-menu', self.agui_container)
+  self.menu = new('veek-menu', self.veek_container)
 
   self.menu:add("Close", function()
     self:hide_menu()
   end)
 
   app:subscribe("gui.button.pressed", function(_, id)
-    if id == self.btn_menu.agui_widget.id then
+    if id == self.btn_menu.veek_widget.id then
       self:show_menu()
     end
   end)
@@ -115,7 +115,7 @@ function Widget:init(app)
 end
 
 function Widget:resize(w, h)
-  self.agui_widget:resize(w, h)
+  self.veek_widget:resize(w, h)
 
   self.flex:reflow()
 end
@@ -163,7 +163,7 @@ function Widget:show_menu()
     end
   end
 
-  self.menu:show(self.btn_menu.agui_widget.x, self.btn_menu.agui_widget.y)
+  self.menu:show(self.btn_menu.veek_widget.x, self.btn_menu.veek_widget.y)
 end
 
 function Widget:hide_menu()
@@ -173,8 +173,8 @@ end
 function Widget:show_package(pkg)
   self.btn_menu:set_enabled(true)
 
-  self.agui_container.cur_focus = 0
-  self.agui_container:focus_next()
+  self.veek_container.cur_focus = 0
+  self.veek_container:focus_next()
 
   self.shown_package = pkg
 
@@ -205,7 +205,7 @@ function Widget:key(key)
     return false
   end
 
-  if self.agui_container:key(key) then
+  if self.veek_container:key(key) then
     return true
   elseif key == keys.m then
     self:show_menu()
@@ -218,7 +218,7 @@ end
 
 function Widget:draw(canvas, theme)
   if self.shown_package then
-    self.agui_container:draw(canvas, theme)
+    self.veek_container:draw(canvas, theme)
   else
     canvas:clear()
 

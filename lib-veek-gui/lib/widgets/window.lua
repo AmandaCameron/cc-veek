@@ -48,7 +48,7 @@ end
 
 function Widget:key(kc)
   if kc == keys.f10 then
-    local menu = new('veek-menu', self.agui_widget.main)
+    local menu = new('veek-menu', self.veek_widget.main)
 
     menu:add('Move', function()
       self.moving = true
@@ -90,30 +90,30 @@ function Widget:key(kc)
       end)
     end
 
-    menu:show(self.veek_widget.x + 1, self.agui_widget.y + 1)
+    menu:show(self.veek_widget.x + 1, self.veek_widget.y + 1)
 
   -- Resizing Controls
   elseif kc == keys.up and self.resizing then
-    self.veek_widget.height = self.agui_widget.height - 1
+    self.veek_widget.height = self.veek_widget.height - 1
     self.veek_widget:trigger('gui.window.resize')
   elseif kc == keys.down and self.resizing then
-    self.veek_widget.height = self.agui_widget.height + 1
+    self.veek_widget.height = self.veek_widget.height + 1
     self.veek_widget:trigger('gui.window.resize')
   elseif kc == keys.left and self.resizing then
-    self.veek_widget.width = self.agui_widget.width - 1
+    self.veek_widget.width = self.veek_widget.width - 1
     self.veek_widget:trigger('gui.window.resize')
   elseif kc == keys.right and self.resizing then
-    self.veek_widget.width = self.agui_widget.width + 1
+    self.veek_widget.width = self.veek_widget.width + 1
     self.veek_widget:trigger('gui.window.resize')
   -- Moving Controls
   elseif kc == keys.up and self.moving then
-    self.veek_widget.y = self.agui_widget.y - 1
+    self.veek_widget.y = self.veek_widget.y - 1
   elseif kc == keys.down and self.moving then
-    self.veek_widget.y = self.agui_widget.y + 1
+    self.veek_widget.y = self.veek_widget.y + 1
   elseif kc == keys.left and self.moving then
-    self.veek_widget.x = self.agui_widget.x - 1
+    self.veek_widget.x = self.veek_widget.x - 1
   elseif kc == keys.right and self.moving then
-    self.veek_widget.x = self.agui_widget.x + 1
+    self.veek_widget.x = self.veek_widget.x + 1
   elseif kc == keys.enter and (self.moving or self.resizing) then
     self.moving = false
     self.resizing = false
@@ -160,7 +160,7 @@ function Widget:clicked(x, y, btn)
     else
         self.moving = true
     end
-  elseif x == self.veek_widget.width and y == self.agui_widget.height and self.flags.resizable then
+  elseif x == self.veek_widget.width and y == self.veek_widget.height and self.flags.resizable then
     self.resizing = true
   else
     self.veek_container:clicked(x - 1, y - 1, btn)
@@ -169,10 +169,10 @@ end
 
 function Widget:dragged(x_del, y_del, button)
   if self.moving then
-    self.veek_widget.x = self.agui_widget.x + x_del
-    self.veek_widget.y = self.agui_widget.y + y_del
+    self.veek_widget.x = self.veek_widget.x + x_del
+    self.veek_widget.y = self.veek_widget.y + y_del
   elseif self.resizing then
-    self.veek_widget:resize(self.agui_widget.width + x_del, self.agui_widget.height + y_del)
+    self.veek_widget:resize(self.veek_widget.width + x_del, self.veek_widget.height + y_del)
 
     self.veek_widget:trigger('gui.window.resize')
   else
@@ -261,7 +261,7 @@ function Widget:draw(pc, theme)
   pc:write(']')
 
   if self.flags.resizable then
-      pc:move(self.veek_widget.width, self.agui_widget.height)
+      pc:move(self.veek_widget.width, self.veek_widget.height)
       pc:set_fg('window-resize-fg')
       pc:set_bg('window-resize-bg')
       pc:write("/")

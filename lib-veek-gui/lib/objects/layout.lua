@@ -6,7 +6,7 @@
 _parent = 'object'
 
 --- Initialises an veek-layout.
--- @tparam veek-app-window|agui-container container The contains this layout acts on.
+-- @tparam veek-app-window|veek-container container The contains this layout acts on.
 function Object:init(container)
   if container:is_a('veek-app-window') then
     container = container:cast('veek-app-window').gooey
@@ -127,11 +127,11 @@ function Object:get(obj, dir)
   if dir == 'left' then
     return widget:cast('veek-widget').x
   elseif dir == 'right' then
-    return widget:cast('veek-widget').x + widget:cast('agui-widget').width
+    return widget:cast('veek-widget').x + widget:cast('veek-widget').width
   elseif dir == 'top' then
     return widget:cast('veek-widget').y
   elseif dir == 'bottom' then
-    return widget:cast('veek-widget').y + widget:cast('agui-widget').height
+    return widget:cast('veek-widget').y + widget:cast('veek-widget').height
   elseif dir == 'width' then
     return widget:cast('veek-widget').width
   elseif dir == 'height' then
@@ -167,17 +167,17 @@ end
 
 
 function Object:_anchor_left_middle(widget, other, dist)
-  widget:cast('veek-widget').x = math.floor(self:get(other, 'width') / 2) - math.floor(widget:cast('agui-widget').width / 2) + dist
+  widget:cast('veek-widget').x = math.floor(self:get(other, 'width') / 2) - math.floor(widget:cast('veek-widget').width / 2) + dist
 end
 
 -- Right Anchors
 
 function Object:_anchor_right_right(widget, other, dist)
-  widget:cast('veek-widget').width = self:get(other, 'right') - widget:cast('agui-widget').x - dist + 1
+  widget:cast('veek-widget').width = self:get(other, 'right') - widget:cast('veek-widget').x - dist + 1
 end
 
 function Object:_anchor_right_left(widget, other, dist)
-  widget:cast('veek-widget').width = widget:cast('agui-widget').x + self:get(other, 'left') + dist
+  widget:cast('veek-widget').width = widget:cast('veek-widget').x + self:get(other, 'left') + dist
 end
 
 function Object:_anchor_right_middle(widget, other, dist)
@@ -187,11 +187,11 @@ end
 -- Bottom Anchors
 
 function Object:_anchor_bottom_top(widget, other, dist)
-  widget:cast('veek-widget').height = self:get(other, 'top') - widget:cast('agui-widget').y - dist + 1
+  widget:cast('veek-widget').height = self:get(other, 'top') - widget:cast('veek-widget').y - dist + 1
 end
 
 function Object:_anchor_bottom_bottom(widget, other, dist)
-  widget:cast('veek-widget').height = self:get(other, 'bottom') - widget:cast('agui-widget').y + dist
+  widget:cast('veek-widget').height = self:get(other, 'bottom') - widget:cast('veek-widget').y + dist
 end
 
 function Object:_anchor_bottom_middle(widget, other, dist)

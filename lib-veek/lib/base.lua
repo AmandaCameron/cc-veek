@@ -5,8 +5,8 @@ os.loadAPI("__LIB__/kidven/kidven")
 function load_api(path)
   if fs.exists(path) then
     if fs.isDir(path) then
-      if fs.exists(fs.join(path, "_load")) then
-        path = fs.join(path, "_load")
+      if fs.exists(fs.combine(path, "_load")) then
+        path = fs.combine(path, "_load")
       end
     end
 

@@ -1,4 +1,4 @@
-if not os.loadAPI('/lib/agui/agui') then
+if not os.loadAPI('/lib/veek/veek') then
 	print("Press any key to reboot.")
 
 	os.pullEvent("key")
@@ -7,12 +7,12 @@ if not os.loadAPI('/lib/agui/agui') then
 end
 
 
-agui.log_file(fs.combine('/log', fs.getName(shell.getRunningProgram())))
-agui.init()
+veek.log_file(fs.combine('/log', fs.getName(shell.getRunningProgram())))
+veek.init()
 
 local w, h = term.getSize()
 
-local tb = agui.new('textbox', 1, 1, w, h)
+local tb = veek.new('textbox', 1, 1, w, h)
 
 tb.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel tellus vitae mi dictum  \
 accumsan. Suspendisse faucibus, sapien ut auctor venenatis, lectus dolor suscipit lorem, id \
@@ -46,16 +46,16 @@ pharetra ullamcorper ullamcorper. Proin lacus nulla, fringilla ut scelerisque ut
 Sed luctus sapien quis leo consectetur at interdum sem fermentum.\
 "
 
-agui.add(tb)
+veek.add(tb)
 
-local exit = agui.new('button', w - 3, h, 'Exit')
+local exit = veek.new('button', w - 3, h, 'Exit')
 
-agui.add(exit)
+veek.add(exit)
 
-agui.hook_event('button_pressed', function(id)
+veek.hook_event('button_pressed', function(id)
 		if id == exit.widget.id then
-		agui.quit()
+		veek.quit()
 	end
 end)
 
-agui.main()
+veek.main()

@@ -1,6 +1,6 @@
 Name: Project Veek GUI Library
 Description: A "GUI" toolkit for Computer Craft.
-Dependency: veek-gui-themes
+Dependency: veek-themes
 Dependency: lib-canvas
 Dependency: lib-event
 Dependency: lib-thread
@@ -27,9 +27,8 @@ Library: widgets/progress-bar => veek/gui/widgets/progress-bar
 Library: widgets/split-pane => veek/gui/widgets/split-pane
 Library: widgets/scroll-view => veek/gui/widgets/scroll-view
 Library: veek/gui/objects/
-Library: objects/veek-app => veek/gui/objects/veek-app
-Library: objects/veek-app-window => veek/gui/objects/veek-app-window
-Library: objects/veek-virtual-window => veek/gui/objects/veek-virtual-window
-Library: objects/veek-layout => veek/gui/objects/veek-layout
-Library: objects/veek-mouse-track => veek/gui/objects/veek-mouse-track
-Docs: lib-veek
+Library: objects/app => veek/gui/objects/app
+Library: objects/app-window => veek/gui/objects/app-window
+Library: objects/virtual-window => veek/gui/objects/virtual-window
+Library: objects/layout => veek/gui/objects/layout
+Library: objects/mouse-track => veek/gui/objects/mouse-track

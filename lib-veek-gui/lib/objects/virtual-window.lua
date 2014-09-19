@@ -1,4 +1,4 @@
--- This is an veek-app-window subclass that is backed by a agui-window instance inside of an agui-app's main_window
+-- This is an veek-app-window subclass that is backed by a veek-window instance inside of an veek-app's main_window
 -- This should only get used by the veek-app instance when the term.newWindow protocol is unavailable.
 
 -- lint-mode: veek-object
@@ -10,8 +10,8 @@ function Object:init(app, title, width, height)
 
 	local win = new('veek-window', title, width, height)
 
-	win.veek_widget.x = math.floor(app.main_window.gooey.agui_widget.width / 2 - width / 2)
-	win.veek_widget.y = math.floor(app.main_window.gooey.agui_widget.height / 2 - height / 2)
+	win.veek_widget.x = math.floor(app.main_window.gooey.veek_widget.width / 2 - width / 2)
+	win.veek_widget.y = math.floor(app.main_window.gooey.veek_widget.height / 2 - height / 2)
 
 	self.veek_app_window.gooey = win
 
@@ -57,12 +57,12 @@ function Object:resize(w, h)
 end
 
 function Object:show()
-	self.veek_app_window.app:add(self.agui_app_window.gooey)
-	self.veek_app_window.app:select(self.agui_app_window.gooey)
+	self.veek_app_window.app:add(self.veek_app_window.gooey)
+	self.veek_app_window.app:select(self.veek_app_window.gooey)
 end
 
 function Object:hide()
-	self.veek_app_window.app:remove(self.agui_app_window.gooey)
+	self.veek_app_window.app:remove(self.veek_app_window.gooey)
 end
 
 function Object:add_flag(flag)

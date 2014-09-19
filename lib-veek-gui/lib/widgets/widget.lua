@@ -161,7 +161,7 @@ function Widget:draw_raw(widget, pc, theme)
 	pc:push()
 
 	if widget:cast('veek-widget'):has_flag('buffered') then
-		if not widget:cast('veek-widget').canvas or widget:cast('agui-widget').dirty then
+		if not widget:cast('veek-widget').canvas or widget:cast('veek-widget').dirty then
 			widget:cast('veek-widget').canvas = canvas.new(
 				pc.ctx,
 				pc.lookup,
@@ -180,9 +180,9 @@ function Widget:draw_raw(widget, pc, theme)
 
 		widget:cast('veek-widget').Object:blit(1, 1,
 			nil, nil,
-			pc:as_redirect(widget:cast('veek-widget').x, widget:cast('agui-widget').y, widget:cast('agui-widget').width, widget:cast('agui-widget').height))
+			pc:as_redirect(widget:cast('veek-widget').x, widget:cast('veek-widget').y, widget:cast('veek-widget').width, widget:cast('veek-widget').height))
 	else
-		local c = pc:sub(widget:cast('veek-widget').x, widget:cast('agui-widget').y, widget:cast('agui-widget').width, widget:cast('agui-widget').height)
+		local c = pc:sub(widget:cast('veek-widget').x, widget:cast('veek-widget').y, widget:cast('veek-widget').width, widget:cast('veek-widget').height)
 
 		c:set_cursor(1, 1, false)
 

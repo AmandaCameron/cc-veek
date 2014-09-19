@@ -1,4 +1,4 @@
-if not os.loadAPI('/lib/agui/agui') then
+if not os.loadAPI('/lib/veek/veek') then
 	print("Press any key to reboot.")
 
 	os.pullEvent("key")
@@ -7,21 +7,21 @@ if not os.loadAPI('/lib/agui/agui') then
 end
 
 
-agui.log_file(fs.combine('/log', fs.getName(shell.getRunningProgram())))
-agui.init()
+veek.log_file(fs.combine('/log', fs.getName(shell.getRunningProgram())))
+veek.init()
 
-local win = agui.new('window', 'Cheese Demo', 25, 7)
+local win = veek.new('window', 'Cheese Demo', 25, 7)
 
 win.widget.fg = 'black'
 win.widget.bg = 'green'
 
 
-local lbl = agui.new('label', 2, 2, 'Label Test')
-local btn = agui.new('button', 2, 3, 'Button Test')
+local lbl = veek.new('label', 2, 2, 'Label Test')
+local btn = veek.new('button', 2, 3, 'Button Test')
 
 local width, height = term.getSize()
 
-local textbox = agui.new('textbox', 1, 1, width, height)
+local textbox = veek.new('textbox', 1, 1, width, height)
 
 textbox.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel tellus vitae mi dictum  \
 accumsan. Suspendisse faucibus, sapien ut auctor venenatis, lectus dolor suscipit lorem, id \
@@ -58,13 +58,13 @@ Sed luctus sapien quis leo consectetur at interdum sem fermentum.\
 win:add(lbl)
 win:add(btn)
 
-agui.add(textbox)
-agui.add(win)
+veek.add(textbox)
+veek.add(win)
 
-agui.hook_event('button_pressed', function(id)
+veek.hook_event('button_pressed', function(id)
 		if id == btn.widget.id then
-		agui.quit()
+		veek.quit()
 	end
 end)
 
-agui.main()
+veek.main()

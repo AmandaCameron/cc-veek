@@ -1,4 +1,4 @@
-if not os.loadAPI('/lib/agui/agui') then
+if not os.loadAPI('/lib/veek/veek') then
 	print("Press any key to reboot.")
 
 	os.pullEvent("key")
@@ -7,28 +7,28 @@ if not os.loadAPI('/lib/agui/agui') then
 end
 
 
-agui.log_file(fs.combine('/log', fs.getName(shell.getRunningProgram())))
-agui.init()
+veek.log_file(fs.combine('/log', fs.getName(shell.getRunningProgram())))
+veek.init()
 
-local cont = agui.new('container', 12, 5, 20, 5)
+local cont = veek.new('container', 12, 5, 20, 5)
 cont.widget.fg = 'black'
 cont.widget.bg = 'green'
 
 
-local lbl = agui.new('label', 2, 2, 'Label Test')
-local btn = agui.new('button', 17, 5, 'Exit')
+local lbl = veek.new('label', 2, 2, 'Label Test')
+local btn = veek.new('button', 17, 5, 'Exit')
 btn.widget.bg = 'exit-button--bg'
 btn.widget.fg = 'exit-button--fg'
 
 cont:add(lbl)
 cont:add(btn)
 
-agui.add(cont)
+veek.add(cont)
 
-agui.hook_event('button_pressed', function(id)
+veek.hook_event('button_pressed', function(id)
 		if id == btn.widget.id then
-		agui.quit()
+		veek.quit()
 	end
 end)
 
-agui.main()
+veek.main()

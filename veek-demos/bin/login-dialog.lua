@@ -1,24 +1,24 @@
-os.loadAPI("__LIB__/agui/agui")
+os.loadAPI("__LIB__/veek/veek")
 
-local app = kidven.new('agui-app')
+local app = kidven.new('veek-app')
 
-local window = kidven.new('agui-window', 'Login', 12, 6)
+local window = kidven.new('veek-window', 'Login', 12, 6)
 
 local w, h = term.getSize()
 
 window:move(w / 2 - 6, h / 2 - 3)
 
-window:add(kidven.new('agui-label', 2, 1, 'Username'))
-window:add(kidven.new('agui-label', 2, 3, 'Password'))
+window:add(kidven.new('veek-label', 2, 1, 'Username'))
+window:add(kidven.new('veek-label', 2, 3, 'Password'))
 
-local usr_name = kidven.new('agui-input', 2, 2, 10)
-local passwd = kidven.new('agui-input', 2, 4, 10)
+local usr_name = kidven.new('veek-input', 2, 2, 10)
+local passwd = kidven.new('veek-input', 2, 4, 10)
 passwd.placeholder = '*'
 
 window:add(usr_name)
 window:add(passwd)
 
-local login = kidven.new('agui-button', 5, 6, 'Login')
+local login = kidven.new('veek-button', 5, 6, 'Login')
 
 window:add(login)
 

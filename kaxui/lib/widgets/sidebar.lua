@@ -1,11 +1,11 @@
 -- lint-mode: veek-widget
 
-_parent = "agui-container"
+_parent = "veek-container"
 
 function Widget:init(state)
-  self.agui_container:init(1, 1, 1, 1)
+  self.veek_container:init(1, 1, 1, 1)
 
-  self.package_list = new('agui-list', 1, 1, 1, 1)
+  self.package_list = new('veek-list', 1, 1, 1, 1)
 
   self:add(self.package_list)
 
@@ -63,6 +63,6 @@ function Widget:load()
 end
 
 function Widget:resize(w, h)
-  self.agui_widget:resize(w, h)
+  self.veek_widget:resize(w, h)
   self.package_list:resize(w, h)
 end

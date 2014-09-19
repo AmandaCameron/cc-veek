@@ -30,7 +30,7 @@ function Widget:scroll_into_view(x, y)
   if not (y - self.scroll_y > 0 and y - self.scroll_y < self.veek_widget.height) then
     self.scroll_y = math.floor(y)
 
-    if self.scroll_y > self.height - self.veek_widget.height and self.height > self.agui_widget.height then
+    if self.scroll_y > self.height - self.veek_widget.height and self.height > self.veek_widget.height then
       self.scroll_y = self.height - self.veek_widget.height
     end
   end
@@ -206,8 +206,8 @@ end
 function Widget:reflow()
   self.width, self.height = self.get_size()
 
-  self.x_bar_size = math.floor(self.veek_widget.width / self.width * self.agui_widget.width)
-  self.y_bar_size = math.floor(self.veek_widget.height / self.height * self.agui_widget.height)
+  self.x_bar_size = math.floor(self.veek_widget.width / self.width * self.veek_widget.width)
+  self.y_bar_size = math.floor(self.veek_widget.height / self.height * self.veek_widget.height)
 
   if self.y_bar_size < 3 then
     self.y_bar_size = 3

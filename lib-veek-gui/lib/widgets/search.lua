@@ -1,5 +1,5 @@
 --- Search + Results Widget.
--- This shows a combination of an veek-input and an agui-list for displaying
+-- This shows a combination of an veek-input and an veek-list for displaying
 -- a search field in a consistant way.
 -- @classmod veek-search
 

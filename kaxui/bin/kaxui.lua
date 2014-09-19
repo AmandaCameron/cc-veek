@@ -13,7 +13,7 @@
 os.loadAPI("__LIB__/kaxui/kaxui")
 os.loadAPI("__LIB__/acg/acg")
 
-local app = kidven.new('agui-app')
+local app = kidven.new('veek-app')
 
 if term.isColour() then
   app:load_theme("__LIB__/kaxui/res/theme")
@@ -26,7 +26,7 @@ local state = acg.load_state()
 local details_pane = kidven.new('kaxui-detail-pane', app)
 local sidebar = kidven.new('kaxui-sidebar', state)
 
-local main = kidven.new('agui-split-pane', sidebar, details_pane)
+local main = kidven.new('veek-split-pane', sidebar, details_pane)
 
 main.active = 2
 
@@ -47,7 +47,7 @@ app:add(main)
 main:resize(term.getSize())
 
 app:subscribe('gui.list.changed', function(_, id, iid, item)
-  if id == sidebar.package_list.agui_widget.id then
+  if id == sidebar.package_list.veek_widget.id then
     if item:is_a('kaxui-list-pkg') then
       details_pane:show_package(item.pkg)
     end
@@ -57,15 +57,15 @@ end)
 
 -- Loading Window
 
-local loading_win = kidven.new('agui-container', 1, 1, term.getSize())
+local loading_win = kidven.new('veek-container', 1, 1, term.getSize())
 
-loading_win.agui_widget.fg = 'black'
-loading_win.agui_widget.bg = 'white'
+loading_win.veek_widget.fg = 'black'
+loading_win.veek_widget.bg = 'white'
 
-local loading_layout = kidven.new('agui-layout', loading_win)
+local loading_layout = kidven.new('veek-layout', loading_win)
 
-local loading_prog_bar = kidven.new('agui-progress-bar', 2, 4, 16)
-local loading_text = kidven.new('agui-label', 2, 2, 'Loading', 16)
+local loading_prog_bar = kidven.new('veek-progress-bar', 2, 4, 16)
+local loading_text = kidven.new('veek-label', 2, 2, 'Loading', 16)
 
 loading_layout:add(loading_text)
 

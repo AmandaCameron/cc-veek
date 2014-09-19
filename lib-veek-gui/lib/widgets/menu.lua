@@ -9,7 +9,7 @@ _parent = "veek-widget"
 
 
 --- Initalise a veek-menu object.
--- @tparam veek-container|agui-app|agui-app-window parent The parent widget to display inside.
+-- @tparam veek-container|veek-app|veek-app-window parent The parent widget to display inside.
 -- @tparam ?|int width The menu's width.
 function Widget:init(parent, width)
   self.veek_widget:init(1, 1, width or 10, 1)
@@ -64,7 +64,7 @@ end
 function Widget:show(x, y)
   self.visible = true
 
-  if x > self.parent.veek_widget.width - self.agui_widget.width then
+  if x > self.parent.veek_widget.width - self.veek_widget.width then
     x = x - self.veek_widget.width
   end
 

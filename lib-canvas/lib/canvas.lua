@@ -4,7 +4,7 @@
 
 -- lint-mode: api
 
--- Canvas API -- Ripped out of agui as it's rather useful
+-- Canvas API -- Ripped out of veek as it's rather useful
 -- on it's own.
 
 --- Canvas Object.

@@ -1,14 +1,14 @@
 -- lint-mode: veek-widget
 
-_parent = 'agui-list-item'
+_parent = 'veek-list-item'
 
 function Widget:init(title)
-  self.agui_list_item:init("")
+  self.veek_list_item:init("")
 
   self.title = title
 
-  self.agui_widget.fg = 'kaxui-list-header-fg'
-  self.agui_widget.bg = 'kaxui-list-header-bg'
+  self.veek_widget.fg = 'kaxui-list-header-fg'
+  self.veek_widget.bg = 'kaxui-list-header-bg'
 end
 
 function Widget:draw(c)

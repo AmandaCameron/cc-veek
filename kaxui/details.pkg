@@ -10,4 +10,4 @@ Library: widgets/list-header => kaxui/widgets/list-header
 Library: widgets/sidebar => kaxui/widgets/sidebar
 Library: kaxui/res/
 Library: res/theme => kaxui/res/theme
-Dependency: lib-agui
+Dependency: lib-veek-gui

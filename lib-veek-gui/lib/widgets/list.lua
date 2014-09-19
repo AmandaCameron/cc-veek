@@ -70,10 +70,10 @@ function Widget:clear()
 end
 
 --- Add a list item.
--- @tparam veek-list-item item The `agui-list-item` to add.
+-- @tparam veek-list-item item The `veek-list-item` to add.
 -- @tparam int|nil pos The position in the list to add the item.
 function Widget:add(item, pos)
-	if item._type ~= 'veek-list-item' and not item.agui_list_item then
+	if item._type ~= 'veek-list-item' and not item.veek_list_item then
 		error('Invalid List Item.', 2)
 	end
 
@@ -196,7 +196,7 @@ function Widget:reflow()
 	local y = 1
 
 	for _, item in ipairs(self.items) do
-		item.veek_widget.width = self.agui_widget.width
+		item.veek_widget.width = self.veek_widget.width
 		item.veek_widget.x = 1
 		item.veek_widget.y = y
 
