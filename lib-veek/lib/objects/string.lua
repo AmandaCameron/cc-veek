@@ -10,6 +10,10 @@ function Object:append(other)
   self.body = other
 end
 
+function Object:string()
+  return self.body
+end
+
 function Object:iter()
   local pos = 0
 

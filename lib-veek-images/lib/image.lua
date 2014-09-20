@@ -20,12 +20,12 @@ end
 -- @tparam veek-read-handle handle
 function Object:init(handle)
   if handle and handle:is_a('veek-read-handle') then
-    local img = handle:all()
+    local img = handle:all():string()
 
     for _, cb in pairs(formats) do
       if cb.is_a(img) then
         self.data = cb.decode(img)
-        
+
         return
       end
     end

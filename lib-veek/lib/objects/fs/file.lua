@@ -1,6 +1,9 @@
 -- lint-mode: veek-object
 
 _parent = "object"
+_implements = {
+  'veek-fs-node'
+}
 
 --- Initalises a new veek-file object with the given path.
 -- @string path The path to the file.

@@ -14,6 +14,10 @@ function load_api(path)
   end
 end
 
-for _, file in ipairs(fs.list("__LIB__/veek/_base/")) do
-  kidven.load("Object", 'veek-' .. file, '__LIB__/veek/_base/' .. file)
+for _, file in ipairs(fs.list("__LIB__/veek/_base/interfaces/")) do
+  kidven.load("Object", 'veek-' .. file, '__LIB__/veek/_base/interfaces/' .. file)
+end
+
+for _, file in ipairs(fs.list("__LIB__/veek/_base/objects/")) do
+  kidven.load("Object", 'veek-' .. file, '__LIB__/veek/_base/objects/' .. file)
 end

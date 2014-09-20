@@ -3,11 +3,16 @@ Dependency: lib-canvas
 Pre-Install: make-dir
 Library: base => veek/veek
 Library: veek/_base/
-Library: objects/string => veek/_base/string
-Library: objects/attrib-string => veek/_base/attrib-string
-Library: objects/io/file => veek/_base/file
-Library: objects/io/file-read-handle => veek/_base/file-read-handle
-Library: objects/io/file-write-handle => veek/_base/file-write-handle
-Library: objects/io/string-read-handle => veek/_base/string-read-handle
-Library: objects/interfaces/read-handle => veek/_base/read-handle
-Library: objects/interfaces/write-handle => veek/_base/write-handle
+Library: veek/_base/objects/
+Library: objects/string => veek/_base/objects/string
+Library: objects/data-structs/set => veek/_base/objects/set
+Library: objects/attrib-string => veek/_base/objects/attrib-string
+Library: objects/fs/file => veek/_base/objects/file
+Library: objects/fs/directory => veek/_base/objects/directory
+Library: objects/io/file-read-handle => veek/_base/objects/file-read-handle
+Library: objects/io/file-write-handle => veek/_base/objects/file-write-handle
+Library: objects/io/string-read-handle => veek/_base/objects/string-read-handle
+Library: veek/_base/interfaces/
+Library: interfaces/io/read-handle => veek/_base/interfaces/read-handle
+Library: interfaces/io/write-handle => veek/_base/interfaces/write-handle
+Library: interfaces/fs/node => veek/_base/interfaces/fs-node
