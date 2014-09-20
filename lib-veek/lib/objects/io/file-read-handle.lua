@@ -1,17 +1,21 @@
 -- lint-mode: veek-object
 
-_parent = "veek-read-handle"
+--_parent = "veek-read-handle"
+_parent = "object"
+_implements = { 
+  "veek-read-handle"
+}
 
 function Object:init(handle)
   self.handle = handle
 end
 
 function Object:all()
-  self.handle.readAll()
+  return new('veek-string', self.handle.readAll())
 end
 
 function Object:read_line()
-  return fs.readLine(self.handle)
+  return new('veek-string', fs.readLine(self.handle))
 end
 
 function Object:lines()

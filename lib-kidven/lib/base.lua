@@ -28,6 +28,11 @@ function _new(cls_name, ret, skip_parents)
   end
 
   ret._type = cls_name
+  ret._implements = {}
+
+  for _, impl in cls.implements do
+    ret._implements[impl] = true
+  end
 
   -- Parent me, baby!
 
@@ -42,6 +47,10 @@ function _new(cls_name, ret, skip_parents)
       local parent_nice, _ = cls.parent:gsub('-', '_')
 
       ret[parent_nice] = _new(cls.parent, {}, true)
+
+      for _, impl in cls.implements do
+        ret._implements[impl] = true
+      end
 
       local size = #prev_parents
 
@@ -74,7 +83,10 @@ function _new(cls_name, ret, skip_parents)
       return true
     elseif self[cls_name:gsub("-", '_')] then
       return true
+    elseif self._implements[cls_name] then
+      return true
     end
+
     return false
   end
 
@@ -86,6 +98,10 @@ function _new(cls_name, ret, skip_parents)
     if self._type == cls_name then
       return self
     else
+      if self._implements[cls_name] then
+        return self
+      end
+
       return self[cls_name:gsub('-', '_')]
     end
   end
@@ -98,10 +114,13 @@ end
 -- @string name
 -- @tab cls
 -- @string parent
-function register(name, cls, parent)
+function register(name, cls, parent, impl)
+  local impl = impl or {}
+
   class_reg[name] = {
     class = cls,
     parent = parent,
+    implements = impl,
   }
 end
 
@@ -174,9 +193,11 @@ function load(ns_name, obj_name, file, e)
     error(err, 2)
   end
 
-  register(obj_name, env[ns_name], env._parent)
+  register(obj_name, env[ns_name], env._parent, env._implements)
 end
 
 -- Main Body.
 
 load("Object", "object", "__LIB__/kidven/object")
+
+register("interface", {}, nil, {})

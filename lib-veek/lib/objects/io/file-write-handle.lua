@@ -1,6 +1,9 @@
 -- lint-mode: veek-object
 
-_parent = "veek-write-handle"
+_parent = "object"
+_implements = {
+  "veek-write-handle"
+}
 
 function Object:init(handle)
   self.handle = handle

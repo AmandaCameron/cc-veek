@@ -9,3 +9,5 @@ Library: objects/io/file => veek/_base/file
 Library: objects/io/file-read-handle => veek/_base/file-read-handle
 Library: objects/io/file-write-handle => veek/_base/file-write-handle
 Library: objects/io/string-read-handle => veek/_base/string-read-handle
+Library: objects/interfaces/read-handle => veek/_base/read-handle
+Library: objects/interfaces/write-handle => veek/_base/write-handle

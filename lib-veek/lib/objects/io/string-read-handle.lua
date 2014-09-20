@@ -1,6 +1,9 @@
 -- lint-mode: veek-object
 
-_parent = "veek-read-handle"
+_parent = "object"
+_implements = {
+  "veek-read-handle"
+}
 
 function Object:init(str)
   kidven.verify({ str }, "veek-string")

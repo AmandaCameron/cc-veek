@@ -16,8 +16,6 @@ for _, file in ipairs(fs.list("__LIB__/veek/images/formats/")) do
   end
 end
 
-
-
 --- Initalises a veek-image object with the data from the given `veek-read-handle`
 -- @tparam veek-read-handle handle
 function Object:init(handle)
@@ -26,7 +24,9 @@ function Object:init(handle)
 
     for _, cb in pairs(formats) do
       if cb.is_a(img) then
-        self.data = cb.load(img)
+        self.data = cb.decode(img)
+        
+        return
       end
     end
 
