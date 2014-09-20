@@ -30,7 +30,7 @@ function _new(cls_name, ret, skip_parents)
   ret._type = cls_name
   ret._implements = {}
 
-  for _, impl in cls.implements do
+  for _, impl in ipairs(cls.implements) do
     ret._implements[impl] = true
   end
 
@@ -48,7 +48,7 @@ function _new(cls_name, ret, skip_parents)
 
       ret[parent_nice] = _new(cls.parent, {}, true)
 
-      for _, impl in cls.implements do
+      for _, impl in ipairs(cls.implements) do
         ret._implements[impl] = true
       end
 
