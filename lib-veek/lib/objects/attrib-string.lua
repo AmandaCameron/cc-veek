@@ -7,30 +7,80 @@ function Object:init(body)
 
   self.format = {}
 
-  for i = 1, #body do
+  for i = 1, self.veek_string:length() do
     self.format[i] = {}
   end
 end
 
 function Object:append(other)
   if type(other) == "string" then
-    for i in 1, #other do
-      self.format[#self.veek_string.body + i] = {}
+    for i = 1, #other do
+      self.format[self:length() + i] = {}
     end
 
-    self.veek_string.body = self.veek_string.body .. other
-  elseif other.is_a and other:is_a("veek-string") then
-    self:append(other.body)
+    self.veek_string:append(other)
   elseif other.is_a and other:is_a("veek-attrib-string") then
-    for i in 1, #other.body do
-      self.format[#self.veek_string.body + i] = other.format[i]
+    for i = 1, #other:cast('veek-string').body do
+      self.format[self:length() + i] = other:cast('veek-attrib-string').format[i]
     end
 
-    self.veek_string.body = self.veek_string.body .. other.body
+    self.veek_string.body = self.veek_string.body .. other:cast('veek-string').body
+  elseif other.is_a and other:is_a("veek-string") then
+    return self:append(other.body or '')
   else
     error("Invalid type.", 2)
   end
+
+  return self
 end
+
+function Object:split(needle)
+  local parts = {}
+  local idx = self:index_of(needle)
+  local str = self
+
+  while idx do
+    parts[#parts + 1] = str:substring(1, idx - 1)
+    str = str:substring(idx + #needle)
+
+    idx = str:index_of(needle)
+  end
+
+  parts[#parts + 1] = str
+
+  return ipairs(parts)
+end
+
+function Object:substring(start, stop)
+  if not stop then
+    stop = self:length()
+  end
+
+  local ret = new('veek-attrib-string', self.veek_string:substring(start, stop):string())
+
+  for i = start, stop do
+    ret.format[i - start + 1] = self.format[i]
+  end
+
+  return ret
+end
+
+-- Draw to the screen.
+
+function Object:render(c)
+  for char, attr in self:iter() do
+    if attr.colour then
+      c:set_fg(attr.colour)
+    end
+
+    if attr.background then
+      c:set_bg(attr.background)
+    end
+
+    c:write(char)
+  end
+end
+
 
 --- Iterates this veek-string object, returning char, format pairs.
 function Object:iter()
@@ -39,7 +89,9 @@ function Object:iter()
   local function next()
     i = i + 1
 
-    return self.veek_string.body:sub(i, i), self.format[i]
+    if i <= self:length() then
+      return self.veek_string.body:sub(i, i), self.format[i]
+    end
   end
 
   return next
@@ -53,12 +105,20 @@ end
 
 function Object:apply_colour(colour, start, stop)
   for i = start, stop do
+    if not self.format[i] then
+      self.format[i] = {}
+    end
+
     self.format[i].colour = colour
   end
 end
 
 function Object:apply_background(colour, start, stop)
   for i = start, stop do
+    if not self.format[i] then
+      self.format[i] = {}
+    end
+
     self.format[i].background = colour
   end
 end

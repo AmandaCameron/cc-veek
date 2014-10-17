@@ -3,15 +3,44 @@
 _parent = "object"
 
 function Object:init(body)
+  if not body then
+    body = ""
+  end
+
   self.body = body
 end
 
 function Object:append(other)
-  self.body = other
+  if other.is_a and other:is_a('veek-string') then
+    other = other:cast('veek-string').body
+  end
+
+  if type(other) ~= 'string' then error("Invalid value.", 2) end
+
+  self.body = self.body .. other
+
+  return self
 end
 
 function Object:string()
   return self.body
+end
+
+function Object:split(needle)
+  local parts = {}
+  local idx = self:index_of(needle)
+  local str = new('veek-string', self.body)
+
+  while idx do
+    parts[#parts + 1] = str:substring(1, idx - 1)
+    str = str:substring(idx + #needle)
+
+    idx = str:index_of(needle)
+  end
+
+  parts[#parts + 1] = str
+
+  return ipairs(parts)
 end
 
 function Object:iter()

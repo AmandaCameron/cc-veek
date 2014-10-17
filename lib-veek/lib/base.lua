@@ -21,3 +21,21 @@ end
 for _, file in ipairs(fs.list("__LIB__/veek/_base/objects/")) do
   kidven.load("Object", 'veek-' .. file, '__LIB__/veek/_base/objects/' .. file)
 end
+
+-- Types!
+
+function string(str)
+  if str.is_a and str:is_a('veek-string') then
+    return str
+  end
+
+  return kidven.new('veek-string', str)
+end
+
+function attrib_string(str)
+  if str.is_a and str:is_a('veek-attrib-string') then
+    return str
+  end
+
+  return kidven.new('veek-attrib-string', str)
+end
