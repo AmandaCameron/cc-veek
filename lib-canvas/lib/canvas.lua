@@ -37,8 +37,11 @@ function new(ctx, lookup, width, height, buffered)
 
   self.bg = colours.black
   self.fg = colours.white
+  self.cursor_colour = colours.white
 
   self.x, self.y = 1, 1
+  self.cursor_x, self.cursor_y = 1, 1
+
   local w, h = ctx.getSize()
 
   self.width = width or w
@@ -166,38 +169,33 @@ function Canvas:write(text)
   x = x + self.offset_x
   y = y + self.offset_y
 
-  text = string.sub(text, 1) -- Convert to a string, the CC Way
-
+  local text = string.sub(text, 1) -- Convert to a string, the CC Way
 
   if y <= 0 or y > self.height then
     return -- No-op for off-screen.
   end
 
-  if x > self.width then
+  if x > self.width + 1 then
     return
   end
 
-  if x < 1 and math.abs(x) > #text then
+  if x + #text - 1 > self.width then
+    text = text:sub(1, self.width + x)
+  end
+
+  if x + #text < 0 then
     self.x = self.x + #text
+
     return
   end
 
-  if x < 1 then
+  if x <= 1 then
     local start = #text
 
-    text = text:sub(math.abs(x))
+    text = text:sub(1 - x + 1)
 
-    self.x = self.x + #text - start
-
-    x = self.x + self.offset_x
-  end
-
-  if x + #text > self.width + 1 then
-    text = text:sub(1, self.width - x)
-  end
-
-  if text == "" then
-    return
+    self.x = 1
+    x = 1
   end
 
   if self.buffered then
@@ -205,7 +203,7 @@ function Canvas:write(text)
 
     local line = self.buffer[y]
 
-    for c_x=#text-1,0,-1 do
+    for c_x=#text,0,-1 do
       local clobber = line[x + c_x]
 
       if clobber then
@@ -255,7 +253,9 @@ end
 -- @param ctx (term.redirect object) Blit to this instead of our built-in context.
 function Canvas:blit(x, y, width, height, ctx)
   if not self.buffered then
-    error('Canvas is not a buffered canvas.', 2)
+    --error('Canvas is not a buffered canvas.', 2)
+
+    return
   end
 
   local height = height or self.height
@@ -292,7 +292,8 @@ function Canvas:blit(x, y, width, height, ctx)
     end
   end
 
-  ctx.setCursorPos(self.x, self.y)
+  ctx.setTextColor(self.cursor_colour)
+  ctx.setCursorPos(self.cursor_x, self.cursor_y)
   ctx.setCursorBlink(self.blinking)
 end
 
@@ -327,11 +328,14 @@ end
 -- @param y (number) The Y position of the cursor.
 -- @param visible (boolean) Weather or not it should be visible.
 function Canvas:set_cursor(x, y, visible)
-  self:move(x, y)
+  self.cursor_x = x
+  self.cursor_y = y
+  self.cursor_colour = self.fg
 
   self.blinking = visible
 
   if not self.buffered then
+    self.ctx.setCursorPos(x, y)
     self.ctx.setCursorBlink(visible)
   end
 end
@@ -353,10 +357,19 @@ function Canvas:as_redirect(x, y, width, height)
   redir.height = height or (self.height - redir.y + 1)
 
   redir.setTextColour = function(clr)
+    if type(clr) ~= "number" then
+      error("Expected, number, got: " .. type(clr), 2)
+    end
+
+    self.cursor_colour = clr
     self:set_fg(clr)
   end
 
   redir.setBackgroundColour = function(clr)
+    if type(clr) ~= "number" then
+      error("Expected, number, got: " .. type(clr), 2)
+    end
+
     self:set_bg(clr)
   end
 
@@ -376,6 +389,7 @@ function Canvas:as_redirect(x, y, width, height)
     if rel_x > redir.width or rel_y > redir.height then
       return -- The Base Lib doesn't error here, why should we?
     end
+
     self:move(redir.x + rel_x - 1, redir.y + rel_y - 1)
   end
 
