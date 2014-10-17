@@ -21,7 +21,7 @@ function Widget:init(x, y, width, height, text)
 		return self:get_size()
 	end
 
-	self.text = text or ""
+	self.text = veek.attrib_string(text or "")
 end
 
 function Widget:set_text(new)
@@ -44,15 +44,15 @@ function Widget:get_size()
 	local text = self.text
 	local x = 1
 
-	for word in text:gmatch("[^%s]*[ \t\n]?") do
-		if x + #word > self.veek_widget.width then
+	for word in text:split("[^%s]*[ \t\n]?") do
+		if x + word:length() > self.veek_widget.width then
 			x = 1
 			lines = lines + 1
 		end
 
-		x = x + #word
+		x = x + word:length()
 
-		if word:sub(#word) == "\n" then
+		if word:sub(word:length()) == "\n" then
 			lines = lines + 1
 
 			x = 1
@@ -65,15 +65,15 @@ end
 function Widget:draw_contents(c, theme)
 	local text = self.text
 
-	for word in text:gmatch("[^%s]*[ \t\n]?") do
-		if c.x + #word > c.width then
+	for word in text:split("[^%s]*[ \t\n]?") do
+		if c.x + word:length() > c.width then
 			c.x = 1
 			c.y = c.y + 1
 		end
 
-		c:write(word:gsub("\n", ""))
+		word:render(c)
 
-		if word:sub(#word) == "\n" then
+		if word:sub(word:length()) == "\n" then
 			c.x = 1
 			c.y = c.y + 1
 		end
