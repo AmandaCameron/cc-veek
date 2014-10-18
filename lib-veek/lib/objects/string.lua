@@ -7,7 +7,11 @@ function Object:init(body)
     body = ""
   end
 
-  self.body = body
+  if body.is_a and body:is_a('veek-string') then
+    self.body = body:cast('veek-string').body
+  else
+    self.body = body
+  end
 end
 
 function Object:append(other)
