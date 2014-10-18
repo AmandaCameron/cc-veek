@@ -6,10 +6,6 @@ function Object:init(body)
   self.veek_string:init(body)
 
   self.format = {}
-
-  for i = 1, self.veek_string:length() do
-    self.format[i] = {}
-  end
 end
 
 function Object:append(other)
@@ -20,7 +16,7 @@ function Object:append(other)
 
     self.veek_string:append(other)
   elseif other.is_a and other:is_a("veek-attrib-string") then
-    for i = 1, #other:cast('veek-string').body do
+    for i = 1, other:length() do
       self.format[self:length() + i] = other:cast('veek-attrib-string').format[i]
     end
 
@@ -54,6 +50,8 @@ end
 function Object:substring(start, stop)
   if not stop then
     stop = self:length()
+  elseif stop < 0 then
+    stop = self:length() + stop + 1
   end
 
   local ret = new('veek-attrib-string', self.veek_string:substring(start, stop):string())
@@ -67,15 +65,10 @@ end
 
 -- Draw to the screen.
 
-function Object:render(c)
+function Object:render(c, fg, bg)
   for char, attr in self:iter() do
-    if attr.colour then
-      c:set_fg(attr.colour)
-    end
-
-    if attr.background then
-      c:set_bg(attr.background)
-    end
+    c:set_fg(attr.colour or fg)
+    c:set_bg(attr.background or bg)
 
     c:write(char)
   end
@@ -90,7 +83,7 @@ function Object:iter()
     i = i + 1
 
     if i <= self:length() then
-      return self.veek_string.body:sub(i, i), self.format[i]
+      return self.veek_string.body:sub(i, i), self.format[i] or {}
     end
   end
 
