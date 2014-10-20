@@ -25,7 +25,7 @@ function Widget:init(x, y, width, height, text)
 end
 
 function Widget:set_text(new)
-	self.text = new
+	self.text = veek.attrib_string(new)
 
 	self.veek_scroll_view:reflow()
 end
@@ -44,15 +44,15 @@ function Widget:get_size()
 	local text = self.text
 	local x = 1
 
-	for word in text:split("[^%s]*[ \t\n]?") do
+	for word in text:split("[ \t\n]") do
 		if x + word:length() > self.veek_widget.width then
 			x = 1
 			lines = lines + 1
 		end
 
-		x = x + word:length()
+		x = x + word:length() + 1
 
-		if word:sub(word:length()) == "\n" then
+		if word:string() == "" then
 			lines = lines + 1
 
 			x = 1
@@ -65,17 +65,20 @@ end
 function Widget:draw_contents(c, theme)
 	local text = self.text
 
-	for word in text:split("[^%s]*[ \t\n]?") do
+	for word in text:split("[ \t\n]") do
 		if c.x + word:length() > c.width then
 			c.x = 1
 			c.y = c.y + 1
 		end
 
 		word:render(c)
+		c:write(" ")
 
-		if word:sub(word:length()) == "\n" then
+		if word:string() == "" then
 			c.x = 1
 			c.y = c.y + 1
+
+			sleep(0.05)
 		end
 	end
 end

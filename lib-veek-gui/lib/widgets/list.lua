@@ -25,6 +25,8 @@ function Widget:init(x, y, width, height)
 	self.items = {}
 	self.current_item = 0
 
+	self.item_pos = {}
+
 	self.veek_widget.fg = 'list--fg'
 	self.veek_widget.bg = 'list--bg'
 
@@ -65,6 +67,7 @@ end
 function Widget:clear()
 	self.current_item = 0
 	self.items = {}
+	self.item_pos = {}
 
 	self:reflow()
 end
@@ -73,7 +76,7 @@ end
 -- @tparam veek-list-item item The `veek-list-item` to add.
 -- @tparam int|nil pos The position in the list to add the item.
 function Widget:add(item, pos)
-	if item._type ~= 'veek-list-item' and not item.veek_list_item then
+	if not item:is_a('veek-list-item') then
 		error('Invalid List Item.', 2)
 	end
 
@@ -195,15 +198,43 @@ end
 function Widget:reflow()
 	local y = 1
 
-	for _, item in ipairs(self.items) do
+	self.item_pos = {}
+
+	for i, item in ipairs(self.items) do
 		item.veek_widget.width = self.veek_widget.width
 		item.veek_widget.x = 1
 		item.veek_widget.y = y
+
+		item.pos = i
+
+		for pos=y,y+item.veek_widget.height do
+			self.item_pos[pos] = item
+		end
 
 		y = y + item.veek_widget.height
 	end
 
 	self.veek_scroll_view:reflow()
+end
+
+function Widget:clicked(x, y, btn)
+	local y = y + self.veek_scroll_view.scroll_y
+
+	if self:get_current() then
+		self:get_current():blur()
+	end
+
+	if self.item_pos[y] then
+		self.current_item = self.item_pos[y].pos
+
+		self.item_pos[y]:clicked(x, y - self.item_pos[y]:cast('veek-widget').y, btn)
+
+		self:get_current():focus()
+
+		self.veek_widget:trigger('gui.list.changed', self.current_item, self:get_current())
+
+		self:mark_dirty()
+	end
 end
 
 function Widget:resize(w, h)
