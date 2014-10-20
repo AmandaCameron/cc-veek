@@ -19,7 +19,7 @@ end
 --- Initalises a veek-image object with the data from the given `veek-read-handle`
 -- @tparam veek-read-handle handle
 function Object:init(handle)
-  if handle and handle:is_a('veek-read-handle') then
+  if handle and handle:is_a('veek-read-handle') and handle:is_valid() then
     local img = handle:all():string()
 
     for _, cb in pairs(formats) do
