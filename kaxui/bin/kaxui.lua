@@ -93,7 +93,7 @@ state:hook("task_begin", function(id)
 end)
 
 state:hook("task_update", function(id, detail, cur, max)
-  loading_text.text = detail
+  loading_text:set_text(detail)
 
   if max > 0 then
     loading_prog_bar.format = "%d%%"

@@ -8,6 +8,7 @@ function Widget:init(state)
   self.package_list = new('veek-list', 1, 1, 1, 1)
 
   self:add(self.package_list)
+  self:select(self.package_list)
 
   self.state = state
 end
@@ -64,5 +65,6 @@ end
 
 function Widget:resize(w, h)
   self.veek_widget:resize(w, h)
+
   self.package_list:resize(w, h)
 end

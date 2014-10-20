@@ -178,19 +178,20 @@ function Widget:show_package(pkg)
 
   self.shown_package = pkg
 
-  self.pkg_name.text = pkg.name
+  self.pkg_name:set_text(pkg.name)
 
   if pkg.iversion and pkg.iversion < pkg.version then
-    self.pkg_version.text = pkg.iversion .. " (Upgrade: " .. pkg.version .. ")"
+    self.pkg_version:set_text(pkg.iversion .. " (Upgrade: " .. pkg.version .. ")")
   else
-    self.pkg_version.text = pkg.version .. ""
+    self.pkg_version:set_text(pkg.version .. "")
   end
 
-  self.pkg_repo.text = pkg.repo.url
+  self.pkg_repo:set_text(pkg.repo.url)
+  
   if pkg.description ~= "" then
-    self.pkg_desc.text = pkg.description
+    self.pkg_desc:set_text(pkg.description)
   else
-    self.pkg_desc.text = pkg.short_desc
+    self.pkg_desc:set_text(pkg.short_desc)
   end
 
 
