@@ -39,8 +39,8 @@ function Widget:draw(canvas, theme)
 
     local lbl_x = math.floor(canvas.width / 2 - #label / 2)
 
-    local compl = string.rep(" ", self.progress * canvas.width)
-    local todo = string.rep(" ", (1 - self.progress) * canvas.width)
+    local compl = string.rep(" ", math.ceil(self.progress * canvas.width))
+    local todo = string.rep(" ", math.floor((1 - self.progress) * canvas.width))
 
     if #compl > lbl_x then
       local old_compl = compl .. ""
