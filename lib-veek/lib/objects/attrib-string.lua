@@ -32,19 +32,25 @@ end
 
 function Object:split(needle)
   local parts = {}
-  local idx = self:index_of(needle)
+  local idx, iend = self:index_of(needle)
   local str = self
+  
+  function ret()
+    if type(idx) == "number" then
+      part = str:substring(1, idx - 1)
+      str = str:substring(idx + 1)
 
-  while idx do
-    parts[#parts + 1] = str:substring(1, idx - 1)
-    str = str:substring(idx + #needle)
+      idx = str:index_of(needle)
+    
+      return part
+    elseif not idx then
+      idx = "done"
 
-    idx = str:index_of(needle)
+      return str
+    end
   end
 
-  parts[#parts + 1] = str
-
-  return ipairs(parts)
+  return ret
 end
 
 function Object:substring(start, stop)

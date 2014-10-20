@@ -7,15 +7,29 @@ _implements = {
 }
 
 function Object:init(handle)
+  if not handle then
+    self.valid = false
+  else
+    self.valid = true
+  end
+
   self.handle = handle
 end
 
+function Object:is_valid()
+  return self.valid
+end
+
 function Object:all()
-  return new('veek-string', self.handle.readAll())
+  if self.valid then
+    return new('veek-string', self.handle.readAll())
+  end
 end
 
 function Object:read_line()
-  return new('veek-string', fs.readLine(self.handle))
+  if self.valid then
+    return new('veek-string', fs.readLine(self.handle))
+  end
 end
 
 function Object:lines()
@@ -27,5 +41,7 @@ function Object:lines()
 end
 
 function Object:close()
-  self.handle.close()
+  if self.valid then
+    self.handle.close()
+  end
 end

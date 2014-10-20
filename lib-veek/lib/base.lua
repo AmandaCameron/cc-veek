@@ -33,6 +33,10 @@ function string(str)
 end
 
 function attrib_string(str)
+  if not str then
+    return kidven.new('veek-attrib-string', '')
+  end
+  
   if str.is_a and str:is_a('veek-attrib-string') then
     return str
   end
