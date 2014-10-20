@@ -68,6 +68,10 @@ function Widget:key(k)
 
 end
 
+function Widget:clicked(x, y, btn)
+	self.veek_container:clicked(x, y, btn)
+end
+
 function Widget:char(c)
 	self.input_box:char(c)
 
