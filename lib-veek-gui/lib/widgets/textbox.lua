@@ -1,7 +1,7 @@
 --- TextBox widget.
 -- This is a wraping text display widget. It can also scroll it's contents.
 -- @parent veek-scroll-view
--- @classmod veek-textbox
+-- @widget veek-textbox
 
 -- lint-mode: veek-widget
 

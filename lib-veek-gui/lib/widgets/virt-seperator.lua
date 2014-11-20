@@ -1,6 +1,6 @@
 --- Vertical Seperatpr.
 -- @parent veek-widget
--- @classmod veek-virt-seperator
+-- @widget veek-virt-seperator
 
 -- lint-mode: veek-widget
 

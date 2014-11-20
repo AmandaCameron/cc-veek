@@ -1,11 +1,18 @@
 -- lint-mode: veek-widget
 
--- Progress Bar Widget, stolen and improved from kaxui.
+--- Progress Bar Widget, stolen and improved from kaxui.
 -- Supports indetermenate mode and custom formatting of the
 -- middle text.
+-- @widget veek-progress-bar
 
 _parent = "veek-widget"
 
+
+--- Initalises a Progress bar. with the given position and 
+-- width.
+-- @int x The X position of the widget.
+-- @int y The Y position of the widget.
+-- @int w The width of the widget.
 function Widget:init(x, y, w)
   self.veek_widget:init(x, y, w, 1)
 
@@ -13,6 +20,8 @@ function Widget:init(x, y, w)
   self.progress = 0
 end
 
+--- Sets the current progress.
+-- @number prog The progress to set.  Must be betweeen 0 and 1.
 function Widget:set_progress(prog)
   if prog < 0 or prog > 1 then
     error("Progress muse be between 0 and 1", 2)
@@ -21,6 +30,8 @@ function Widget:set_progress(prog)
   self.progress = prog
 end
 
+--- Sets weather the widget is in intermediate mode or not.
+-- @bool ind Weather we should be in intermediate mode or not.
 function Widget:set_indetermenate(ind)
   if ind then
     self.progress = -1
@@ -29,6 +40,8 @@ function Widget:set_indetermenate(ind)
   end
 end
 
+--- Sets the formatting of the middle label.
+-- @string fmt The format string to use. %d will be replaced with the current progress from 0 to 100.
 function Widget:set_format(fmt)
   self.format = fmt
 end

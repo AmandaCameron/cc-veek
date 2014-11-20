@@ -1,6 +1,6 @@
 --- Label Widget.
 -- This displays some short text, ellipsiing it if it's too long.
--- @classmod veek-label
+-- @widget veek-label
 
 -- lint-mode: veek-widget
 

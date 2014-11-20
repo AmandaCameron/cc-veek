@@ -17,6 +17,7 @@ for _, file in ipairs(fs.list("__LIB__/veek/images/formats/")) do
 end
 
 --- Initalises a veek-image object with the data from the given `veek-read-handle`
+-- @constructor
 -- @tparam veek-read-handle handle
 function Object:init(handle)
   if handle and handle:is_a('veek-read-handle') and handle:is_valid() then

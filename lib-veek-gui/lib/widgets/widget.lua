@@ -1,5 +1,5 @@
 --- Base Widget.
--- @classmod veek-widget
+-- @widget veek-widget
 
 -- lint-mode: veek-widget
 

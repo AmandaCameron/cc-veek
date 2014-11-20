@@ -3,7 +3,7 @@
 -- a monochrome display. The []s change to {}s when the widget is the active
 -- one.
 -- @parent veek-widget
--- @classmod veek-button
+-- @widget veek-button
 
 -- lint-mode: veek-widget
 

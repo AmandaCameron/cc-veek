@@ -1,6 +1,6 @@
 --- Text Input Widget.
 -- @parent veek-widget
--- @classmod veek-input
+-- @widget veek-input
 
 -- lint-mode: veek-widget
 

@@ -3,7 +3,7 @@
 -- resize the left one. This also supports making the left veek-widget invisible
 -- until the user drags right from the left-most position.
 -- @parent veek-widget
--- @classmod veek-split-pane
+-- @widget veek-split-pane
 
 -- lint-mode: veek-widget
 

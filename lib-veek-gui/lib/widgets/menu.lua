@@ -1,6 +1,6 @@
 --- Menu Widget.
 -- @parent veek-widget
--- @classmod veek-menu
+-- @widget veek-menu
 -- @tfield bool visible Weather or not the menu is currently visible.
 
 -- lint-mode: veek-widget

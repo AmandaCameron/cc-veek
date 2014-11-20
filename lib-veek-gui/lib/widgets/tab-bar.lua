@@ -2,7 +2,7 @@
 -- This displays a set of containers in a way that only one of them is visible
 -- at a time.
 -- @parent veek-widget
--- @classmod veek-tab-bar
+-- @widget veek-tab-bar
 
 -- lint-mode: veek-widget
 

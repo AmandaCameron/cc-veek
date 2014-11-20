@@ -1,6 +1,6 @@
 --- Horizontal Seperator Widget.
 -- @parent veek-widget
--- @classmod veek-horiz-seperator
+-- @widget veek-horiz-seperator
 
 -- lint-mode: veek-widget
 

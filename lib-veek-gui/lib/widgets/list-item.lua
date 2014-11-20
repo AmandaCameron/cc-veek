@@ -1,6 +1,6 @@
 --- List Item widget.
 -- This should only reside inside an veek-list.
--- @classmod veek-list-item
+-- @widget veek-list-item
 
 -- lint-mode: veek-widget
 

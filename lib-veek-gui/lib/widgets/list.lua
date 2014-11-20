@@ -1,7 +1,7 @@
 --- List Widget.
 -- This shows a collection of veek-list-item's, and allows the user to scroll through them.
 -- @parent veek-scroll-view
--- @classmod veek-list
+-- @widget veek-list
 
 --- Selection Changed.
 -- This is fired when the user changes the currently-selected item.

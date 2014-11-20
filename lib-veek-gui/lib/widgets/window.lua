@@ -2,7 +2,7 @@
 -- This is a widget that displays a window inside the main display.
 -- This window is constrained to the widget it resides in.
 -- @parent veek-container
--- @classmod veek-window
+-- @widget veek-window
 
 ----------
 -- veek-window Resized.

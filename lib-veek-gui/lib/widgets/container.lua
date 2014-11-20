@@ -1,6 +1,6 @@
 --- Container Widget.
 -- @parent veek-widget
--- @classmod veek-container
+-- @widget veek-container
 
 -- lint-mode: veek-widget
 

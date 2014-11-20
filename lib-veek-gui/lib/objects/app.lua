@@ -1,6 +1,6 @@
 --- App Object, encapsolating the main loop, and all the app's threads.
 -- @parent event-loop
--- @classmod veek-apps
+-- @classmod veek-app
 
 --------
 -- Main Window Resized.

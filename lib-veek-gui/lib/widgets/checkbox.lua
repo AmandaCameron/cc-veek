@@ -1,6 +1,6 @@
 --- Checkbox input widget.
 -- @parent veek-widget
--- @classmod veek-checkbox
+-- @widget veek-checkbox
 
 -- lint-mode: veek-widget
 

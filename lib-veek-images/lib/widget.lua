@@ -1,6 +1,6 @@
 --- Display Widget for veek-image images objects.
 -- @parent veek-widget
--- @classmod veek-image-widget
+-- @widget veek-image-widget
 
 -- lint-mode: veek-widget
 
@@ -12,6 +12,7 @@ _parent = "veek-widget"
 -- @int y The Y position of the widget.
 -- @int w The widget's width.
 -- @int h The widget's height
+-- @constructor
 function Widget:init(img, x, y, w, h)
   self.veek_widget:init(x, y, w, h)
 

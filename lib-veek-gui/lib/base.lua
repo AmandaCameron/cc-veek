@@ -1,6 +1,3 @@
---- lib-veek/gui widget API.
--- @module veek
-
 -- lint-mode: api
 
 -- Dependencies!
