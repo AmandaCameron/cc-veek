@@ -1,9 +1,12 @@
+--- Veek sets are an object that represents a logical 'set' of data
+-- @classmod veek-set
+
 -- lint-mode: veek-object
 
 _parent = 'object'
 
 --- Initalises a `veek-set` object.
--- @tparam contents A numerical table of items to start out with.
+-- @tparam table contents A numerical table of items to start out with.
 function Object:init(contents)
 	self.contents = {}
 
@@ -40,6 +43,7 @@ function Object:contains(obj)
 end
 
 --- Iterates the set, returning the values we contain.
+-- @treturn iterator Iterates the items in the set.
 function Object:iter()
 	local function ret(cur)
 		return next(self.contents, cur)
