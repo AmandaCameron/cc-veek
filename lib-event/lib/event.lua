@@ -157,6 +157,8 @@ end
 --- Stop the main loop.
 function Object:stop()
   self.running = false
+  
+  os.queueEvent("veek-events-die")
 end
 
 --- Runs the main loop.
