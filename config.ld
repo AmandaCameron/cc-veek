@@ -3,6 +3,9 @@
 
 title = "Project Veek"
 project = "Project Veek"
+description = "Project Veek is a set of utilities for making ComputerCraft apps."
+
+readme = "readme.md"
 
 merge = true
 
@@ -11,23 +14,16 @@ not_luadoc = true
 add_section("event", "Events", "Parameters")
 
 new_type("event", "Events")
+new_type("widget", "Widgets", true)
+new_type("interface", "Interfaces", true)
 
 file = {
-  "lib-agui/lib/base.lua",
-  "lib-agui/lib/widgets",
-  "lib-agui/lib/objects",
+  "lib-veek",
 
-  "agui-images/lib/base.lua",
-  "agui-images/lib/widget.lua",
-  "agui-images/lib/image.lua",
+  "lib-veek-gui",
 
-  "lib-thread",
-  "lib-canvas",
-  "lib-event",
-  "lib-kidven",
-
-  "kaxui/lib/widgets",
-  "kaxui/bin/"
+  "lib-veek-images/lib/image.lua",
+  "lib-veek-images/lib/widget.lua",
 }
 
 custom_tags = {
