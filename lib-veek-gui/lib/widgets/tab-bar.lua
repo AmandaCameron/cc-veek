@@ -145,7 +145,6 @@ function Widget:draw_drop_down(canvas)
       canvas:set_bg("tab-active-bg")
       canvas:set_fg("tab-active-fg")
     end
-    canvas:set_fg()
 
     canvas:move(1, 1)
 
