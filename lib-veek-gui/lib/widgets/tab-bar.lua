@@ -82,16 +82,14 @@ end
 
 function Widget:draw(canvas, theme)
   if self.selected > 0 then
-    local c = canvas:sub(1, 2, canvas.width, canvas.height - 1)
-
     local contents = self:get_contents()
 
     contents.veek_widget.x = 1
-    contents.veek_widget.y = 1
-    contents.veek_widget.width = c.width
-    contents.veek_widget.height = c.height
+    contents.veek_widget.y = 2
+    contents.veek_widget.width = canvas.width
+    contents.veek_widget.height = canvas.height - 1
 
-    self:draw_raw(contents, c, theme)
+    self:draw_raw(contents, canvas, theme)
   end
 
   if self.style == 'horiz' then
