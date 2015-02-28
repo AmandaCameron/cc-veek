@@ -214,7 +214,9 @@ function Widget:clicked(x, y, button)
     end
   elseif self.style == 'drop-down' then
     if self.show_options then
-      self:select_tab(y)
+      if y <= #self.tabs then
+        self:select_tab(y)
+      end
 
       self.show_options = false
     elseif y == 1 then
