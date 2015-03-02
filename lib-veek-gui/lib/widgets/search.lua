@@ -70,6 +70,8 @@ end
 
 function Widget:clicked(x, y, btn)
 	self.veek_container:clicked(x, y, btn)
+	
+	self:focus()
 end
 
 function Widget:char(c)
