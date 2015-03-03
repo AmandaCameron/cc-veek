@@ -9,3 +9,7 @@ os.loadAPI("__LIB__/thread")
 for _, file in ipairs(fs.list("__LIB__/veek/network/objects")) do
 	kidven.load("Object", "veek-network-" .. file, "__LIB__/veek/network/objects/" .. file)
 end
+
+for _, file in ipairs(fs.list("__LIB__/veek/network/interfaces")) do
+  kidven.load("Object", "veek-network-" .. file, "__LIB__/veek/network/interfaces/" .. file)
+end
