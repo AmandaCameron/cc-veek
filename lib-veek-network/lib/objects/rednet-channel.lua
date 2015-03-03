@@ -1,11 +1,11 @@
 -- lint-mode: kidven
 
--- Acts as a kvio-channel for rednet comms.
+-- Acts as a veek-network-channel for rednet comms.
 
-_parent = 'kvio-channel'
+_parent = 'veek-network-channel'
 
 function Object:init(rednet, comp, proto)
-  kidven.verify({ rednet, comp }, 'kvio-rednet', 'number')
+  kidven.verify({ rednet, comp }, 'veek-network-rednet', 'number')
 
   self.proto = proto
   self.target = comp
@@ -15,12 +15,11 @@ function Object:init(rednet, comp, proto)
 end
 
 function Object:subscribe(handler)
-  self.rednet:subscribe(
-  function(sender, msg)
+  self.rednet:subscribe(function(sender, msg)
     if sender == self.target then
-      handler(sender, msg, -1)
+      pcall(handler, sender, msg, -1)
     end
-  end)
+  end, self.proto)
 end
 
 function Object:send(msg)

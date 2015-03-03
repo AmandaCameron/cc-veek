@@ -5,5 +5,11 @@ Description: Networking components for lib-veek based programs.
 Library: veek/network/
 Library: base => veek/network/_load
 
-Library: modem => veek/network/objects/modem
-Library: rednet => veek/network/objects/rednet
+Library: veek/network/objects/
+Library: objects/modem => veek/network/objects/modem
+Library: objects/rednet => veek/network/objects/rednet
+Library: objects/modem-channel => veek/network/objects/modem-channel
+Library: objects/rednet-channel => veek/network/objects/rednet-channel
+
+Library: veek/network/interfaces/
+Library: interfaces/channel => veek/network/interfaces/channel

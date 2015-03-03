@@ -2,12 +2,11 @@
 
 -- Channel object for communicating over the modem API.
 
-_parent = 'kvio-channel'
+_parent = 'veek-network-channel'
 
 function Object:init(modem, dest, port)
-  self.kvio_channel:init()
-
-  kidven.verify({ modem, dest, port }, 'kvio-modem', 'number', '?number')
+  self.veek_network_channel:init()
+  kidven.verify({ modem, dest, port }, 'veek-network-modem', 'number', '?number')
 
   self.modem = modem
 
@@ -18,11 +17,10 @@ function Object:init(modem, dest, port)
 end
 
 function Object:subscribe(func)
-  self.modem.pump:subscribe('network.modem.recv',
-  function(_, id, sender, dest, msg, dist)
+  self.modem.pump:subscribe('network.modem.recv', function(_, id, sender, dest, msg, dist)
     if id == self.modem.id then
       if dest == self.port then
-	func(sender, msg, dist)
+	       pcall(func, sender, msg, dist)
       end
     end
   end)
