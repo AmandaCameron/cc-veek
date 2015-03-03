@@ -4,6 +4,7 @@ veek-docs::17::A GUI Documentation.
 lib-veek-images::3::Image loader and display widget for lib-veek
 lib-veek::1::Base library for Project Veek.
 lib-veek-gui::1::GUI component for lib-veek
+lib-veek-network::1::Network stuff for lib-veek
 lib-kidven::2::An "Object" library for cc.
 lib-canvas::5::A Canvas API
 lib-event::2::Event Library

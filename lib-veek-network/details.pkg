@@ -1,0 +1,9 @@
+Dependency: lib-veek
+
+Description: Networking components for lib-veek based programs.
+
+Library: veek/network/
+Library: base => veek/network/_load
+
+Library: modem => veek/network/objects/modem
+Library: rednet => veek/network/objects/rednet
