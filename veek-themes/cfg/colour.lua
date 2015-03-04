@@ -126,5 +126,12 @@
 
     ['scroll-bar-knob-end-bg'] = 'scroll-bar-knob-bg',
     ['scroll-bar-knob-end-fg'] = 'scroll-bar-knob-fg',
+
+    -- Collections
+    ['collection-fg'] = 'grey'
+    ['collection-bg'] = 'white',
+
+    ['collection-focused-fg'] = 'grey',
+    ['collectoon-focused-bg'] = 'white',
 	}
 }

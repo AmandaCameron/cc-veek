@@ -26,6 +26,7 @@ Library: widgets/menu => veek/gui/widgets/menu
 Library: widgets/progress-bar => veek/gui/widgets/progress-bar
 Library: widgets/split-pane => veek/gui/widgets/split-pane
 Library: widgets/scroll-view => veek/gui/widgets/scroll-view
+Library: widgets/collection => veek/gui/widgets/collection
 Library: veek/gui/objects/
 Library: objects/app => veek/gui/objects/app
 Library: objects/app-window => veek/gui/objects/app-window
