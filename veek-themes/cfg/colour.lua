@@ -128,7 +128,7 @@
     ['scroll-bar-knob-end-fg'] = 'scroll-bar-knob-fg',
 
     -- Collections
-    ['collection-fg'] = 'grey'
+    ['collection-fg'] = 'grey',
     ['collection-bg'] = 'white',
 
     ['collection-focused-fg'] = 'grey',
